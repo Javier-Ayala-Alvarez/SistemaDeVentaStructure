@@ -9,7 +9,7 @@ Connection cn;
 public Connection getConexion() {
      String driver = "com.mysql.cj.jdbc.Driver";
      String user = "root";  
-     String nombreBd= "ventasjava";
+     String nombreBd= "ventasstructura";
      String password = "";  
      String url = "jdbc:mysql://localhost:3306/"+nombreBd+"?useUnicode=true&use"
              + "JDBCCompliantTimezoneShift=true&uselegacyDateTimeCode=false&"

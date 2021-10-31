@@ -243,7 +243,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
             }
         });
 
-        jpEscritorio1.setBackground(new java.awt.Color(204, 204, 255));
+        jpEscritorio1.setBackground(new java.awt.Color(255, 255, 255));
 
         jPanel2.setBackground(new java.awt.Color(13, 177, 8));
         jPanel2.setForeground(new java.awt.Color(255, 0, 153));
@@ -993,7 +993,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public rojeru_san.complementos.RSButtonHover ConsultarBono;
     public rojeru_san.complementos.RSButtonHover ConsultarUsuario;
-    private principal.MaterialButtonCircle btnCerrarMenuAdmin;
+    public principal.MaterialButtonCircle btnCerrarMenuAdmin;
     public rojeru_san.complementos.RSButtonHover btnRegistrarFacturaItem;
     public rojeru_san.complementos.RSButtonHover btnVentas;
     public rojeru_san.complementos.RSButtonHover btnVentas18;

@@ -4,18 +4,15 @@ package Modelo;
 import Modelo.dao.EmpresaDao;
 import java.util.Date;
 
-public class Producto {
+public class Producto implements Comparable<Producto>{
   private int idProducto;
   private String codigoProducto;
   private String nombreProducto;
   private double precioCompra;
   private int cantidad;
-  private Date fechaVencimiento;
-  private int max;
-  private int min;
+  private Date fecha;
   private int estado;
   private double gananciaUni;
-  private double iva;
   private double precioVenta;
   private Empresa empresa;
 
@@ -27,21 +24,36 @@ public class Producto {
         this.idProducto = idProducto;
     }
 
-    public Producto(String codigoProducto, String nombreProducto, double precioCompra, int cantidad, Date fechaVencimiento, int max, int min, int estado, double gananciaUni, double iva, double precioVenta, Empresa empresa) {
+    public Producto(String codigoProducto, String nombreProducto, double precioCompra, int cantidad, Date fecha, int estado, double gananciaUni, double precioVenta, Empresa empresa) {
         this.codigoProducto = codigoProducto;
         this.nombreProducto = nombreProducto;
         this.precioCompra = precioCompra;
         this.cantidad = cantidad;
-        this.fechaVencimiento = fechaVencimiento;
-        this.max = max;
-        this.min = min;
+        this.fecha = fecha;
         this.estado = estado;
         this.gananciaUni = gananciaUni;
-        this.iva = iva;
         this.precioVenta = precioVenta;
         this.empresa = empresa;
     }
-    
+
+    public Producto(int idProducto, double precioCompra, int cantidad, Date fecha) {
+        this.idProducto = idProducto;
+        this.precioCompra = precioCompra;
+        this.cantidad = cantidad;
+        this.fecha = fecha;
+    }
+
+   
+
+    public Producto(String codigoProducto, String nombreProducto, int cantidad, double gananciaUni, double precioVenta, Empresa empresa) {
+        this.codigoProducto = codigoProducto;
+        this.nombreProducto = nombreProducto;
+        this.cantidad = cantidad;
+        this.gananciaUni = gananciaUni;
+        this.precioVenta = precioVenta;
+        this.empresa = empresa;
+    }
+
 
 
     public int getIdProducto() {
@@ -86,29 +98,15 @@ public class Producto {
         this.cantidad = cantidad;
     }
 
-    public Date getFechaVencimiento() {
-        return fechaVencimiento;
+    public Date getFecha() {
+        return fecha;
     }
 
-    public void setFechaVencimiento(Date fechaVencimiento) {
-        this.fechaVencimiento = fechaVencimiento;
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
     }
 
-    public int getMax() {
-        return max;
-    }
-
-    public void setMax(int max) {
-        this.max = max;
-    }
-
-    public int getMin() {
-        return min;
-    }
-
-    public void setMin(int min) {
-        this.min = min;
-    }
+   
 
     public int getEstado() {
         return estado;
@@ -126,13 +124,7 @@ public class Producto {
         this.gananciaUni = gananciaUni;
     }
 
-    public double getIva() {
-        return iva;
-    }
 
-    public void setIva(double iva) {
-        this.iva = iva;
-    }
 
     public double getPrecioVenta() {
         return precioVenta;
@@ -151,6 +143,17 @@ public class Producto {
 
     public void setEmpresa(Empresa empresa) {
         this.empresa = empresa;
+    }
+
+    @Override
+    public int compareTo(Producto t) {
+         Producto actual = this;
+        return(actual.getNombreProducto().compareToIgnoreCase(t.getNombreProducto()));
+    }
+
+    @Override
+    public String toString() {
+        return  codigoProducto;
     }
     
 }
