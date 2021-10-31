@@ -101,7 +101,7 @@ public class ProductoDao {
     }
 
     public boolean updateProducto(Producto obj) {
-        String sql = "UPDATE producto SET codigoProducto =?, nombreProducto =?, precioCompra =?, cantidad =?, fechaVencimiento =?, max =?, min =?, estado =?, gananciaUni =?, iva =?, precioVenta =?, idEmpresa =? WHERE idProducto=" + obj.getIdProducto();
+        String sql = "UPDATE producto SET codigoProducto =?, nombreProducto =?, cantidad =?, gananciaUni =?, precioVenta =?, idEmpresa =? WHERE idProducto=" + obj.getIdProducto();
         return alterarRegistro(sql, obj);
     }
 
