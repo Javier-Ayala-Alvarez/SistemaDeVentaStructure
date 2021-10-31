@@ -2,7 +2,7 @@ package Estructura;
 
 import java.util.ArrayList;
 
-public class ListaDobleCircular<T> {
+    public class ListaDobleCircular<T> {
 
     private NodoDoble lista;
 
@@ -106,7 +106,7 @@ public class ListaDobleCircular<T> {
         }
     }
 
-    private <T extends Comparable> NodoDoble antesDe(T condicion) {
+    public <T extends Comparable> NodoDoble antesDe(T condicion) {
         NodoDoble aux = lista;
         //condicion!= (aux.getDato()) 
         while (condicion.toString().compareTo(aux.getDato().toString()) !=0) {
@@ -173,7 +173,7 @@ public class ListaDobleCircular<T> {
         return array;
     }
 
-    private <T extends Comparable> NodoDoble buscar(T dato) {
+    public <T extends Comparable> NodoDoble buscar(T dato) {
         NodoDoble aux = lista;
         if (aux != null) {
             do {
@@ -210,5 +210,7 @@ public class ListaDobleCircular<T> {
         quitar = null;
 
     }
+
+ 
 
 }

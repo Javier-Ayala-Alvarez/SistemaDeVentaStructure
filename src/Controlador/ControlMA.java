@@ -1,6 +1,7 @@
 package Controlador;
 
 import Estructura.ListaDobleCircular;
+import Estructura.NodoDoble;
 import Modelo.Bono;
 import Modelo.Cliente;
 import Modelo.Empleados;
@@ -80,76 +81,77 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
     static final double ISSS = 7.5;
     //fin constantes
     /*Clases que serán usadas para el Constructor*/
-    MenuAdministrador menuAdministrador;
-    Login login;
+    private MenuAdministrador menuAdministrador;
+    private Login login;
 
     //****Empleado****//
-    vistaEmpleadoGM vistaEmpleadoGM;
-    EmpleadoGM empleadoGM;
-    EmpleadoDao daoEmpleado = new EmpleadoDao();
-    Empleados empleado;
-    Empleados empleadosSeleccionanda = null;
+    private vistaEmpleadoGM vistaEmpleadoGM;
+    private EmpleadoGM empleadoGM;
+    private EmpleadoDao daoEmpleado = new EmpleadoDao();
+    private Empleados empleado;
+    private Empleados empleadosSeleccionanda = null;
     //****Fin Empleado
     //****Bono****//
-    vistaBono vistaBono;
-    BonoGM bonoGM;
-    BonoDao daoBono = new BonoDao();
-    Bono bono;
-    Bono bonoSelecionado = null;
+    private vistaBono vistaBono;
+    private BonoGM bonoGM;
+    private BonoDao daoBono = new BonoDao();
+    private Bono bono;
+    private Bono bonoSelecionado = null;
     //****Fin Bono
     //****Usuario****//
-    VistaUsuario vistaUsuario;
-    UsuarioGM usuarioGM;
-    UsuarioDao daoUsuario = new UsuarioDao();
-    Usuario usuario;
-    Usuario usuarioSeleccionando = null;
+    private VistaUsuario vistaUsuario;
+    private UsuarioGM usuarioGM;
+    private UsuarioDao daoUsuario = new UsuarioDao();
+    private Usuario usuario;
+    private Usuario usuarioSeleccionando = null;
     //****Fin Usuario
 
     //****GastoGM****//
-    GastosGM gastosGM;
-    Gastosdao daoGasto = new Gastosdao();
-    GastoEmpresa gastoEmpresa;
-    GastoEmpresa gastoSeleccionado = null;
+    private GastosGM gastosGM;
+    private Gastosdao daoGasto = new Gastosdao();
+    private GastoEmpresa gastoEmpresa;
+    private GastoEmpresa gastoSeleccionado = null;
     //****Fin GastoGM****//
     //****ClienteMA****//
-    ClienteMA clienteMA;
-    Cliente cliente;
-    Cliente clienteSeleccionado = null;
-    ClienteDao daoCliente = new ClienteDao();
+    private ClienteMA clienteMA;
+    private Cliente cliente;
+    private Cliente clienteSeleccionado = null;
+    private ClienteDao daoCliente = new ClienteDao();
     //****Fin ClienteMA****//
     //****Empresa****//
-    VistaEmpresa vistaEmpresa;
-    EmpresaDao daoEmpresa = new EmpresaDao();
-    Empresa empresa;
-    Empresa empresaSeleccionanda = null;
+    private VistaEmpresa vistaEmpresa;
+    private EmpresaDao daoEmpresa = new EmpresaDao();
+    private Empresa empresa;
+    private Empresa empresaSeleccionanda = null;
     //****Fin GastoGM****//
 
     //****productoModi****//
-    ProductoModi productoModi;
-    ProductoDao daoProducto = new ProductoDao();
-    Producto producto;
-    Producto productoSeleccionado = null;
+    private ProductoModi productoModi;
+    private ProductoDao daoProducto = new ProductoDao();
+    private Producto producto;
+    private Producto productoSeleccionado = null;
     //    ProductoModi producto = new ProductoModi();
     //****Fin productoModi****//
     //****Venta****//
-    Venta ventaSeleccionada = null;
-    RegistrosDeVentas registrosDeVenta;
-    VentaDao daoVenta = new VentaDao();
-    RegistrosDao daoRegistro = new RegistrosDao();
-    RegistrosDao Daoregistro = new RegistrosDao();
+    private Venta ventaSeleccionada = null;
+    private RegistrosDeVentas registrosDeVenta;
+    private VentaDao daoVenta = new VentaDao();
+    private RegistrosDao daoRegistro = new RegistrosDao();
+    private RegistrosDao Daoregistro = new RegistrosDao();
     //****Fin Venta****//
-    vistaGrafica vistaGrafica;
+    private vistaGrafica vistaGrafica;
 
-    RegistrosDeProductos registrosDeProductos;
-    Producto productoSeleccionadoAun = null;
-    InicioCajaDao daoCaja = new InicioCajaDao();
+    private RegistrosDeProductos registrosDeProductos;
+    private Producto productoSeleccionadoAun = null;
+    private InicioCajaDao daoCaja = new InicioCajaDao();
 
     public String padreActiva = "", hijaActiva = "";
+    private ListaDobleCircular listita;
 
     ///******Consulta Factura******////
-    ConsultarVentas consultarVentas;
+    private ConsultarVentas consultarVentas;
 
-    Registros registro;
+    private Registros registro;
     ///******Fin Consulta Factura******////
 
     public ControlMA(MenuAdministrador menuAdministrador, Login login, EmpleadoGM empleadoGM, GastosGM gastosGM, RegistrosDeProductos registrosDeProductos, ProductoModi productoModi, RegistrosDeVentas registrosDeVentas, ConsultarVentas consultarVentas, ClienteMA clienteMA) {
@@ -162,6 +164,7 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
         this.productoModi = productoModi;
         this.registrosDeVenta = registrosDeVentas;
         this.consultarVentas = consultarVentas;
+        this.listita = new ListaDobleCircular();
         llamarVistaConsulta("menuAdministrador");
 //usuario dao
     }
@@ -357,22 +360,34 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
             }
 
         } else if (padreActiva.equals("productoModi")) {
-            ArrayList<Producto> lista = daoProducto.buscar(productoModi.tfBuscar.getText() + e.getKeyChar());
+            Producto datos = new Producto(productoModi.tfBuscar.getText() + e.getKeyChar());
+            listita.buscar(datos);
 
-            if (lista.isEmpty()) {
+            if (listita.buscar(datos) == null) {
                 mostrarDatos();
             } else {
-                mostrarBusqueda(lista);
+                Object dat = this.listita.buscar(datos).getDato();
+                DefaultTableModel modelo = new DefaultTableModel();
+                modelo = new DefaultTableModel();
+                String titulos[] = {"Codigo", "Nombre", "Cantidad", "Precio Compra", "Precio Venta", "fecha de Compra"};
+                modelo.setColumnIdentifiers(titulos);
+                Producto x = (Producto) dat;
+
+                modelo.addRow(new Object[]{x.getCodigoProducto(), x.getNombreProducto(), x.getCantidad(), x.getPrecioCompra(), x.getPrecioVenta(), x.getFecha()});
+
+                this.productoModi.jtDatos.setModel(modelo);
+                //************Fin productoModi*************//
 
             }
 
         } else if (padreActiva.equals("registrosDeProductos")) {
-            ArrayList<Producto> lista = daoProducto.buscar(registrosDeProductos.tfBuscar.getText() + e.getKeyChar());
+            Producto datos = new Producto(productoModi.tfBuscar.getText() + e.getKeyChar());
+            listita.buscar(datos);
 
-            if (lista.isEmpty()) {
+            if (listita.buscar(datos) == null) {
                 mostrarDatos();
             } else {
-                mostrarBusqueda(lista);
+                Object dat = this.listita.buscar(datos).getDato();//Proceso
 
             }
 
@@ -705,7 +720,8 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
             this.vistaEmpleadoGM.setControladorMA(this);
             padreActiva = "vistaEmpleadoGM";
             String inicial = "EMP";
-            this.vistaEmpleadoGM.tfCodigo.setText(crearCodigo(inicial, padreActiva));
+            ListaDobleCircular<Producto> producto = daoProducto.selectAll();
+            this.vistaEmpleadoGM.tfCodigo.setText(crearCodigo(inicial, 5));/////////////////////////////////////
             this.vistaEmpleadoGM.iniciar();
 
         } else if (vista.equals("consultarEmpleado")) {
@@ -933,12 +949,13 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
         ///////////*******PRODUCTO********************////////////////
         float totalV = 0;
         float totalUni1 = 0;
-        ArrayList<Producto> producto1 = daoProducto.selectAll();
-        for (Producto x : producto1) {
+        ListaDobleCircular<Producto> producto = daoProducto.selectRe();
+        for (Object j : producto.toArrayAsc()) {
+            Producto x = (Producto) j;
             totalUni1 = (float) (x.getPrecioVenta()) * x.getCantidad();
             totalV = (float) (totalV + totalUni1);
-
         }
+
         this.menuAdministrador.lbProducto1.setText("$" + String.format("%.2f", totalV));
         ///////////*******fIN DE PRODUCTO************////////////////
         ////////////******GASTOS EMPLEADO********/////////////////
@@ -1030,8 +1047,8 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
         else if (padreActiva.equals("productoModi")) {
             String titulos[] = {"Codigo", "Nombre", "Cantidad", "Precio Compra", "Precio Venta", "fecha de Compra"};
             modelo.setColumnIdentifiers(titulos);
-            ListaDobleCircular<Producto> producto = daoProducto.selectRe();
-            for (Object j : producto.toArrayAsc()) {
+            listita = daoProducto.selectRe();
+            for (Object j : listita.toArrayAsc()) {
                 Producto x = (Producto) j;
                 Object datos[] = {x.getCodigoProducto(), x.getNombreProducto(), x.getCantidad(), x.getPrecioCompra(), x.getPrecioVenta(), x.getFecha()};///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 modelo.addRow(datos);
@@ -1042,12 +1059,14 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
         else if (padreActiva.equals("registrosDeProductos")) {
             String titulos[] = {"Codigo", "Nombre", "Cantidad", "Iva", "Ganacia", "Precio Compra Unitario", "Precio Compra Total", "Precio Venta", "fecha de Vencimiento", "Max", "Min", "Empresa", "Total"};
             modelo.setColumnIdentifiers(titulos);
-            ArrayList<Producto> producto = daoProducto.selectAll();
+            listita = daoProducto.selectAll();
+
             float precioTotalCon = 0;
             float totalUni = 0;
             float total0 = 0;
             int i = 0;
-            for (Producto x : producto) {
+            for (Object j : listita.toArrayAsc()) {
+                Producto x = (Producto) j;
                 if (x.getEstado() == 1) {
                     precioTotalCon = (float) (x.getPrecioCompra() * x.getCantidad());
                     totalUni = (float) (x.getPrecioVenta() * x.getCantidad());
@@ -1059,6 +1078,7 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
                     i++;
                 }
             }
+
             this.registrosDeProductos.jtDatos.setModel(modelo);
             this.registrosDeProductos.lbTotal.setText("$" + String.format("%.2f", total0));
         } //************Fin registro producto*************//
@@ -1135,46 +1155,13 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
 
     }
 
-    public String crearCodigo(String a, String activa) {
-        ////////////******GASTOS********///////////////////////
-
-        String correlativo = a;
-        int corre = 0;
-        if (activa.equals("Gastos")) {
-            ArrayList<GastoEmpresa> gasto;
-            gasto = daoGasto.selectAll();
-            for (GastoEmpresa x : gasto) {
-                corre = x.getIdGasto();
-
-            }
-            corre = corre + 1;
+    public static String crearCodigo(String inicio, int corre) {
+        if ((inicio.length() + String.valueOf(corre).length()) < 7) {
+            inicio = inicio + "0";
+            return crearCodigo(inicio, corre);
         }
-
-        if (activa.equals("productoModi")) {
-            ArrayList<Producto> producto;
-            producto = daoProducto.selectAll();
-            for (Producto x : producto) {
-                corre = x.getIdProducto();
-            }
-            corre = corre + 1;
-        }
-
-        if (activa.equals("vistaEmpleadoGM")) {
-            ArrayList<Empleados> empleados;
-            empleados = daoEmpleado.selectAll();
-            for (Empleados x : empleados) {
-                corre = x.getIdPersona();
-            }
-        }
-        for (int i = 0; i < 6; i++) {
-            if ((correlativo.length() + String.valueOf(corre).length()) < 7) {
-                correlativo = correlativo + "0";
-            }
-        }
-        correlativo = correlativo + String.valueOf(corre);
-
-        return correlativo;
-        ////////////******FINAL GASTOS********/////////////////
+        inicio = inicio + String.valueOf(corre);
+        return inicio;
     }
 
     public void accionDeBotones(ActionEvent e) {
@@ -1290,8 +1277,7 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
         } else if (e.getActionCommand().equals("Generar") && ((padreActiva.equals("gastosGM") || padreActiva.equals("gastosGM1")))) {
             String iniciales = "EG-";
 
-            this.gastosGM.tfCodigo.setText(crearCodigo(iniciales, "Gastos"));
-
+            //    this.gastosGM.tfCodigo.setText(crearCodigo(iniciales, "Gastos"));////////////////////////////
         } else if (e.getActionCommand().equals("Eliminar")
                 && (padreActiva.equals("gastosGM") || padreActiva.equals("gastosGM1"))) {
             if (gastoSeleccionado != null) {
@@ -1386,12 +1372,13 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
                 Producto productoo = new Producto(productoModi.tfCodigo.getText(), productoModi.tfNombre.getText(),
                         Integer.parseInt(productoModi.tfCantidad.getText()), ganancia, Double.parseDouble(productoModi.tfPrecioVenta.getText()), empresa.get(0));
 
-                ArrayList<Producto> existe = daoProducto.selectAllTo("codigoProducto", productoModi.tfCodigo.getText());
+                ListaDobleCircular<Producto> existe = daoProducto.selectAllTo("codigoProducto", productoModi.tfCodigo.getText());
                 if (existe.isEmpty()) {
 
                     if (daoProducto.insertProducto(productoo)) {
                         //int idProducto, double precioCompra, int cantidad, Date fecha
-                        Producto producto1 = new Producto(17, Double.parseDouble(productoModi.tfPrecioCompra.getText()), Integer.parseInt(productoModi.tfCantidad.getText()),
+                        ListaDobleCircular<Producto> id = daoProducto.selectAllTo("codigoProducto", productoModi.tfCodigo.getText());
+                        Producto producto1 = new Producto(id.toArrayAsc().get(0).getIdProducto(), Double.parseDouble(productoModi.tfPrecioCompra.getText()), Integer.parseInt(productoModi.tfCantidad.getText()),
                                 productoModi.dFecha.getDatoFecha());
                         daoProducto.insertRe(producto1);
                         vaciarVista();
@@ -1416,8 +1403,11 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
         } else if (e.getActionCommand().equals("Generar") && ((padreActiva.equals("productoModi")))) {
             String iniciales = "PR-";
 
-            this.productoModi.tfCodigo.setText(crearCodigo(iniciales, "productoModi"));
-
+            int id = 0;
+            if (!listita.isEmpty()) {
+                id = listita.toArrayDes().size() + 1;
+            }
+            this.productoModi.tfCodigo.setText(crearCodigo(iniciales, id));////////////////////
         } else if (e.getActionCommand().equals("Modificar")
                 && padreActiva.equals("productoModi")) {
             if (productoSeleccionado != null) {
@@ -1435,7 +1425,7 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
                     productoSeleccionado.setFecha(productoModi.dFecha.getDatoFecha());
                     productoSeleccionado.setEstado(1);
                     productoSeleccionado.setGananciaUni(ganancia);
-                   
+
                     productoSeleccionado.setPrecioVenta(Double.parseDouble(productoModi.tfPrecioVenta.getText()));
                     productoSeleccionado.getEmpresa().getIdEmpresa();
                     if (daoProducto.updateProducto(productoSeleccionado)) {
@@ -1475,7 +1465,7 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
                             productoSeleccionadoAun.getFecha();
                             productoSeleccionadoAun.getEstado();
                             productoSeleccionadoAun.getGananciaUni();
-                         
+
                             if (daoProducto.updateCantidad(productoSeleccionadoAun)) {
                                 Alerta aler = new Alerta(menuAdministrador, true, "Aunmento con exito", "/img/Succes.png");
                                 aler.show();
@@ -1938,20 +1928,6 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
             this.usuarioGM.tbEmpleados.setModel(modelo);
         } //------------------------------------------------fin Usuario------------------------------------------------//
         //**************ProductoModi**************//
-        else if (padreActiva.equals("productoModi")) {
-            String titulos[] = {"N", "CodigoProducto", "Nombre Producto", "Cantidad", "Maximo", "Minimo", "Estado", "Precio Compra", "Precio Venta", "Ganancia", "Vence", "Iva", "Empresa"};
-            modelo.setColumnIdentifiers(titulos);
-            int i = 1;
-            for (Object x : lista) {
-                Producto obj = (Producto) x;
-                Object datos[] = {i, obj.getCodigoProducto(), obj.getNombreProducto(), obj.getCantidad(),
-                    obj.getEstado(), obj.getPrecioCompra(), obj.getPrecioVenta(),
-                    obj.getGananciaUni(), obj.getFecha(), obj.getEmpresa()};
-                modelo.addRow(datos);
-                i++;
-            }
-            this.productoModi.jtDatos.setModel(modelo);
-        } //***********Fin ProductoModi**********//
         //**************MostrarVenta**************//
         else if (padreActiva.equals("registroVentas")) {
             String titulos[] = {"N", "Fecha", "Cliente", "Empleado", "Precio Total"};
@@ -2123,23 +2099,21 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
         } else if (padreActiva.equals("productoModi")) {
             int fila = productoModi.jtDatos.getSelectedRow();
             String id = productoModi.jtDatos.getValueAt(fila, 0).toString();
-            ArrayList<Producto> lista = daoProducto.selectAllTo("codigoProducto", id);
-            productoSeleccionado = lista.get(0);
+            listita.antesDe(id);
             String codigo = productoModi.jtDatos.getValueAt(fila, 0).toString();
             String nombre = productoModi.jtDatos.getValueAt(fila, 1).toString();
-            String precioCompra = productoModi.jtDatos.getValueAt(fila, 5).toString();
+            String precioCompra = productoModi.jtDatos.getValueAt(fila, 3).toString();
             String cantidad = productoModi.jtDatos.getValueAt(fila, 2).toString();
-            double precio = Double.parseDouble(precioCompra) * Integer.parseInt(cantidad);
-            String maximo = productoModi.jtDatos.getValueAt(fila, 9).toString();
-            String minimo = productoModi.jtDatos.getValueAt(fila, 10).toString();
-            String precioVenta = productoModi.jtDatos.getValueAt(fila, 7).toString();
+            String precioVenta = productoModi.jtDatos.getValueAt(fila, 4).toString();
             productoModi.tfCodigo.setText(codigo);
             productoModi.tfNombre.setText(nombre);
-            productoModi.tfPrecioCompra.setText(String.valueOf(precio));
+            productoModi.tfPrecioCompra.setText(String.valueOf(precioCompra));
             productoModi.tfCantidad.setText(cantidad);
             productoModi.tfPrecioVenta.setText(precioVenta);
-            ArrayList<Producto> producto = daoProducto.selectAll();
-            for (Producto x : producto) {
+           
+
+            for (Object j : listita.toArrayAsc()) {
+                Producto x = (Producto) j;
                 if (x.getCodigoProducto().equals(codigo)) {
                     productoModi.dFecha.setDatoFecha(x.getFecha());
                 }
@@ -2154,8 +2128,8 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
         } else if (padreActiva.equals("registrosDeProductos")) {
             int fila = this.registrosDeProductos.jtDatos.getSelectedRow();
             String id = registrosDeProductos.jtDatos.getValueAt(fila, 0).toString();
-            ArrayList<Producto> lista = daoProducto.selectAllTo("codigoProducto", id);
-            productoSeleccionadoAun = lista.get(0);
+            ListaDobleCircular<Producto> lista = daoProducto.selectAllTo("codigoProducto", id);
+            productoSeleccionadoAun = lista.toArrayAsc().get(0);
 
         }
 
