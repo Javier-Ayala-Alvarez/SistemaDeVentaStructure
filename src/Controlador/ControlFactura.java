@@ -205,14 +205,14 @@ Desface desplace;
             }
 
         } else if (padreActiva.equals("SeleccionarProducto")) {
-            ArrayList<Producto> lista = daoProducto.buscar(buscarCliente.tfBuscar.getText() + e.getKeyChar());
-
-            if (lista.isEmpty()) {
-                mostrarDatos("SeleccionarProducto");
-            } else {
-                mostrarBusqueda(lista);
-
-            }
+//            ArrayList<Producto> lista = daoProducto.buscar(buscarCliente.tfBuscar.getText() + e.getKeyChar());
+//
+//            if (lista.isEmpty()) {
+//                mostrarDatos("SeleccionarProducto");
+//            } else {
+//                mostrarBusqueda(lista);
+//
+//            }
 
         }else if (padreActiva.equals("NuevoCliente")) {
             ArrayList<Cliente> lista = daoCliente.buscar(ClienteMA.tfBuscar.getText() + e.getKeyChar());
@@ -452,7 +452,7 @@ Desface desplace;
                 && !this.factura.tfDireccion.getText().isEmpty()) {
             this.listaProduc = new ArrayList();
             String p = factura.tfProducto.getText();
-            this.listaProduc = this.daoProducto.selectAllTo("nombreProducto", p);
+//            this.listaProduc = this.daoProducto.selectAllTo("nombreProducto", p);
             //Datos enviados a la tabla
             Object fd[] = {this.listaProduc.get(0).getCodigoProducto(),
                 this.listaProduc.get(0).getNombreProducto(),
@@ -522,17 +522,17 @@ Desface desplace;
         this.daoProducto = new ProductoDao();
         this.producto.setIdProducto(this.listaProduc.get(0).getIdProducto());
         this.producto.setCodigoProducto(this.listaProduc.get(0).getCodigoProducto());
-        this.producto.setNombreProducto(this.listaProduc.get(0).getNombreProducto());
-        this.producto.setPrecioCompra(this.listaProduc.get(0).getPrecioCompra());
-        this.producto.setCantidad(this.listaProduc.get(0).getCantidad() - Integer.parseInt(this.factura.tfCantidad.getText()));
-        this.producto.setFechaVencimiento(this.listaProduc.get(0).getFechaVencimiento());
-        this.producto.setMax(this.listaProduc.get(0).getMax());
-        this.producto.setMin(this.listaProduc.get(0).getMin());
-        this.producto.setEstado(this.listaProduc.get(0).getEstado());
-        this.producto.setGananciaUni(this.listaProduc.get(0).getGananciaUni());
-        this.producto.setIva(this.listaProduc.get(0).getIva());
-        this.producto.setPrecioVenta(this.listaProduc.get(0).getPrecioVenta());
-        this.producto.setEmpresa(this.listaProduc.get(0).getEmpresa());
+//        this.producto.setNombreProducto(this.listaProduc.get(0).getNombreProducto());
+//        this.producto.setPrecioCompra(this.listaProduc.get(0).getPrecioCompra());
+//        this.producto.setCantidad(this.listaProduc.get(0).getCantidad() - Integer.parseInt(this.factura.tfCantidad.getText()));
+//        this.producto.setFechaVencimiento(this.listaProduc.get(0).getFechaVencimiento());
+//        this.producto.setMax(this.listaProduc.get(0).getMax());
+//        this.producto.setMin(this.listaProduc.get(0).getMin());
+//        this.producto.setEstado(this.listaProduc.get(0).getEstado());
+//        this.producto.setGananciaUni(this.listaProduc.get(0).getGananciaUni());
+//        this.producto.setIva(this.listaProduc.get(0).getIva());
+//        this.producto.setPrecioVenta(this.listaProduc.get(0).getPrecioVenta());
+//        this.producto.setEmpresa(this.listaProduc.get(0).getEmpresa());
         if (this.daoProducto.updateCantidad(this.producto)) {
             
         } else {
@@ -553,7 +553,7 @@ Desface desplace;
         /*Agregando Datos de Producto al Registro, pero antes se debe crear la venta para otorgar el id correspondiente*/
             this.listaProduc = new ArrayList();
             this.daoProducto = new ProductoDao();
-            this.listaProduc = this.daoProducto.selectAllTo("nombreProducto", this.factura.tfProducto.getText());
+//            this.listaProduc = this.daoProducto.selectAllTo("nombreProducto", this.factura.tfProducto.getText());
             this.registroMd = new Registros();
             this.daoRegistros = new RegistrosDao();
             this.registroMd.setCantidadProducto(Integer.parseInt(this.factura.tfCantidad.getText()));
@@ -718,23 +718,23 @@ Desface desplace;
         String cantidad = this.factura.miTb1.getValueAt(y, 2).toString();
         String nomProd = this.factura.miTb1.getValueAt(y, 1).toString();
         this.listaProduc = new ArrayList();
-        this.listaProduc = this.daoProducto.selectAllTo("nombreProducto", nomProd);
-        JOptionPane.showMessageDialog(null, cantidad + nomProd);
-        this.producto = new Producto();
-        this.daoProducto = new ProductoDao();
-        this.producto.setIdProducto(this.listaProduc.get(0).getIdProducto());
-        this.producto.setCodigoProducto(this.listaProduc.get(0).getCodigoProducto());
-        this.producto.setNombreProducto(this.listaProduc.get(0).getNombreProducto());
-        this.producto.setPrecioCompra(this.listaProduc.get(0).getPrecioCompra());
-        this.producto.setCantidad(this.listaProduc.get(0).getCantidad() + Integer.parseInt(cantidad));
-        this.producto.setFechaVencimiento(this.listaProduc.get(0).getFechaVencimiento());
-        this.producto.setMax(this.listaProduc.get(0).getMax());
-        this.producto.setMin(this.listaProduc.get(0).getMin());
-        this.producto.setEstado(this.listaProduc.get(0).getEstado());
-        this.producto.setGananciaUni(this.listaProduc.get(0).getGananciaUni());
-        this.producto.setIva(this.listaProduc.get(0).getIva());
-        this.producto.setPrecioVenta(this.listaProduc.get(0).getPrecioVenta());
-        this.producto.setEmpresa(this.listaProduc.get(0).getEmpresa());
+//        this.listaProduc = this.daoProducto.selectAllTo("nombreProducto", nomProd);
+//        JOptionPane.showMessageDialog(null, cantidad + nomProd);
+//        this.producto = new Producto();
+//        this.daoProducto = new ProductoDao();
+//        this.producto.setIdProducto(this.listaProduc.get(0).getIdProducto());
+//        this.producto.setCodigoProducto(this.listaProduc.get(0).getCodigoProducto());
+//        this.producto.setNombreProducto(this.listaProduc.get(0).getNombreProducto());
+//        this.producto.setPrecioCompra(this.listaProduc.get(0).getPrecioCompra());
+//        this.producto.setCantidad(this.listaProduc.get(0).getCantidad() + Integer.parseInt(cantidad));
+//        this.producto.setFechaVencimiento(this.listaProduc.get(0).getFechaVencimiento());
+//        this.producto.setMax(this.listaProduc.get(0).getMax());
+//        this.producto.setMin(this.listaProduc.get(0).getMin());
+//        this.producto.setEstado(this.listaProduc.get(0).getEstado());
+//        this.producto.setGananciaUni(this.listaProduc.get(0).getGananciaUni());
+//        this.producto.setIva(this.listaProduc.get(0).getIva());
+//        this.producto.setPrecioVenta(this.listaProduc.get(0).getPrecioVenta());
+//        this.producto.setEmpresa(this.listaProduc.get(0).getEmpresa());
         if (this.daoProducto.updateCantidad(this.producto)) {
         } else {
             JOptionPane.showMessageDialog(null, "Cantidad no devuelta");
@@ -749,7 +749,7 @@ Desface desplace;
         double precioTotal = Double.parseDouble(precioTot);
         this.daoRegistros = new RegistrosDao();
         this.listaProduc = new ArrayList();
-        this.listaProduc = this.daoProducto.selectAllTo("nombreProducto", nombre);
+//        this.listaProduc = this.daoProducto.selectAllTo("nombreProducto", nombre);
 
         this.daoVenta = new VentaDao();
         this.listaVenta = new ArrayList();
@@ -910,7 +910,7 @@ Desface desplace;
             String titulos[] = {"Codigo", "Nombre", "Precio Venta", "Existencia"};
             modelo.setColumnIdentifiers(titulos);
             this.buscarCliente.jtDatos.setModel(modelo);
-            ArrayList<Producto> producto = daoProducto.selectAll();
+          //  ArrayList<Producto> producto = daoProducto.selectAll();
             for (Object a : lista) {
                 Producto x = (Producto) a;
                 Object datos[] = {x.getCodigoProducto(), x.getNombreProducto(), x.getPrecioVenta(), x.getCantidad()};
@@ -952,12 +952,12 @@ Desface desplace;
         } else if (vista.equals("SeleccionarProducto")) {
             String titulos[] = {"Codigo", "Nombre", "Precio Venta", "Existencia"};
             modelo1.setColumnIdentifiers(titulos);
-            ArrayList<Producto> producto = daoProducto.selectAll();
-            for (Producto x : producto) {
-                Object datos[] = {x.getCodigoProducto(), x.getNombreProducto(), x.getPrecioVenta(), x.getCantidad()};
-                modelo1.addRow(datos);
-
-            }
+//            ArrayList<Producto> producto = daoProducto.selectAll();
+//            for (Producto x : producto) {
+//                Object datos[] = {x.getCodigoProducto(), x.getNombreProducto(), x.getPrecioVenta(), x.getCantidad()};
+//                modelo1.addRow(datos);
+//
+//            }
             this.buscarCliente.jtDatos.setModel(modelo1);
         }else if (vista.equals("NuevoCliente")) {
 
@@ -1002,8 +1002,8 @@ Desface desplace;
         } else if (padreActiva.equals("SeleccionarProducto")) {
             int fila = buscarCliente.jtDatos.getSelectedRow();
             String id = buscarCliente.jtDatos.getValueAt(fila, 0).toString();
-            ArrayList<Producto> lista = daoProducto.selectAllTo("codigoProducto", id);
-            productoSeleccionado = lista.get(0);
+           // ArrayList<Producto> lista = daoProducto.selectAllTo("codigoProducto", id);
+           // productoSeleccionado = lista.get(0);
 
             factura.tfProducto.setText(productoSeleccionado.getNombreProducto());
             factura.tfPrecioUni.setText(String.valueOf(productoSeleccionado.getPrecioVenta()));

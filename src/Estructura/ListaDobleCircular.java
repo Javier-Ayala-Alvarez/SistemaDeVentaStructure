@@ -1,5 +1,6 @@
 package Estructura;
 
+import Modelo.Producto;
 import java.util.ArrayList;
 
     public class ListaDobleCircular<T> {
@@ -209,6 +210,10 @@ import java.util.ArrayList;
         }
         quitar = null;
 
+    }
+
+    public int compareToIgnoreCase(ListaDobleCircular<Producto> producto) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
  

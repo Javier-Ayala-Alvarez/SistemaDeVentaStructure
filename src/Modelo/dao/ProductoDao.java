@@ -42,9 +42,9 @@ public class ProductoDao {
                 obj.setIdProducto(rs.getInt("id"));
                 obj.setCodigoProducto(rs.getString("codigo"));
                 obj.setNombreProducto(rs.getString("nombre"));
-                obj.setPrecioCompra(rs.getDouble("precio"));
+        
                 obj.setCantidad(rs.getInt("cantidad"));
-                obj.setFecha(rs.getDate("fecha"));
+  
                 obj.setPrecioVenta(rs.getDouble("precioV"));
                 lista.insertar(obj);
             }
@@ -69,10 +69,114 @@ public class ProductoDao {
         String sql = "select * from producto where " + atributo + "='" + condicion + "'";
         return select(sql);
     }
+    public ArrayList<Producto> selectId(String atributo, String condicion) {
+        String sql = "select * from producto where " + atributo + "='" + condicion + "'";
+        ArrayList<Producto> lista = new ArrayList();
+        Producto obj = null;
+        try {
+            con = conectar.getConexion();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
 
-    public ListaDobleCircular<Producto> selectId(int id) {
-        String sql = "select * from producto where idProducto=" + id;
-        return select(sql);
+            while (rs.next()) {
+                obj = new Producto();
+                obj.setIdProducto(rs.getInt("idProducto"));
+                obj.setCodigoProducto(rs.getString("codigoProducto"));
+                obj.setNombreProducto(rs.getString("nombreProducto"));
+                obj.setCantidad(rs.getInt("cantidad"));
+                obj.setGananciaUni(rs.getDouble("gananciaUni"));
+                obj.setPrecioVenta(rs.getDouble("precioVenta"));
+                obj.setEmpresa(new Empresa(rs.getInt("idEmpresa")));
+                lista.add(obj);
+            }
+
+        } catch (Exception e) {
+            Alerta alert = new Alerta(null, true, "Error en sql", "/img/error.png");
+            alert.show();
+            e.printStackTrace();
+        } finally {
+            try {
+                ps.close();
+            } catch (Exception ex) {
+
+            }
+            conectar.closeConexion(con);
+        }
+
+        return lista;
+    }
+
+    public ArrayList<Producto> selectId(String codigo) {
+        String sql = "select * from producto where codigoProducto=" + codigo;
+     ArrayList<Producto> lista = new ArrayList();
+        Producto obj = null;
+        try {
+            con = conectar.getConexion();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                obj = new Producto();
+                obj.setIdProducto(rs.getInt("idProducto"));
+                obj.setCodigoProducto(rs.getString("codigoProducto"));
+                obj.setNombreProducto(rs.getString("nombreProducto"));
+                obj.setCantidad(rs.getInt("cantidad"));
+                obj.setGananciaUni(rs.getDouble("gananciaUni"));
+                obj.setPrecioVenta(rs.getDouble("precioVenta"));
+                obj.setEmpresa(new Empresa(rs.getInt("idEmpresa")));
+                lista.add(obj);
+            }
+
+        } catch (Exception e) {
+            Alerta alert = new Alerta(null, true, "Error en sql", "/img/error.png");
+            alert.show();
+            e.printStackTrace();
+        } finally {
+            try {
+                ps.close();
+            } catch (Exception ex) {
+
+            }
+            conectar.closeConexion(con);
+        }
+
+        return lista;
+    }
+      public ArrayList<Producto> selectId(int codigo) {
+        String sql = "select * from producto where idProducto=" + codigo;
+     ArrayList<Producto> lista = new ArrayList();
+        Producto obj = null;
+        try {
+            con = conectar.getConexion();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                obj = new Producto();
+                obj.setIdProducto(rs.getInt("idProducto"));
+                obj.setCodigoProducto(rs.getString("codigoProducto"));
+                obj.setNombreProducto(rs.getString("nombreProducto"));
+                obj.setCantidad(rs.getInt("cantidad"));
+                obj.setGananciaUni(rs.getDouble("gananciaUni"));
+                obj.setPrecioVenta(rs.getDouble("precioVenta"));
+                obj.setEmpresa(new Empresa(rs.getInt("idEmpresa")));
+                lista.add(obj);
+            }
+
+        } catch (Exception e) {
+            Alerta alert = new Alerta(null, true, "Error en sql", "/img/error.png");
+            alert.show();
+            e.printStackTrace();
+        } finally {
+            try {
+                ps.close();
+            } catch (Exception ex) {
+
+            }
+            conectar.closeConexion(con);
+        }
+
+        return lista;
     }
 
     public ListaDobleCircular<Producto> buscar(String dato) {////////////////////////////
@@ -151,10 +255,9 @@ public class ProductoDao {
             //ps.setInt(0, obj.getIdProducto());
             ps.setString(1, obj.getCodigoProducto());
             ps.setString(2, obj.getNombreProducto());
-            ps.setDouble(3, obj.getPrecioCompra());
+
             ps.setDouble(4, obj.getCantidad());
-            ps.setDate(5, new java.sql.Date(obj.getFecha().getTime()));
-            ps.setInt(8, obj.getEstado());
+   
             ps.setDouble(9, obj.getGananciaUni());
 
             ps.setDouble(11, obj.getPrecioVenta());
@@ -249,9 +352,9 @@ public class ProductoDao {
             con = conectar.getConexion();
             ps = con.prepareStatement(sql);
             //ps.setInt(0, obj.getIdProducto());
-            ps.setDate(1, new java.sql.Date(obj.getFecha().getTime()));
+
             ps.setInt(2, obj.getCantidad());
-            ps.setDouble(3, obj.getPrecioCompra());
+
             ps.setInt(4, obj.getIdProducto());
 
             ps.execute();
