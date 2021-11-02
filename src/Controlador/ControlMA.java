@@ -35,6 +35,7 @@ import VistaMA.ConsultarVentas;
 import VistaMA.EmpleadoGM;
 import VistaMA.vistaEmpleadoGM;
 import VistaMA.GastosGM;
+import static VistaMA.GastosGM.jtDatos;
 import VistaMA.MenuAdministrador;
 import VistaMA.ProductoModi;
 import VistaMA.RegistrosDeProductos;
@@ -63,7 +64,10 @@ import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -371,43 +375,33 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
             }
 
         } else if (padreActiva.equals("productoModi")) {
+            TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(((DefaultTableModel) productoModi.jtDatos.getModel()));
+            sorter.setRowFilter(RowFilter.regexFilter(productoModi.tfBuscar.getText()));
+            productoModi.jtDatos.setRowSorter(sorter);
+            //************Fin productoModi*************//
+
+        
+
+    }
+
+    else if (padreActiva.equals ( 
+        "registrosDeProductos")) {
             Producto datos = new Producto(productoModi.tfBuscar.getText() + e.getKeyChar());
-            listita.buscar(datos);
+        listita.buscar(datos);
 
-            if (listita.buscar(datos) == null) {
-                mostrarDatos();
-            } else {
-                Object dat = this.listita.buscar(datos).getDato();
-                DefaultTableModel modelo = new DefaultTableModel();
-                modelo = new DefaultTableModel();
-                String titulos[] = {"Codigo", "Nombre", "Cantidad", "Precio Compra", "Precio Venta", "fecha de Compra"};
-                modelo.setColumnIdentifiers(titulos);
-                Producto x = (Producto) dat;
-
-                modelo.addRow(new Object[]{x.getCodigoProducto(), x.getNombreProducto(), x.getCantidad(), x.getPrecioVenta()});
-
-                this.productoModi.jtDatos.setModel(modelo);
-                //************Fin productoModi*************//
-
-            }
-
-        } else if (padreActiva.equals("registrosDeProductos")) {
-            Producto datos = new Producto(productoModi.tfBuscar.getText() + e.getKeyChar());
-            listita.buscar(datos);
-
-            if (listita.buscar(datos) == null) {
-                mostrarDatos();
-            } else {
-                Object dat = this.listita.buscar(datos).getDato();//Proceso
-
-            }
+        if (listita.buscar(datos) == null) {
+            mostrarDatos();
+        } else {
+            Object dat = this.listita.buscar(datos).getDato();//Proceso
 
         }
 
     }
 
-    @Override
-    public void keyReleased(KeyEvent e) {
+}
+
+@Override
+        public void keyReleased(KeyEvent e) {
 
         //******************************************INICIO_EMPLEADO********************************************************************//
         if ((padreActiva.equals("vistaEmpleadoGM") || hijaActiva.equals("vistaEmpleadoGM"))) {
@@ -1804,7 +1798,7 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
     }
 
     @Override
-    public void itemStateChanged(ItemEvent e) {
+        public void itemStateChanged(ItemEvent e) {
         if (padreActiva == "gastosGM1") {
 
             ArrayList<Empleados> empleado1 = daoEmpleado.selectAll();
@@ -2037,7 +2031,7 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
     }
 
     @Override
-    public void mouseClicked(MouseEvent me) {
+        public void mouseClicked(MouseEvent me) {
         /* Gastos */
         if (padreActiva.equals("gastosGM")) {
             int fila = GastosGM.jtDatos.getSelectedRow();
@@ -2152,7 +2146,7 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
     }
 
     @Override
-    public void keyTyped(KeyEvent ke) {
+        public void keyTyped(KeyEvent ke) {
 
     }
 
@@ -2182,12 +2176,12 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
     }
 
     @Override
-    public void focusGained(FocusEvent e) {
+        public void focusGained(FocusEvent e) {
         // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void focusLost(FocusEvent e) {
+        public void focusLost(FocusEvent e) {
 
     }
 
