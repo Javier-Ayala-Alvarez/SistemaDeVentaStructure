@@ -1425,21 +1425,24 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
 
             int opccion = JOptionPane.showConfirmDialog(null, "Deseas Modificar?", "Welcome", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (opccion == 0) {
-                double ganancia = 0;
-                double precioUnitario = 0;
-                ganancia = (Double.parseDouble(productoModi.tfPrecioVenta.getText())) - precioUnitario;
+                double ganancia = 0, precioUnitario = 0;
+                reporteSeleccionado.setFechaCompra(productoModi.dFecha.getDatoFecha());
+                
+                reporteSeleccionado.setPrecioCompra(Double.parseDouble(productoModi.tfPrecioCompra.getText()));
+                reporteSeleccionado.setProducto(productoSeleccionado);
+                precioUnitario = (reporteSeleccionado.getPrecioCompra() / reporteSeleccionado.getCantidad());
+                ganancia = (Double.parseDouble(productoModi.tfPrecioVenta.getText())) - (precioUnitario);
                 productoSeleccionado.setCodigoProducto(productoModi.tfCodigo.getText());
                 productoSeleccionado.setNombreProducto(productoModi.tfNombre.getText());
-                productoSeleccionado.setCantidad(Integer.parseInt(productoModi.tfCantidad.getText()));
+                productoSeleccionado.setCantidad(productoSeleccionado.getCantidad()+(reporteSeleccionado.getCantidad() - Integer.parseInt(productoModi.tfCantidad.getText())));
+                reporteSeleccionado.setCantidad(Integer.parseInt(productoModi.tfCantidad.getText()));
                 productoSeleccionado.setGananciaUni(ganancia);
                 productoSeleccionado.setPrecioVenta(Double.parseDouble(productoModi.tfPrecioVenta.getText()));
+                
                 ArrayList<Empresa> empresa = daoEmpresa.selectAllTo("idEmpresa", "1");
                 productoSeleccionado.setEmpresa(empresa.get(0));
                 if (daoProducto.updateProducto(productoSeleccionado)) {
-                    reporteSeleccionado.setFechaCompra(productoModi.dFecha.getDatoFecha());
-                    reporteSeleccionado.setCantidad(Integer.parseInt(productoModi.tfCantidad.getText()));
-                    reporteSeleccionado.setPrecioCompra(Double.parseDouble(productoModi.tfPrecioCompra.getText()));
-                    reporteSeleccionado.setProducto(productoSeleccionado);
+
                     if (daoReporte.update(reporteSeleccionado)) {
                         vaciarVista();
                         mostrarDatos();
@@ -2126,6 +2129,8 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
                 Reporte x = (Reporte) j;
                 if (x.getProducto().getCodigoProducto().equals(codigo)) {
                     productoSeleccionado.setIdProducto(x.getProducto().getIdProducto());/// trabajando
+                    productoSeleccionado.setCantidad(x.getProducto().getCantidad());
+                    reporteSeleccionado.setCantidad(x.getCantidad());
 
                 }
             }
