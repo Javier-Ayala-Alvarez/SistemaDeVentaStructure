@@ -1434,7 +1434,7 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
                 ganancia = (Double.parseDouble(productoModi.tfPrecioVenta.getText())) - (precioUnitario);
                 productoSeleccionado.setCodigoProducto(productoModi.tfCodigo.getText());
                 productoSeleccionado.setNombreProducto(productoModi.tfNombre.getText());
-                productoSeleccionado.setCantidad(productoSeleccionado.getCantidad()+(reporteSeleccionado.getCantidad() - Integer.parseInt(productoModi.tfCantidad.getText())));
+                productoSeleccionado.setCantidad(productoSeleccionado.getCantidad()+(Integer.parseInt(productoModi.tfCantidad.getText())-reporteSeleccionado.getCantidad()));
                 reporteSeleccionado.setCantidad(Integer.parseInt(productoModi.tfCantidad.getText()));
                 productoSeleccionado.setGananciaUni(ganancia);
                 productoSeleccionado.setPrecioVenta(Double.parseDouble(productoModi.tfPrecioVenta.getText()));
