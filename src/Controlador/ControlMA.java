@@ -380,28 +380,24 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
             productoModi.jtDatos.setRowSorter(sorter);
             //************Fin productoModi*************//
 
-        
-
-    }
-
-    else if (padreActiva.equals ( 
-        "registrosDeProductos")) {
+        } else if (padreActiva.equals(
+                "registrosDeProductos")) {
             Producto datos = new Producto(productoModi.tfBuscar.getText() + e.getKeyChar());
-        listita.buscar(datos);
+            listita.buscar(datos);
 
-        if (listita.buscar(datos) == null) {
-            mostrarDatos();
-        } else {
-            Object dat = this.listita.buscar(datos).getDato();//Proceso
+            if (listita.buscar(datos) == null) {
+                mostrarDatos();
+            } else {
+                Object dat = this.listita.buscar(datos).getDato();//Proceso
+
+            }
 
         }
 
     }
 
-}
-
-@Override
-        public void keyReleased(KeyEvent e) {
+    @Override
+    public void keyReleased(KeyEvent e) {
 
         //******************************************INICIO_EMPLEADO********************************************************************//
         if ((padreActiva.equals("vistaEmpleadoGM") || hijaActiva.equals("vistaEmpleadoGM"))) {
@@ -1421,29 +1417,21 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
             if (opccion == 0) {
                 double ganancia = 0, precioUnitario = 0;
                 reporteSeleccionado.setFechaCompra(productoModi.dFecha.getDatoFecha());
-                
                 reporteSeleccionado.setPrecioCompra(Double.parseDouble(productoModi.tfPrecioCompra.getText()));
                 reporteSeleccionado.setProducto(productoSeleccionado);
                 precioUnitario = (reporteSeleccionado.getPrecioCompra() / reporteSeleccionado.getCantidad());
                 ganancia = (Double.parseDouble(productoModi.tfPrecioVenta.getText())) - (precioUnitario);
                 productoSeleccionado.setCodigoProducto(productoModi.tfCodigo.getText());
                 productoSeleccionado.setNombreProducto(productoModi.tfNombre.getText());
-                productoSeleccionado.setCantidad(productoSeleccionado.getCantidad()+(Integer.parseInt(productoModi.tfCantidad.getText())-reporteSeleccionado.getCantidad()));
+                productoSeleccionado.setCantidad(productoSeleccionado.getCantidad() + (Integer.parseInt(productoModi.tfCantidad.getText()) - reporteSeleccionado.getCantidad()));
                 reporteSeleccionado.setCantidad(Integer.parseInt(productoModi.tfCantidad.getText()));
                 productoSeleccionado.setGananciaUni(ganancia);
                 productoSeleccionado.setPrecioVenta(Double.parseDouble(productoModi.tfPrecioVenta.getText()));
-                
-                ArrayList<Empresa> empresa = daoEmpresa.selectAllTo("idEmpresa", "1");
-                productoSeleccionado.setEmpresa(empresa.get(0));
-                if (daoProducto.updateProducto(productoSeleccionado)) {
-
-                    if (daoReporte.update(reporteSeleccionado)) {
-                        vaciarVista();
-                        mostrarDatos();
-                        Alerta aler = new Alerta(menuAdministrador, true, "Modificado con exito", "/img/Succes.png");
-                        aler.show();
-                    }
-
+                if (daoProducto.updateProducto(productoSeleccionado) && daoReporte.update(reporteSeleccionado)) {
+                    vaciarVista();
+                    mostrarDatos();
+                    Alerta aler = new Alerta(menuAdministrador, true, "Modificado con exito", "/img/Succes.png");
+                    aler.show();
                 }
             }
 
@@ -1798,7 +1786,7 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
     }
 
     @Override
-        public void itemStateChanged(ItemEvent e) {
+    public void itemStateChanged(ItemEvent e) {
         if (padreActiva == "gastosGM1") {
 
             ArrayList<Empleados> empleado1 = daoEmpleado.selectAll();
@@ -2031,7 +2019,7 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
     }
 
     @Override
-        public void mouseClicked(MouseEvent me) {
+    public void mouseClicked(MouseEvent me) {
         /* Gastos */
         if (padreActiva.equals("gastosGM")) {
             int fila = GastosGM.jtDatos.getSelectedRow();
@@ -2125,6 +2113,7 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
                     productoSeleccionado.setIdProducto(x.getProducto().getIdProducto());/// trabajando
                     productoSeleccionado.setCantidad(x.getProducto().getCantidad());
                     reporteSeleccionado.setCantidad(x.getCantidad());
+                    productoSeleccionado.setEmpresa(x.getProducto().getEmpresa());
 
                 }
             }
@@ -2146,7 +2135,7 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
     }
 
     @Override
-        public void keyTyped(KeyEvent ke) {
+    public void keyTyped(KeyEvent ke) {
 
     }
 
@@ -2176,12 +2165,12 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
     }
 
     @Override
-        public void focusGained(FocusEvent e) {
+    public void focusGained(FocusEvent e) {
         // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-        public void focusLost(FocusEvent e) {
+    public void focusLost(FocusEvent e) {
 
     }
 

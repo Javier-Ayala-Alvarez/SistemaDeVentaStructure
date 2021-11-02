@@ -62,16 +62,8 @@ public class ReporteDao {
         return lista;
     }
 
-    public ListaDobleCircular<Reporte> selectAllTo(String atributo, String condicion) {
-        String sql = "select * from reporte where " + atributo + "='" + condicion + "'";
-        return select(sql);
-    }
 
-    public ListaDobleCircular<Reporte> selectId(int id) {
-        String sql = "select * from reporte where idReporte=" + id;
-        return select(sql);
-    }
-
+ 
     public boolean insert(Reporte obj) {
         String sql = "insert into reporte(fechaCompra,cantidad,precioCompra,idProducto)VALUES(?,?,?,?)";
         return alterarRegistro(sql, obj);
@@ -123,41 +115,6 @@ public class ReporteDao {
         return false;
     }
 
-    private ListaDobleCircular<Reporte> select(String sql) {
-        ListaDobleCircular<Reporte> lista = new ListaDobleCircular();
-        Reporte obj = null;
-        try {
-            con = conectar.getConexion();
-            ps = con.prepareStatement(sql);
-            rs = ps.executeQuery();
-
-            while (rs.next()) {
-                obj = new Reporte();
-                obj.setIdReporte(rs.getInt("idReporte"));
-//                obj.setCodigoReporte(rs.getString("codigoReporte"));
-//                obj.setNombreReporte(rs.getString("nombreReporte"));
-//                obj.setCantidad(rs.getInt("cantidad"));
-//                obj.setGananciaUni(rs.getDouble("gananciaUni"));
-//                obj.setPrecioVenta(rs.getDouble("precioVenta"));
-//                obj.setEmpresa(new Empresa(rs.getInt("idEmpresa")));
-                lista.insertar(obj);
-            }
-
-        } catch (Exception e) {
-            Alerta alert = new Alerta(null, true, "Error en sql", "/img/error.png");
-            alert.show();
-            e.printStackTrace();
-        } finally {
-            try {
-                ps.close();
-            } catch (Exception ex) {
-
-            }
-            conectar.closeConexion(con);
-        }
-
-        return lista;
-    }
 
     private boolean alterarRegistro(String sql, Reporte obj) {
         try {

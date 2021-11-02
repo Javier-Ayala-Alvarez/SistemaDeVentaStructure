@@ -99,7 +99,7 @@ public class ProductoModi extends javax.swing.JDialog {
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel5.setText("Productos: Gestion");
+        jLabel5.setText("Reporte-Productos: Gestion");
         panelFondo.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 370, 30));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
