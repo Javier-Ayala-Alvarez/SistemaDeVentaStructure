@@ -1,5 +1,6 @@
 package Modelo.dao;
 
+import Estructura.ListaDobleCircular;
 import Modelo.Conexion;
 import Modelo.Empresa;
 import Modelo.Cliente;
@@ -23,22 +24,22 @@ public class ClienteDao {
         
     }
     
-    public ArrayList<Cliente> selectAll() {
+    public ListaDobleCircular<Cliente> selectAll() {
         String sql = "select * from cliente";
         return select(sql);
     }
     
-    public ArrayList<Cliente> selectAllTo(String atributo, String condicion) {
+    public ListaDobleCircular<Cliente> selectAllTo(String atributo, String condicion) {
         String sql = "select * from cliente where " + atributo + "='" + condicion + "'";
         return select(sql);
     }
     
-    public ArrayList<Cliente> selectId(int id) {
+    public ListaDobleCircular<Cliente> selectId(int id) {
         String sql = "select * from cliente where idCliente=" + id;
         return select(sql);
     } 
     
-    public ArrayList<Cliente> buscar(String dato) {
+    public ListaDobleCircular<Cliente> buscar(String dato) {
         String sql = "select * from cliente where codigoCliente like '" + dato + "%' or nombre like '" + dato + "%' or apellido like '" + dato + "%'  or telefonoCliente like '" + dato + "%'  or direccionCliente like '" + dato + "%'";
         return select(sql);
     }
@@ -54,8 +55,8 @@ public class ClienteDao {
     }
     
     
-    private ArrayList<Cliente> select(String sql){
-        ArrayList<Cliente> lista = new ArrayList();
+    private ListaDobleCircular<Cliente> select(String sql){
+        ListaDobleCircular<Cliente> lista = new ListaDobleCircular();
         Cliente obj = null;
         try {
             con = conectar.getConexion();
@@ -71,7 +72,7 @@ public class ClienteDao {
                 obj.setTelefono(rs.getString("telefonoCliente"));
                 obj.setDireccion(rs.getString("direccionCliente"));
                 //obj.getVentas(new Ventas(rs.getInt("idVenta")));
-                lista.add(obj);
+                 lista.insertar(obj);
                 
                
             }
@@ -142,7 +143,4 @@ public class ClienteDao {
         return false;
     }
 
-    public Object selectId(ArrayList<Venta> ventas) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }

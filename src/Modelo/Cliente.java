@@ -5,7 +5,7 @@ import Modelo.dao.VentaDao;
 import java.util.ArrayList;
 
 
-public class Cliente extends Persona{
+public class Cliente extends Persona implements Comparable<Cliente>{
     private int idCliente; 
     private String codigo;
     ArrayList<Venta> ventas;
@@ -73,6 +73,17 @@ public class Cliente extends Persona{
         VentaDao daoVenta = new VentaDao();
         this.ventas = daoVenta.selectAllTo("idCliente", String.valueOf(this.getIdCliente()));
         this.ventas = venta;
+    }
+
+    @Override
+    public int compareTo(Cliente t) {
+         Cliente actual = this;
+        return(actual.getNombre().compareToIgnoreCase(t.getNombre()));
+    }
+
+    @Override
+    public String toString() {
+        return  codigo ;
     }
     
    

@@ -15,7 +15,6 @@ public class ClienteMA extends javax.swing.JDialog {
     public ClienteMA(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        jpLogo1.setBorder(new Fondo(LogoE));
         btnModificar.setActionCommand("Modificar");
         btnGuardar.setActionCommand("Guardar");
          
@@ -52,7 +51,6 @@ public class ClienteMA extends javax.swing.JDialog {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         tfBuscar = new principal.MaterialTextField();
-        jpLogo1 = new javax.swing.JPanel();
         materialButtonCircle2 = new principal.MaterialButtonCircle();
         jScrollPane1 = new javax.swing.JScrollPane();
         btnModificar = new rojeru_san.complementos.RSButtonHover();
@@ -90,7 +88,7 @@ public class ClienteMA extends javax.swing.JDialog {
             }
         });
 
-        panelFondo.setBackground(new java.awt.Color(255, 255, 255));
+        panelFondo.setBackground(new java.awt.Color(219, 211, 247));
         panelFondo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -103,7 +101,7 @@ public class ClienteMA extends javax.swing.JDialog {
         jLabel7.setText("Apellido");
         panelFondo.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, -1, 30));
 
-        tfBuscar.setBackground(new java.awt.Color(213, 216, 221));
+        tfBuscar.setBackground(new java.awt.Color(255, 255, 255));
         tfBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 tfBuscarKeyTyped(evt);
@@ -111,21 +109,10 @@ public class ClienteMA extends javax.swing.JDialog {
         });
         panelFondo.add(tfBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 330, 160, 30));
 
-        javax.swing.GroupLayout jpLogo1Layout = new javax.swing.GroupLayout(jpLogo1);
-        jpLogo1.setLayout(jpLogo1Layout);
-        jpLogo1Layout.setHorizontalGroup(
-            jpLogo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jpLogo1Layout.setVerticalGroup(
-            jpLogo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        panelFondo.add(jpLogo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 60, 60));
-
-        materialButtonCircle2.setBackground(new java.awt.Color(255, 0, 0));
+        materialButtonCircle2.setBackground(new java.awt.Color(219, 211, 247));
+        materialButtonCircle2.setForeground(new java.awt.Color(0, 0, 0));
         materialButtonCircle2.setText("X");
+        materialButtonCircle2.setFont(new java.awt.Font("Aharoni", 2, 17)); // NOI18N
         materialButtonCircle2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 materialButtonCircle2MouseClicked(evt);
@@ -185,9 +172,9 @@ public class ClienteMA extends javax.swing.JDialog {
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(102, 102, 102));
         jLabel8.setText("Cliente / Mostrar / Modificar");
-        panelFondo.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 10, 340, 60));
+        panelFondo.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 0, 340, 60));
 
-        tfDireccion.setBackground(new java.awt.Color(213, 216, 221));
+        tfDireccion.setBackground(new java.awt.Color(255, 255, 255));
         tfDireccion.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 tfDireccionKeyTyped(evt);
@@ -200,7 +187,7 @@ public class ClienteMA extends javax.swing.JDialog {
         lbDirrecion.setText(".");
         panelFondo.add(lbDirrecion, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 250, 70, -1));
 
-        tfNombre.setBackground(new java.awt.Color(213, 216, 221));
+        tfNombre.setBackground(new java.awt.Color(255, 255, 255));
         tfNombre.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 tfNombreKeyTyped(evt);
@@ -208,7 +195,7 @@ public class ClienteMA extends javax.swing.JDialog {
         });
         panelFondo.add(tfNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 90, 400, 40));
 
-        tfApellido.setBackground(new java.awt.Color(213, 216, 221));
+        tfApellido.setBackground(new java.awt.Color(255, 255, 255));
         tfApellido.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 tfApellidoKeyTyped(evt);
@@ -216,7 +203,7 @@ public class ClienteMA extends javax.swing.JDialog {
         });
         panelFondo.add(tfApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 140, 400, 40));
 
-        tfTelefono.setBackground(new java.awt.Color(213, 216, 221));
+        tfTelefono.setBackground(new java.awt.Color(255, 255, 255));
         tfTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 tfTelefonoKeyTyped(evt);
@@ -394,7 +381,6 @@ public class ClienteMA extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JPanel jpLogo1;
     public static final javax.swing.JTable jtDatos = new javax.swing.JTable();
     public javax.swing.JLabel lbApellido;
     public javax.swing.JLabel lbDirrecion;

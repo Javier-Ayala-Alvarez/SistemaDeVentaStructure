@@ -183,6 +183,7 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
         this.productoSeleccionado = new Producto();
         this.reporteSeleccionado = new Reporte();
         this.productoSeleccionadoAun = new Producto();
+        this.clienteSeleccionado = new Cliente();
         llamarVistaConsulta("menuAdministrador");
 //usuario dao
     }
@@ -358,14 +359,9 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
             }
 
         } else if (padreActiva.equals("consultarCliente")) {
-            ArrayList<Cliente> lista = daoCliente.buscar(ClienteMA.tfBuscar.getText() + e.getKeyChar());
-
-            if (lista.isEmpty()) {
-                mostrarDatos();
-            } else {
-                mostrarBusqueda(lista);
-
-            }
+            TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(((DefaultTableModel) clienteMA.jtDatos.getModel()));
+            sorter.setRowFilter(RowFilter.regexFilter(clienteMA.tfBuscar.getText()));
+            clienteMA.jtDatos.setRowSorter(sorter);
 
         } else if (padreActiva.equals("registroVentas")) {
             ArrayList<Venta> lista = daoVenta.buscar(RegistrosDeVentas.tfBuscar.getText() + e.getKeyChar());
@@ -937,9 +933,10 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
         MenuAdministrador.lbEmpresa1.setText(nombre);
         ////////////******FIN DE NOMBRE DE LA TIENDA********/////////////////
         ////////////******TOTAL CLIENTE********/////////////////
-        ArrayList<Cliente> cliente = daoCliente.selectAll();
+        listita = daoCliente.selectAll();
         double total = 0;
-        for (Cliente x : cliente) {
+        for (Object j : listita.toArrayAsc()) {
+            Cliente x = (Cliente) j;
             total++;
         }
         this.menuAdministrador.lbClienteT.setText(String.format("%.2f", total));
@@ -1033,12 +1030,13 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
 
             String titulos[] = {"Codigo", "Nombre", "Apellido", "Telefono", "Direccion"};
             modelo.setColumnIdentifiers(titulos);
-            ArrayList<Cliente> cliente2 = daoCliente.selectAll();
-            for (Cliente x : cliente2) {
+            listita = daoCliente.selectAll();
+            for (Object j : listita.toArrayAsc()) {
+                Cliente x = (Cliente) j;
                 Object datos[] = {x.getCodigo(), x.getNombre(), x.getApellido(), x.getTelefono(), x.getDireccion()};
                 modelo.addRow(datos);
-
             }
+
             this.clienteMA.jtDatos.setModel(modelo);
 
         } ////////////******FINAL ClienteMA********/////////////////
@@ -1341,13 +1339,10 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
                     && !this.clienteMA.tfApellido.getText().isEmpty()
                     && !this.clienteMA.tfTelefono.getText().isEmpty()
                     && !this.clienteMA.tfDireccion.getText().isEmpty()) {
-                if (clienteSeleccionado == null) {
-                    Alerta aler = new Alerta(menuAdministrador, true, "Seleccione un Registro", "/img/error.png");
-                    aler.show();
-                } else {
+                
                     int opccion = JOptionPane.showConfirmDialog(null, "Deseas Modificar?", "Welcome", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
                     if (opccion == 0) {
-                        clienteSeleccionado.getCodigo();
+                        
                         clienteSeleccionado.setNombre(ClienteMA.tfNombre.getText());
                         clienteSeleccionado.setApellido(ClienteMA.tfApellido.getText());
                         clienteSeleccionado.setTelefono(ClienteMA.tfTelefono.getText());
@@ -1356,9 +1351,9 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
                         vaciarVista();
                         Alerta aler = new Alerta(menuAdministrador, true, "Modificado con exito", "/img/Succes.png");
                         aler.show();
-                        clienteSeleccionado = null;
+                        
                     }
-                }
+                
             } else {
                 Alerta aler = new Alerta(menuAdministrador, true, "Campos incompletos o vacios", "/img/Succes.png");
                 aler.show();
@@ -1882,22 +1877,6 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
         }
 
         ////////////******FINAL GASTOS EMPLEADO********/////////////////
-        ////////////******ClienteMA********/////////////////
-        if (padreActiva.equals("consultarCliente")) {
-            String titulos[] = {"Codigo", "Nombre", "Apellido", "Telefono", "Direccion"};
-            modelo.setColumnIdentifiers(titulos);
-            this.clienteMA.jtDatos.setModel(modelo);
-            ArrayList<Cliente> cliente = daoCliente.selectAll();
-            for (Object a : lista) {
-                Cliente x = (Cliente) a;
-                Object datos[] = {x.getCodigo(), x.getNombre(), x.getApellido(), x.getTelefono(), x.getDireccion()};
-                modelo.addRow(datos);
-            }
-
-            this.clienteMA.jtDatos.setModel(modelo);
-
-        }
-        ////////////******FINAL ClienteMA********/////////////////
         // ------------------------------------------------Inicio Empleado------------------------------------------------//
         if (padreActiva.equals("empleadoGM")) {
             String titulos[] = {"N", "codigo", "Nombre", "Apellido", "Telefono", "Direccion", "Salario", "afp", "isss", "Salario Total", "Cargo", "Fecha Contratacion"};
@@ -2064,17 +2043,20 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
         } else if (padreActiva.equals("consultarCliente")) {
             int fila = ClienteMA.jtDatos.getSelectedRow();
             String id = ClienteMA.jtDatos.getValueAt(fila, 0).toString();
-            ArrayList<Cliente> lista = daoCliente.selectAllTo("codigoCliente", id);
-            clienteSeleccionado = lista.get(0);
-            ArrayList<Cliente> cliente = daoCliente.selectAll();
-            for (Cliente x : cliente) {
+            listita.antesDe(id);
+
+            for (Object j : listita.toArrayAsc()) {
+                Cliente x = (Cliente) j;
                 if (x.getCodigo().equals(id)) {
+                    clienteSeleccionado.setCodigo(x.getCodigo());
+                    clienteSeleccionado.setIdCliente(x.getIdCliente());
                     ClienteMA.tfNombre.setText(x.getNombre());
                     ClienteMA.tfApellido.setText(x.getApellido());
                     ClienteMA.tfTelefono.setText(x.getTelefono());
                     ClienteMA.tfDireccion.setText(x.getDireccion());
                 }
             }
+
         } //para empleado
         else if (padreActiva.equals("empleadoGM")) {
             int fila = empleadoGM.tbEmpleados.getSelectedRow();
