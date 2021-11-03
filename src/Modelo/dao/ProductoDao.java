@@ -64,6 +64,7 @@ public class ProductoDao {
 
         return lista;
     }
+    
 
     public ListaDobleCircular<Producto> selectAllTo(String atributo, String condicion) {
         String sql = "select * from producto where " + atributo + "='" + condicion + "'";
@@ -193,6 +194,7 @@ public class ProductoDao {
         String sql = "insert into reporte( fechaCompra,cantidad, precioCompra, idProducto)VALUES(?,?,?,?)";
         return alterarRegistroRe(sql, obj);
     }
+    
 
     public void update(Producto obj) {
         String sql = "update producto set idProducto =?, codigoProducto =?, nombreProducto =?, precioCompra =?, cantida =?, fechaVencimiento =?, max =?, min =?, estado =?, gananciaUni =?, iva =?, precioVenta =?, idEmpresa =? where idProducto=" + obj.getIdProducto();

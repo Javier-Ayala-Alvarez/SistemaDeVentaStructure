@@ -57,6 +57,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -159,7 +160,7 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
     private InicioCajaDao daoCaja = new InicioCajaDao();
 
     public String padreActiva = "", hijaActiva = "";
-    private ListaDobleCircular listita;
+    private ListaDobleCircular listita, listita1;
 
     ///******Consulta Factura******////
     private ConsultarVentas consultarVentas;
@@ -178,8 +179,10 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
         this.registrosDeVenta = registrosDeVentas;
         this.consultarVentas = consultarVentas;
         this.listita = new ListaDobleCircular();
+        this.listita1 = new ListaDobleCircular();
         this.productoSeleccionado = new Producto();
         this.reporteSeleccionado = new Reporte();
+        this.productoSeleccionadoAun = new Producto();
         llamarVistaConsulta("menuAdministrador");
 //usuario dao
     }
@@ -382,15 +385,10 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
 
         } else if (padreActiva.equals(
                 "registrosDeProductos")) {
-            Producto datos = new Producto(productoModi.tfBuscar.getText() + e.getKeyChar());
-            listita.buscar(datos);
-
-            if (listita.buscar(datos) == null) {
-                mostrarDatos();
-            } else {
-                Object dat = this.listita.buscar(datos).getDato();//Proceso
-
-            }
+            TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(((DefaultTableModel) registrosDeProductos.jtDatos.getModel()));
+            sorter.setRowFilter(RowFilter.regexFilter(registrosDeProductos.tfBuscar.getText()));
+            registrosDeProductos.jtDatos.setRowSorter(sorter);
+            //************Fin productoModi*************//
 
         }
 
@@ -1060,24 +1058,37 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
         } //************Fin productoModi*************//
         //**************Registro Producto****************//
         else if (padreActiva.equals("registrosDeProductos")) {
-            String titulos[] = {"Codigo", "Nombre", "Cantidad", "Iva", "Ganacia", "Precio Compra Unitario", "Precio Compra Total", "Precio Venta", "fecha de Vencimiento", "Max", "Min", "Empresa", "Total"};
+            String titulos[] = {"Codigó", "Nombre", "Cantidad", "Ganancia", "Precio Compra Unitario", "Precio Compra Total", "Precio Venta", "Empresa", "Total Venta"};
             modelo.setColumnIdentifiers(titulos);
-            listita = daoReporte.selectRe();
-            float precioTotalCon = 0;
-            float totalUni = 0;
-            float total0 = 0;
-            int i = 0;
-            for (Object j : listita.toArrayAsc()) {
-                Reporte x = (Reporte) j;
 
-                precioTotalCon = (float) (x.getPrecioCompra() * x.getCantidad());
-                totalUni = (float) (x.getProducto().getPrecioVenta() * x.getCantidad());
-                Object datos[] = {x.getProducto().getCodigoProducto(), x.getProducto().getNombreProducto(), x.getCantidad(),
-                    x.getProducto().getGananciaUni(), x.getPrecioCompra(), precioTotalCon, x.getProducto().getPrecioVenta(), x.getFechaCompra(),
-                    x.getProducto().getEmpresa().getNombre(), totalUni};///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                total0 = total0 + totalUni;
+            listita1 = daoProducto.selectAll();
+            double precioCompraTotal = 0;
+            double precioVenta = 0;
+            double totalPro = 0;
+            double total0 = 0;
+            int cantidad = 0;
+
+            for (Object j : listita1.toArrayAsc()) {
+                Producto x = (Producto) j;
+                listita = daoReporte.selectReporteTo(x.getIdProducto());
+                int i = 0;
+                for (Object a : listita.toArrayAsc()) {
+                    Reporte b = (Reporte) a;
+                    if (x.getCantidad() > cantidad) {
+                        cantidad = cantidad + b.getCantidad();
+                        precioCompraTotal = precioCompraTotal + b.getPrecioCompra();
+                        totalPro = x.getPrecioVenta() * x.getCantidad();
+                        i++;
+                    }
+                }
+                total0 = total0 + totalPro;
+                precioCompraTotal = (precioCompraTotal / cantidad) * x.getCantidad();
+                Object datos[] = {x.getCodigoProducto(), x.getNombreProducto(), x.getCantidad(), x.getGananciaUni(), precioCompraTotal / x.getCantidad(), precioCompraTotal, x.getPrecioVenta(), x.getEmpresa().getNombre(), totalPro};
                 modelo.addRow(datos);
-                i++;
+                precioCompraTotal = 0;
+                totalPro = 0;
+                cantidad = 0;
+                i = 0;
 
             }
 
@@ -1412,67 +1423,74 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
             this.productoModi.tfCodigo.setText(crearCodigo(iniciales, id));////////////////////
         } else if (e.getActionCommand().equals("Modificar")
                 && padreActiva.equals("productoModi")) {
-
-            int opccion = JOptionPane.showConfirmDialog(null, "Deseas Modificar?", "Welcome", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
-            if (opccion == 0) {
-                double ganancia = 0, precioUnitario = 0;
-                reporteSeleccionado.setFechaCompra(productoModi.dFecha.getDatoFecha());
-                reporteSeleccionado.setPrecioCompra(Double.parseDouble(productoModi.tfPrecioCompra.getText()));
-                reporteSeleccionado.setProducto(productoSeleccionado);
-                precioUnitario = (reporteSeleccionado.getPrecioCompra() / reporteSeleccionado.getCantidad());
-                ganancia = (Double.parseDouble(productoModi.tfPrecioVenta.getText())) - (precioUnitario);
-                productoSeleccionado.setCodigoProducto(productoModi.tfCodigo.getText());
-                productoSeleccionado.setNombreProducto(productoModi.tfNombre.getText());
-                productoSeleccionado.setCantidad(productoSeleccionado.getCantidad() + (Integer.parseInt(productoModi.tfCantidad.getText()) - reporteSeleccionado.getCantidad()));
-                reporteSeleccionado.setCantidad(Integer.parseInt(productoModi.tfCantidad.getText()));
-                productoSeleccionado.setGananciaUni(ganancia);
-                productoSeleccionado.setPrecioVenta(Double.parseDouble(productoModi.tfPrecioVenta.getText()));
-                if (daoProducto.updateProducto(productoSeleccionado) && daoReporte.update(reporteSeleccionado)) {
-                    vaciarVista();
-                    mostrarDatos();
-                    Alerta aler = new Alerta(menuAdministrador, true, "Modificado con exito", "/img/Succes.png");
-                    aler.show();
+            int c = 0;
+            listita = daoReporte.selectReporteTo(productoSeleccionado.getIdProducto());
+            for (Object a : listita.toArrayAsc()) {
+                Reporte b = (Reporte) a;
+                c++;
+            }
+            if (c == 1) {
+                int opccion = JOptionPane.showConfirmDialog(null, "Deseas Modificar?", "Welcome", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+                if (opccion == 0) {
+                    double ganancia = 0, precioUnitario = 0;
+                    reporteSeleccionado.setFechaCompra(productoModi.dFecha.getDatoFecha());
+                    reporteSeleccionado.setPrecioCompra(Double.parseDouble(productoModi.tfPrecioCompra.getText()));
+                    reporteSeleccionado.setProducto(productoSeleccionado);
+                    precioUnitario = (Double.parseDouble(productoModi.tfPrecioCompra.getText()) / Integer.parseInt(productoModi.tfCantidad.getText()));
+                    ganancia = Double.parseDouble(productoModi.tfPrecioVenta.getText()) - precioUnitario;
+                    productoSeleccionado.setCodigoProducto(productoModi.tfCodigo.getText());
+                    productoSeleccionado.setNombreProducto(productoModi.tfNombre.getText());
+                    productoSeleccionado.setCantidad(productoSeleccionado.getCantidad() + (Integer.parseInt(productoModi.tfCantidad.getText()) - reporteSeleccionado.getCantidad()));
+                    reporteSeleccionado.setCantidad(Integer.parseInt(productoModi.tfCantidad.getText()));
+                    productoSeleccionado.setGananciaUni(ganancia);
+                    productoSeleccionado.setPrecioVenta(Double.parseDouble(productoModi.tfPrecioVenta.getText()));
+                    if (daoProducto.updateProducto(productoSeleccionado) && daoReporte.update(reporteSeleccionado)) {
+                        vaciarVista();
+                        mostrarDatos();
+                        Alerta aler = new Alerta(menuAdministrador, true, "Modificado con exito", "/img/Succes.png");
+                        aler.show();
+                    }
                 }
+            } else {
+                Alerta aler = new Alerta(menuAdministrador, true, "Este registro no se puede modificar tiene mas de una compra", "/img/error.png");
+                aler.show();
             }
 
         } else if (e.getActionCommand().equals("IncrePro")) {
             ////////////////////////////////////////////Producto////////////////////////////////////////////////////////////////////////////////////
-            if (productoSeleccionadoAun == null) {
-                Alerta aler = new Alerta(menuAdministrador, true, "Seleccione un Producto", "/img/Succes.png");
-                aler.show();
-            } else {
-                String incremento = JOptionPane.showInputDialog("Cantidad Entrante");
-                if (validadEntero(incremento)) {
-                    int opccion = JOptionPane.showConfirmDialog(null, "Deseas Agregar?", "", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
-                    if (opccion == 0) {
-                        String NuevoPrecioCompra = JOptionPane.showInputDialog("Nuevo Precio");
-                        if (validarDouble(NuevoPrecioCompra)) {
-                            int can = productoSeleccionadoAun.getCantidad();
-                            productoSeleccionadoAun.getCodigoProducto();
-                            productoSeleccionadoAun.getNombreProducto();
-                            double precio = Double.parseDouble(NuevoPrecioCompra) / Double.parseDouble(incremento);
-                            // double precioFinal = (productoSeleccionadoAun.getPrecioCompra() + precio) / 2;
-                            // productoSeleccionadoAun.setPrecioCompra(precioFinal);
 
-                            productoSeleccionadoAun.setCantidad(Integer.parseInt(incremento) + can);
-//                            productoSeleccionadoAun.setPrecioVenta(precioFinal + productoSeleccionadoAun.getGananciaUni());
-//                            productoSeleccionadoAun.getFecha();
-//                            productoSeleccionadoAun.getEstado();
-                            productoSeleccionadoAun.getGananciaUni();
+            String incremento = JOptionPane.showInputDialog("Cantidad Entrante");
+            if (validadEntero(incremento)) {
+                int opccion = JOptionPane.showConfirmDialog(null, "Deseas Agregar?", "", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+                if (opccion == 0) {
+                    String NuevoPrecioCompra = JOptionPane.showInputDialog("Nuevo Precio");
+                    if (validarDouble(NuevoPrecioCompra)) {
+                        int can = Integer.parseInt(incremento);
+                        double precio = Double.parseDouble(NuevoPrecioCompra);
+                        double ganancia = 0;
+                        Date fecha = new Date();
+                        SimpleDateFormat formatoFecha = new SimpleDateFormat("YYYY-MM-dd");
+                        formatoFecha.format(fecha);
 
-                            if (daoProducto.updateCantidad(productoSeleccionadoAun)) {
-                                Alerta aler = new Alerta(menuAdministrador, true, "Aunmento con exito", "/img/Succes.png");
-                                aler.show();
-                                productoSeleccionadoAun = null;
-                                mostrarDatos();
-                            }
+                        Reporte reporte1 = new Reporte(fecha, can, precio, productoSeleccionadoAun);
+                        ganancia = productoSeleccionadoAun.getPrecioVenta() - (precio);
+                        productoSeleccionadoAun.setCantidad((productoSeleccionadoAun.getCantidad() + can));
+                        productoSeleccionadoAun.setGananciaUni(productoSeleccionadoAun.getGananciaUni());
+                        productoSeleccionadoAun.setPrecioVenta(((precio + ganancia) + productoSeleccionadoAun.getPrecioVenta()) / 2);
+                        productoSeleccionadoAun.setEmpresa(productoSeleccionadoAun.getEmpresa());
+                        if (daoProducto.updateProducto(productoSeleccionadoAun) && daoReporte.insert(reporte1)) {
+                            Alerta aler = new Alerta(menuAdministrador, true, "Aunmento con exito", "/img/Succes.png");
+                            aler.show();
+
+                            mostrarDatos();
                         }
                     }
-                } else {
-                    Alerta aler = new Alerta(menuAdministrador, true, "Digite solo numeros", "/img/Succes.png");
-                    aler.show();
                 }
+            } else {
+                Alerta aler = new Alerta(menuAdministrador, true, "Digite solo numeros", "/img/Succes.png");
+                aler.show();
             }
+
         }
         //*****************Fin produtoModi****************//       
 
@@ -2114,6 +2132,8 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
                     productoSeleccionado.setCantidad(x.getProducto().getCantidad());
                     reporteSeleccionado.setCantidad(x.getCantidad());
                     productoSeleccionado.setEmpresa(x.getProducto().getEmpresa());
+                    productoSeleccionado.setGananciaUni(x.getProducto().getGananciaUni());
+                    productoSeleccionado.setPrecioVenta(x.getProducto().getPrecioVenta());
 
                 }
             }
@@ -2127,8 +2147,21 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
         } else if (padreActiva.equals("registrosDeProductos")) {
             int fila = this.registrosDeProductos.jtDatos.getSelectedRow();
             String id = registrosDeProductos.jtDatos.getValueAt(fila, 0).toString();
-            ListaDobleCircular<Producto> lista = daoProducto.selectAllTo("codigoProducto", id);
-            productoSeleccionadoAun = lista.toArrayAsc().get(0);
+            listita1 = daoProducto.selectAll();
+            listita1.antesDe(id);
+
+            for (Object j : listita1.toArrayAsc()) {
+                Producto x = (Producto) j;
+                if (x.getCodigoProducto().equals(id)) {
+                    productoSeleccionadoAun.setIdProducto(x.getIdProducto());/// trabajando
+                    productoSeleccionadoAun.setCodigoProducto(x.getCodigoProducto());
+                    productoSeleccionadoAun.setNombreProducto(x.getNombreProducto());
+                    productoSeleccionadoAun.setCantidad(x.getCantidad());
+                    productoSeleccionadoAun.setGananciaUni(x.getGananciaUni());
+                    productoSeleccionadoAun.setPrecioVenta(x.getPrecioVenta());
+                    productoSeleccionadoAun.setEmpresa(x.getEmpresa());
+                }
+            }
 
         }
 

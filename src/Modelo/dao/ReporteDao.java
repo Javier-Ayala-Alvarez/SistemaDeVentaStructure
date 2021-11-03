@@ -61,7 +61,82 @@ public class ReporteDao {
 
         return lista;
     }
+     public ListaDobleCircular<Reporte> selectReporteTo(int codigo) {
+        ListaDobleCircular<Reporte> lista = new ListaDobleCircular();
 
+         String sql = "select * from reporte where idProducto=" + codigo;
+
+        Reporte obj = null;
+
+        try {
+            con = conectar.getConexion();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                obj = new Reporte();
+                obj.setIdReporte(rs.getInt("idReporte"));
+                obj.setFechaCompra(rs.getDate("fechaCompra"));
+                obj.setCantidad(rs.getInt("cantidad"));
+                obj.setPrecioCompra(rs.getDouble("precioCompra"));
+                obj.setProducto(new Producto(rs.getInt("idProducto")));
+
+                lista.insertar(obj);
+            }
+
+        } catch (Exception e) {
+            Alerta alert = new Alerta(null, true, "Error en sql", "/img/error.png");
+            alert.show();
+            e.printStackTrace();
+        } finally {
+            try {
+                ps.close();
+            } catch (Exception ex) {
+
+            }
+            conectar.closeConexion(con);
+        }
+
+        return lista;
+    }
+   public ListaDobleCircular<Reporte> selectReporte() {
+        ListaDobleCircular<Reporte> lista = new ListaDobleCircular();
+
+        String sql = "SELECT * FROM reporte";
+
+        Reporte obj = null;
+
+        try {
+            con = conectar.getConexion();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                obj = new Reporte();
+                obj.setIdReporte(rs.getInt("idReporte"));
+                obj.setFechaCompra(rs.getDate("fechaCompra"));
+                obj.setCantidad(rs.getInt("cantidad"));
+                obj.setPrecioCompra(rs.getDouble("precioCompra"));
+                obj.setProducto(new Producto(rs.getInt("idProducto")));
+
+                lista.insertar(obj);
+            }
+
+        } catch (Exception e) {
+            Alerta alert = new Alerta(null, true, "Error en sql", "/img/error.png");
+            alert.show();
+            e.printStackTrace();
+        } finally {
+            try {
+                ps.close();
+            } catch (Exception ex) {
+
+            }
+            conectar.closeConexion(con);
+        }
+
+        return lista;
+    }
 
  
     public boolean insert(Reporte obj) {

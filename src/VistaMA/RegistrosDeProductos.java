@@ -11,9 +11,9 @@ public class RegistrosDeProductos extends javax.swing.JDialog {
     public RegistrosDeProductos(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        this.setLocation(40, 80);
+        this.setLocation(200, 80);
         x = "x";
-        jpLogo1.setBorder(new Fondo(LogoE));
+       
         btnIncrePro.setActionCommand("IncrePro");
         
     }
@@ -33,7 +33,6 @@ public class RegistrosDeProductos extends javax.swing.JDialog {
         panelFondo = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel5 = new javax.swing.JLabel();
-        jpLogo1 = new javax.swing.JPanel();
         lbTotal = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtDatos = new javax.swing.JTable();
@@ -56,63 +55,50 @@ public class RegistrosDeProductos extends javax.swing.JDialog {
             }
         });
 
-        panelFondo.setBackground(new java.awt.Color(255, 255, 255));
+        panelFondo.setBackground(new java.awt.Color(219, 211, 247));
         panelFondo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         panelFondo.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 1080, 20));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(102, 102, 102));
         jLabel5.setText("Reporte de producto/ Aumentar producto");
-        panelFondo.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 0, 460, 60));
-
-        javax.swing.GroupLayout jpLogo1Layout = new javax.swing.GroupLayout(jpLogo1);
-        jpLogo1.setLayout(jpLogo1Layout);
-        jpLogo1Layout.setHorizontalGroup(
-            jpLogo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 60, Short.MAX_VALUE)
-        );
-        jpLogo1Layout.setVerticalGroup(
-            jpLogo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 60, Short.MAX_VALUE)
-        );
-
-        panelFondo.add(jpLogo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 60, 60));
+        panelFondo.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 460, 60));
 
         lbTotal.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         lbTotal.setForeground(new java.awt.Color(204, 0, 0));
         lbTotal.setText(".");
         panelFondo.add(lbTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 520, 140, -1));
 
-        jtDatos.setBackground(new java.awt.Color(218, 220, 222));
+        jtDatos.setBackground(new java.awt.Color(255, 255, 255));
         jtDatos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Codigo", "Nombre", "Cantidad", "Precio Compra", "Precio Unitario", "Iva", "Ganancia", "Precio Venta", "fechaVencimiento", "Maximo", "Minimo", "Empresa", "Aumentar Cantidad"
+                "Codigo", "Nombre", "Cantidad", "Precio Compra", "Precio Unitario", "Ganancia", "Precio Venta", "Empresa"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, false, true
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -123,7 +109,7 @@ public class RegistrosDeProductos extends javax.swing.JDialog {
 
         panelFondo.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 1060, 340));
 
-        tfBuscar.setBackground(new java.awt.Color(213, 216, 221));
+        tfBuscar.setBackground(new java.awt.Color(255, 255, 255));
         tfBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 tfBuscarKeyTyped(evt);
@@ -136,8 +122,10 @@ public class RegistrosDeProductos extends javax.swing.JDialog {
         jLabel6.setText("Incrementar Cantidad");
         panelFondo.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 100, 220, 50));
 
-        materialButtonCircle2.setBackground(new java.awt.Color(255, 0, 0));
+        materialButtonCircle2.setBackground(new java.awt.Color(219, 211, 247));
+        materialButtonCircle2.setForeground(new java.awt.Color(0, 0, 0));
         materialButtonCircle2.setText("X");
+        materialButtonCircle2.setFont(new java.awt.Font("Aharoni", 3, 17)); // NOI18N
         materialButtonCircle2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 materialButtonCircle2MouseClicked(evt);
@@ -252,7 +240,6 @@ public class RegistrosDeProductos extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JPanel jpLogo1;
     public static javax.swing.JTable jtDatos;
     public static javax.swing.JLabel lbTotal;
     private principal.MaterialButtonCircle materialButtonCircle2;
