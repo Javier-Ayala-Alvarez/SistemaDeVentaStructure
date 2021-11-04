@@ -40,7 +40,7 @@ public static String LogoE= "/img/Logo.jpg";
         VistaMA.RegistrosDeProductos.x = null;
         VistaMA.RegistrosDeVentas.x = null;
         VistaMV.Factura.res = null;/////////////////////
-        VistaMV.Producto.prod = null;
+        
 
     }
 
