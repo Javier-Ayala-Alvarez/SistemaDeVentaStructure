@@ -5,7 +5,6 @@ import Modelo.Cliente;
 import Modelo.Conexion;
 import Modelo.Empleados;
 import Modelo.Empresa;
-import Modelo.InicioCaja;
 import Modelo.Producto;
 import Modelo.Venta;
 import VistaLogin.Alerta;
@@ -50,7 +49,7 @@ public class VentaDao {
                 obj.setSaldoTotal(rs.getDouble("precioTotal"));
                 obj.setEstado(rs.getInt("estado"));
                 obj.setCliente(new Cliente(rs.getInt("idCliente")));
-                obj.setInicioCaja(new InicioCaja(rs.getInt("idCaja")));
+            
                 obj.setEmpleado(new Empleados(rs.getInt("idEmpleado")));
                 obj.setEmpresa(new Empresa(rs.getInt("idEmpresa")));
                 lista.add(obj);
@@ -87,7 +86,7 @@ public class VentaDao {
     }
 
     public boolean insertarVenta(Venta obj) {
-        String sql = "insert into venta(nFactura, fechaVenta, precioTotal, estado,idCliente, idCaja,  idEmpleado, idEmpresa)VALUES(?,?,?,?,?,?,?,?)";
+        String sql = "insert into venta(nFactura, fechaVenta, precioTotal, estado,idCliente,  idEmpleado, idEmpresa)VALUES(?,?,?,?,?,?,?)";
         return insertarVenta(sql, obj);
     }
 
@@ -108,7 +107,7 @@ public class VentaDao {
                 obj.setSaldoTotal(rs.getDouble("precioTotal"));
                 obj.setEstado(rs.getInt("estado"));
                 obj.setCliente(new Cliente(rs.getInt("idCliente")));
-                obj.setInicioCaja(new InicioCaja(rs.getInt("idCaja")));
+               
                 obj.setEmpleado(new Empleados(rs.getInt("idEmpleado")));
                 obj.setEmpresa(new Empresa(rs.getInt("idEmpresa")));
                 lista.insertar(obj);
@@ -140,9 +139,8 @@ public class VentaDao {
             ps.setDouble(3, obj.getSaldoTotal());//aqui
             ps.setInt(4, obj.getEstado());
             ps.setInt(5, obj.getCliente().getIdCliente());
-            ps.setInt(6, obj.getInicioCaja().getIdAdminCaja());
-            ps.setInt(7, obj.getEmpleado().getIdEmpleado());
-            ps.setInt(8, obj.getEmpresa().getIdEmpresa());
+            ps.setInt(6, obj.getEmpleado().getIdEmpleado());
+            ps.setInt(7, obj.getEmpresa().getIdEmpresa());
             ps.execute();
             Alerta alerta = new Alerta(null, true, "Venta exitosa", "/img/exito.png");
             alerta.show();
@@ -220,9 +218,8 @@ public class VentaDao {
             ps.setDouble(3, obj.getSaldoTotal());//aqui
             ps.setInt(4, obj.getEstado());
             ps.setInt(5, obj.getCliente().getIdCliente());
-            ps.setInt(6, obj.getInicioCaja().getIdAdminCaja());
-            ps.setInt(7, obj.getEmpleado().getIdEmpleado());
-            ps.setInt(8, obj.getEmpresa().getIdEmpresa());
+            ps.setInt(6, obj.getEmpleado().getIdEmpleado());
+            ps.setInt(7, obj.getEmpresa().getIdEmpresa());
             ps.execute();
 
             return true;

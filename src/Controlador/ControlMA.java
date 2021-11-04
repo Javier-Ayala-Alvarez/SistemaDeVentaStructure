@@ -8,7 +8,7 @@ import Modelo.Empleados;
 import Modelo.Empresa;
 import Modelo.Encriptacion;
 import Modelo.GastoEmpresa;
-import Modelo.InicioCaja;
+
 import Modelo.Producto;
 import Modelo.Usuario;
 import Modelo.Registros;
@@ -19,7 +19,7 @@ import Modelo.dao.ClienteDao;
 import Modelo.dao.EmpleadoDao;
 import Modelo.dao.EmpresaDao;
 import Modelo.dao.Gastosdao;
-import Modelo.dao.InicioCajaDao;
+
 import Modelo.dao.ProductoDao;
 import Modelo.dao.RegistrosDao;
 import Modelo.dao.ReporteDao;
@@ -157,7 +157,6 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
 
     private RegistrosDeProductos registrosDeProductos;
     private Producto productoSeleccionadoAun = null;
-    private InicioCajaDao daoCaja = new InicioCajaDao();
 
     public String padreActiva = "", hijaActiva = "";
     private ListaDobleCircular listita, listita1;
@@ -649,7 +648,7 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
         } else if (vista.equals("ventas")) {
             padreActiva = "vistaGraficas";
             this.vistaGrafica = new vistaGrafica(menuAdministrador, true);
-            llenarGrafica();
+//            llenarGrafica();
             vistaGrafica.iniciar();
         } else if (vista.equals("cerrarMenu")) {
             menuAdministrador.dispose();
@@ -909,14 +908,7 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
         DefaultTableModel modelo1 = new DefaultTableModel();
         modelo1 = new DefaultTableModel();
 
-        ////////////******TOTAL InicioCaja********/////////////////          
-        ArrayList<InicioCaja> caja1 = daoCaja.selectAll();
-        double inicio = 0;
-        for (InicioCaja x : caja1) {
-            inicio = x.getDineroInicio();
-        }
-        this.menuAdministrador.lbCaja.setText("$" + String.format("%.2f", inicio));
-        ////////////******FIN DE TOTAL InicioCaja********/////////////////
+     
         ////////////******NOMBRE DE LA TIENDA********/////////////////
         String nombre = "";
         ArrayList<Empresa> empresa = daoEmpresa.selectAll();
@@ -2201,90 +2193,90 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    private void llenarGrafica() {
-        this.vistaGrafica.lbtitulo.setText("Gafico de ventas");
-        JFreeChart barChart = ChartFactory.createBarChart("ventas durante el año ",
-                "meses",
-                "total $",
-                createDataset(),
-                PlotOrientation.VERTICAL, true, true, false);
+//    private void llenarGrafica() {
+//        this.vistaGrafica.lbtitulo.setText("Gafico de ventas");
+//        JFreeChart barChart = ChartFactory.createBarChart("ventas durante el año ",
+//                "meses",
+//                "total $",
+//                createDataset(),
+//                PlotOrientation.VERTICAL, true, true, false);
+//
+//        ChartPanel chartPanel = new ChartPanel(barChart);
+//        this.vistaGrafica.contenedor.add(chartPanel);
+//
+//        // this.vistaGrafica.setContentPane(chartPanel ); 
+//    }
 
-        ChartPanel chartPanel = new ChartPanel(barChart);
-        this.vistaGrafica.contenedor.add(chartPanel);
-
-        // this.vistaGrafica.setContentPane(chartPanel ); 
-    }
-
-    private CategoryDataset createDataset() {
-        //variables a usar
-        int mes = 0, auxMes = 0, contadorMes = 0;
-        int bandera = 0, i = 0;
-        double auxiliar = 0;
-        ArrayList<Double> ventasTotales = new ArrayList();
-        ArrayList<InicioCaja> inicioCajasAnnio = new ArrayList();
-        Date date = new Date();
-        Calendar calendar = Calendar.getInstance();
-
-        //para seleccionar el año actual
-        calendar.setTime(date);
-        String dateYear = String.valueOf(calendar.get(Calendar.YEAR));
-        System.out.println(dateYear);
-        inicioCajasAnnio = daoCaja.selectAllWithCondition("fechaCierre LIKE '" + dateYear + "%'  ORDER BY fechaCierre ASC");
-
-        //ciclo que sirve para generar los datos a graficar, seleccionando y sumando las ventas por mes
-        for (InicioCaja x : inicioCajasAnnio) {
-
-            //para seleccionar el mes de cada objeto inicioCaja
-            calendar.setTime(x.getFechaCierre());
-            mes = calendar.get(calendar.MONTH);
-
-            if (auxMes == mes) { //proceso de suma en el mes
-
-                auxiliar += (x.getDineroCierre() - x.getDineroInicio());
-                bandera++;
-
-            } else if (bandera > 1) { //proceso para iniciar el nuevo mes 
-                bandera = 1;
-                ventasTotales.add(auxiliar);
-                auxMes = mes;
-                auxiliar = x.getDineroCierre() - x.getDineroInicio();
-
-            } else if (bandera == 1) {//proseso si en el mes existe unicamente una venta
-
-                ventasTotales.add(auxiliar);
-                System.out.println(ventasTotales);
-
-                auxMes = mes;
-                auxiliar = x.getDineroCierre() - x.getDineroInicio();
-            }
-            if (bandera == 0) {//proceso para iniciar el 1er mes que se encuentra en el arraylist
-
-                contadorMes = mes;
-                auxMes = mes;
-                bandera = 1;
-                auxiliar = x.getDineroCierre() - x.getDineroInicio();
-
-            }
-
-        }
-        ventasTotales.add(auxiliar);
-        i = contadorMes;
-
-        Locale locale = new Locale("es", "ES");
-        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-
-        for (Double x : ventasTotales) {
-            System.out.println(x + "'");
-            //contadorMes+= ventasTotales.size();
-            calendar.set(Calendar.MONTH, i);
-            i++;
-            String monthName = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, locale);
-            System.out.println(monthName);
-            dataset.addValue(x, "$ " + x.toString(), monthName);
-
-        }
-
-        return dataset;
-    }
+//    private CategoryDataset createDataset() {
+//        //variables a usar
+//        int mes = 0, auxMes = 0, contadorMes = 0;
+//        int bandera = 0, i = 0;
+//        double auxiliar = 0;
+//        ArrayList<Double> ventasTotales = new ArrayList();
+//        ArrayList<InicioCaja> inicioCajasAnnio = new ArrayList();
+//        Date date = new Date();
+//        Calendar calendar = Calendar.getInstance();
+//
+//        //para seleccionar el año actual
+//        calendar.setTime(date);
+//        String dateYear = String.valueOf(calendar.get(Calendar.YEAR));
+//        System.out.println(dateYear);
+//        inicioCajasAnnio = daoCaja.selectAllWithCondition("fechaCierre LIKE '" + dateYear + "%'  ORDER BY fechaCierre ASC");
+//
+//        //ciclo que sirve para generar los datos a graficar, seleccionando y sumando las ventas por mes
+//        for (InicioCaja x : inicioCajasAnnio) {
+//
+//            //para seleccionar el mes de cada objeto inicioCaja
+//            calendar.setTime(x.getFechaCierre());
+//            mes = calendar.get(calendar.MONTH);
+//
+//            if (auxMes == mes) { //proceso de suma en el mes
+//
+//                auxiliar += (x.getDineroCierre() - x.getDineroInicio());
+//                bandera++;
+//
+//            } else if (bandera > 1) { //proceso para iniciar el nuevo mes 
+//                bandera = 1;
+//                ventasTotales.add(auxiliar);
+//                auxMes = mes;
+//                auxiliar = x.getDineroCierre() - x.getDineroInicio();
+//
+//            } else if (bandera == 1) {//proseso si en el mes existe unicamente una venta
+//
+//                ventasTotales.add(auxiliar);
+//                System.out.println(ventasTotales);
+//
+//                auxMes = mes;
+//                auxiliar = x.getDineroCierre() - x.getDineroInicio();
+//            }
+//            if (bandera == 0) {//proceso para iniciar el 1er mes que se encuentra en el arraylist
+//
+//                contadorMes = mes;
+//                auxMes = mes;
+//                bandera = 1;
+//                auxiliar = x.getDineroCierre() - x.getDineroInicio();
+//
+//            }
+//
+//        }
+//        ventasTotales.add(auxiliar);
+//        i = contadorMes;
+//
+//        Locale locale = new Locale("es", "ES");
+//        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+//
+//        for (Double x : ventasTotales) {
+//            System.out.println(x + "'");
+//            //contadorMes+= ventasTotales.size();
+//            calendar.set(Calendar.MONTH, i);
+//            i++;
+//            String monthName = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, locale);
+//            System.out.println(monthName);
+//            dataset.addValue(x, "$ " + x.toString(), monthName);
+//
+//        }
+//
+//        return dataset;
+//    }
 
 }

@@ -10,7 +10,6 @@ public class Usuario{
     private int idUsuario;
     private String usuario;
     private String contraseña;
-    private ArrayList<InicioCaja>administrarCajas;
     Empleados empleados;
 
     public Usuario() {
@@ -54,14 +53,7 @@ public class Usuario{
         this.contraseña = contraseña;
       
     }
-    public void addAdministarCajas(int idAdminCaja, Date fechaInicio, Date fechaCierre, double dineroInicio, double dineroCierre)
-    {
-        this.administrarCajas.add(new InicioCaja(idAdminCaja, fechaInicio, fechaCierre, dineroInicio, dineroCierre));
-    }
-
-    public ArrayList<InicioCaja> getAdministrarCajas() {
-        return administrarCajas;
-    }
+ 
 
     public int getIdUsuario() {
         return idUsuario;

@@ -13,7 +13,6 @@ public class Venta  implements Comparable<Venta>{
    private double saldoTotal;
    private int estado;
    private ArrayList<Registros> registros;
-   private  InicioCaja inicioCaja;
    private Cliente cliente;
    private Empleados empleado;
    private Empresa empresa;
@@ -48,22 +47,20 @@ public class Venta  implements Comparable<Venta>{
         this.empleado = empleado;
     }
 
-    public Venta(int idFactura, String nFactura, Date fechaVenta, double saldoTotal, ArrayList<Registros> registros, InicioCaja inicioCaja, Cliente cliente, Empleados empleado) {
+    public Venta(int idFactura, String nFactura, Date fechaVenta, double saldoTotal, ArrayList<Registros> registros,  Cliente cliente, Empleados empleado) {
         this.idFactura = idFactura;
         this.nFactura = nFactura;
         this.fechaVenta = fechaVenta;
         this.saldoTotal = saldoTotal;
         this.registros = registros;
-        this.inicioCaja = inicioCaja;
         this.cliente = cliente;
         this.empleado = empleado;
     }
 
-    public Venta(String nFactura, Date fechaVenta, double saldoTotal, InicioCaja inicioCaja, Cliente cliente, Empleados empleado) {
+    public Venta(String nFactura, Date fechaVenta, double saldoTotal, Cliente cliente, Empleados empleado) {
         this.nFactura = nFactura;
         this.fechaVenta = fechaVenta;
         this.saldoTotal = saldoTotal;
-        this.inicioCaja = inicioCaja;
         this.cliente = cliente;
         this.empleado = empleado;
     }
@@ -140,15 +137,7 @@ public class Venta  implements Comparable<Venta>{
        registros.add(x);   
     }
     
-    public void addInicioCaja(InicioCaja x)
-    {
-        this.inicioCaja = x;
-    }
-
-    public InicioCaja getInicioCaja() {
-
-        return inicioCaja;
-    }
+   
     
     public void addCliente(String nombre, String apellido, String telefono, String direccion){
         cliente = new Cliente(nombre, apellido, telefono, direccion);
@@ -178,9 +167,7 @@ public class Venta  implements Comparable<Venta>{
         this.registros = registros;
     }
 
-    public void setInicioCaja(InicioCaja inicioCaja) {
-        this.inicioCaja = inicioCaja;
-    }
+  
 
     @Override
     public int compareTo(Venta t) {

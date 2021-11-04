@@ -6,7 +6,6 @@ import Modelo.Cliente;
 import Modelo.Empleados;
 import Modelo.Empresa;
 import Modelo.GastoEmpresa;
-import Modelo.InicioCaja;
 import Modelo.dao.ProductoDao;
 import Modelo.dao.VentaDao;
 import VistaLogin.Login;
@@ -19,7 +18,6 @@ import Modelo.Usuario;
 import Modelo.Venta;
 import Modelo.dao.ClienteDao;
 import Modelo.dao.EmpleadoDao;
-import Modelo.dao.InicioCajaDao;
 import Modelo.dao.RegistrosDao;
 import Modelo.dao.UsuarioDao;
 import VistaLogin.Alerta;
@@ -80,7 +78,7 @@ public class ControlFactura extends MouseAdapter implements ActionListener, KeyL
     Venta venta;
     ClienteMA clienteMA;
     Cliente cliente;
-    VentaDao daoVenta;
+    VentaDao daoVenta = new VentaDao();
     ClienteDao daoCliente = new ClienteDao();
     Empresa empresa;
     public int cliente1;
@@ -99,20 +97,15 @@ public class ControlFactura extends MouseAdapter implements ActionListener, KeyL
         this.acceso = acceso;
         desplace = new Desface();
         factura.tfCantidad.setEditable(false);
-        llamarVFactura("inicio");
         limpiarDatos();
+        llamarVFactura("inicio");
+        
         this.listita = new ListaDobleCircular();
         this.VentaLista = new ListaDobleCircular();
         this.registros = new ListaDobleCircular();
         this.clienteSeleccionado = new Cliente();
         this.productoSeleccionado = new Producto();
-        String iniciales = "NF-";
-        VentaLista = daoVenta.selectAll();
-        int id = 0;
-        if (!VentaLista.isEmpty()) {
-            id = VentaLista.toArrayDes().size() + 1;
-        }
-        factura.tfNFactura.setText(crearCodigo(iniciales, id));
+
     }
 
     @Override
@@ -216,6 +209,13 @@ public class ControlFactura extends MouseAdapter implements ActionListener, KeyL
             factura.setControladorF(this);
             desplace = new Desface();
             desplace.desplazarIzquierda(factura.jPanel3, factura.jPanel3.getX(), -110, 10, 10);
+            String iniciales = "NF-";
+            VentaLista = daoVenta.selectAll();
+            int id = 0;
+            if (!VentaLista.isEmpty()) {
+                id = VentaLista.toArrayDes().size() + 1;
+            }
+            this.factura.tfNFactura.setText(crearCodigo(iniciales, id));
             factura.iniciar();
         } else if (accion.equals("NuevoCliente")) {
             clienteMA = new ClienteMA(factura, true);
