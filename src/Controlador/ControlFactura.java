@@ -76,6 +76,7 @@ public class ControlFactura extends MouseAdapter implements ActionListener, KeyL
     Usuario usuario;//added
     UsuarioDao daoUsuario;//added
     Venta venta;
+    Venta ventaSeleccionada = null;
     ClienteMA clienteMA;
     Cliente cliente;
     VentaDao daoVenta = new VentaDao();
@@ -99,12 +100,14 @@ public class ControlFactura extends MouseAdapter implements ActionListener, KeyL
         factura.tfCantidad.setEditable(false);
         limpiarDatos();
         llamarVFactura("inicio");
-        
+
         this.listita = new ListaDobleCircular();
         this.VentaLista = new ListaDobleCircular();
         this.registros = new ListaDobleCircular();
         this.clienteSeleccionado = new Cliente();
         this.productoSeleccionado = new Producto();
+        this.ventaSeleccionada = new Venta();
+        this.venta = new Venta();
 
     }
 
@@ -132,6 +135,9 @@ public class ControlFactura extends MouseAdapter implements ActionListener, KeyL
             case "eliminar":
                 accion("eliminar");
                 break;
+            case "agregarProducto":
+                accion("agregarProducto");
+                break;
             default:
 
                 break;
@@ -139,7 +145,17 @@ public class ControlFactura extends MouseAdapter implements ActionListener, KeyL
     }
 
     public void accion(String accion) {
-        if (accion.equals("modificar") && padreActiva.equals("NuevoCliente")) {
+        if (accion.equals("agregarProducto")) {
+
+            //ventaSeleccionada.setIdFactura(1);
+            VentaLista.insertar(new Registros(Integer.parseInt(factura.tfCantidad.getText()),
+                     productoSeleccionado.getPrecioVenta() * Double.parseDouble(factura.tfCantidad.getText()),
+                     productoSeleccionado, ventaSeleccionada));
+
+            padreActiva = "agregarProducto";
+            mostrarDatos();
+
+        } else if (accion.equals("modificar") && padreActiva.equals("NuevoCliente")) {
             if (!this.clienteMA.tfNombre.getText().isEmpty()
                     && !this.clienteMA.tfApellido.getText().isEmpty()
                     && !this.clienteMA.tfTelefono.getText().isEmpty()
@@ -253,6 +269,7 @@ public class ControlFactura extends MouseAdapter implements ActionListener, KeyL
                 Producto x = (Producto) j;
                 Object datos[] = {x.getCodigoProducto(), x.getNombreProducto(), x.getCantidad(), x.getPrecioVenta()};
                 modelo.addRow(datos);
+
             }
             this.tbproducto.jtDatos.setModel(modelo);
 
@@ -279,6 +296,21 @@ public class ControlFactura extends MouseAdapter implements ActionListener, KeyL
             }
 
             this.buscarCliente.jtDatos.setModel(modelo);
+
+        } else if (padreActiva.equals("agregarProducto")) {
+            double total = 0;
+            String titulos[] = {"Codigo", "Nombre", "Cantidad", "Precio Unitario", "Total"};
+            modelo.setColumnIdentifiers(titulos);
+
+            for (Object j : VentaLista.toArrayAsc()) {
+                Registros x = (Registros) j;
+                Object datos[] = {x.getProducto().getCodigoProducto(), x.getProducto().getNombreProducto(), x.getCantidadProducto(), x.getProducto().getPrecioVenta(), x.getPrecioTotalProducto()};
+                modelo.addRow(datos);
+                total = total + x.getPrecioTotalProducto();
+
+            }
+            this.factura.tfTotalPagar.setText(String.valueOf(total));
+            this.factura.miTb1.setModel(modelo);
 
         }
     }
@@ -318,7 +350,7 @@ public class ControlFactura extends MouseAdapter implements ActionListener, KeyL
                 Alerta aler = new Alerta(factura, true, "Sobrepasa la cantidad existente: " + productoSeleccionado.getCantidad(), "/img/error.png");
                 aler.show();
             }
-        } else if (!factura.tfTotalPagar.getText().isEmpty()) {
+        } if (!factura.tfTotalPagar.getText().isEmpty()) {
             double vuelto = Double.parseDouble(factura.tfEfectivo.getText()) - Double.parseDouble(factura.tfTotalPagar.getText());
 
             factura.tfCambio.setText(String.format("%.2f", vuelto));

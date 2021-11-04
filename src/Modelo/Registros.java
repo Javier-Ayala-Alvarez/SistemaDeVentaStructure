@@ -20,6 +20,13 @@ public class Registros implements Comparable<Registros>{
         
     }
 
+    public Registros(int cantidadProducto, double precioTotalProducto, Producto producto, Venta venta) {
+        this.cantidadProducto = cantidadProducto;
+        this.precioTotalProducto = precioTotalProducto;
+        this.producto = producto;
+        this.venta = venta;
+    }
+
     public Registros(int idRegistros) {
         this.idRegistros = idRegistros;
     }
