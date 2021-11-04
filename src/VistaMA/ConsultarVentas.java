@@ -12,8 +12,7 @@ public class ConsultarVentas extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         x = "x";
-        jpLogo1.setBorder(new Fondo(LogoE));
-        
+   
     }
     public void setControlador(ControlMA control) {
         
@@ -35,7 +34,6 @@ public class ConsultarVentas extends javax.swing.JDialog {
         jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         lbEnergia = new javax.swing.JLabel();
-        jpLogo1 = new javax.swing.JPanel();
         materialButtonCircle2 = new principal.MaterialButtonCircle();
         lbTotal = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -74,14 +72,14 @@ public class ConsultarVentas extends javax.swing.JDialog {
             }
         });
 
-        panelFondo.setBackground(new java.awt.Color(255, 255, 255));
+        panelFondo.setBackground(new java.awt.Color(219, 211, 247));
         panelFondo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         panelFondo.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 840, 20));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel5.setText("Factura");
-        panelFondo.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 0, 210, 60));
+        jLabel5.setText("Registros");
+        panelFondo.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 210, 60));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(0, 0, 0));
@@ -91,19 +89,6 @@ public class ConsultarVentas extends javax.swing.JDialog {
         lbEnergia.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
         lbEnergia.setForeground(new java.awt.Color(255, 0, 0));
         panelFondo.add(lbEnergia, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 250, 140, 40));
-
-        javax.swing.GroupLayout jpLogo1Layout = new javax.swing.GroupLayout(jpLogo1);
-        jpLogo1.setLayout(jpLogo1Layout);
-        jpLogo1Layout.setHorizontalGroup(
-            jpLogo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 70, Short.MAX_VALUE)
-        );
-        jpLogo1Layout.setVerticalGroup(
-            jpLogo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 70, Short.MAX_VALUE)
-        );
-
-        panelFondo.add(jpLogo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 70, 70));
 
         materialButtonCircle2.setBackground(new java.awt.Color(255, 0, 0));
         materialButtonCircle2.setText("X");
@@ -130,7 +115,7 @@ public class ConsultarVentas extends javax.swing.JDialog {
         jLabel10.setText("Sucursal:");
         panelFondo.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 180, 100, 60));
 
-        jDatos.setBackground(new java.awt.Color(217, 222, 226));
+        jDatos.setBackground(new java.awt.Color(255, 255, 255));
         jDatos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
@@ -170,8 +155,10 @@ public class ConsultarVentas extends javax.swing.JDialog {
         jLabel2.setText("Total: ");
         panelFondo.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 510, -1, -1));
 
-        materialButtonCircle3.setBackground(new java.awt.Color(255, 0, 0));
+        materialButtonCircle3.setBackground(new java.awt.Color(219, 211, 247));
+        materialButtonCircle3.setForeground(new java.awt.Color(0, 0, 0));
         materialButtonCircle3.setText("X");
+        materialButtonCircle3.setFont(new java.awt.Font("Aharoni", 2, 17)); // NOI18N
         materialButtonCircle3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 materialButtonCircle3ActionPerformed(evt);
@@ -292,7 +279,6 @@ public class ConsultarVentas extends javax.swing.JDialog {
     public javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JPanel jpLogo1;
     public javax.swing.JLabel lbCliente;
     private javax.swing.JLabel lbCodigo1;
     public javax.swing.JLabel lbEmpleado;

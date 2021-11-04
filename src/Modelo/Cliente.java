@@ -69,11 +69,11 @@ public class Cliente extends Persona implements Comparable<Cliente>{
         
         return ventas;
     }
-    public void setVentas(ArrayList<Venta> venta) {
-        VentaDao daoVenta = new VentaDao();
-        this.ventas = daoVenta.selectAllTo("idCliente", String.valueOf(this.getIdCliente()));
-        this.ventas = venta;
-    }
+//    public void setVentas(ArrayList<Venta> venta) {
+//        VentaDao daoVenta = new VentaDao();
+//        this.ventas = daoVenta.selectAllTo("idCliente", String.valueOf(this.getIdCliente()));
+//        this.ventas = venta;
+//    }
 
     @Override
     public int compareTo(Cliente t) {

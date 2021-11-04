@@ -29,20 +29,45 @@ public class ClienteDao {
         return select(sql);
     }
     
-    public ListaDobleCircular<Cliente> selectAllTo(String atributo, String condicion) {
-        String sql = "select * from cliente where " + atributo + "='" + condicion + "'";
-        return select(sql);
-    }
-    
-    public ListaDobleCircular<Cliente> selectId(int id) {
+    public ArrayList<Cliente> selectId(int id) {
         String sql = "select * from cliente where idCliente=" + id;
-        return select(sql);
+         ArrayList<Cliente> lista = new ArrayList();
+        Cliente obj = null;
+        try {
+            con = conectar.getConexion();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+
+            while(rs.next()) {
+                obj = new Cliente();
+                obj.setIdCliente(rs.getInt("idCliente"));
+                obj.setCodigo(rs.getString("codigoCliente"));
+                obj.setNombre(rs.getString("nombre"));
+                obj.setApellido(rs.getString("apellido"));
+                obj.setTelefono(rs.getString("telefonoCliente"));
+                obj.setDireccion(rs.getString("direccionCliente"));
+                //obj.getVentas(new Ventas(rs.getInt("idVenta")));
+                 lista.add(obj);
+                
+               
+            }
+            
+        }catch(Exception e) {
+             Alerta alert = new Alerta(null, true,"Error en sql", "/img/error.png");
+            alert.show();
+            e.printStackTrace();
+        }finally{
+            try {
+                ps.close();
+            } catch (Exception ex) {
+                
+            }
+            conectar.closeConexion(con);
+        }
+        
+        return lista;
     } 
-    
-    public ListaDobleCircular<Cliente> buscar(String dato) {
-        String sql = "select * from cliente where codigoCliente like '" + dato + "%' or nombre like '" + dato + "%' or apellido like '" + dato + "%'  or telefonoCliente like '" + dato + "%'  or direccionCliente like '" + dato + "%'";
-        return select(sql);
-    }
+  
     
     public boolean insert(Cliente obj){
         String sql = "insert into cliente(codigoCliente,nombre,apellido,telefonoCliente,direccionCliente)VALUES(?,?,?,?,?)";

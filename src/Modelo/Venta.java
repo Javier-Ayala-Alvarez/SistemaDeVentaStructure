@@ -6,7 +6,7 @@ import Modelo.dao.EmpresaDao;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Venta {
+public class Venta  implements Comparable<Venta>{
    private int  idFactura;
    private String  nFactura;
    private Date fechaVenta;
@@ -21,7 +21,7 @@ public class Venta {
    
     
 
-    public Venta() {
+    public Venta(){
     }
 
     public Venta(int idFactura) {
@@ -180,6 +180,17 @@ public class Venta {
 
     public void setInicioCaja(InicioCaja inicioCaja) {
         this.inicioCaja = inicioCaja;
+    }
+
+    @Override
+    public int compareTo(Venta t) {
+         Venta actual = this;
+        return(actual.getFechaVenta().compareTo(t.getFechaVenta()));
+    }
+
+    @Override
+    public String toString() {
+        return nFactura;
     }
     
     

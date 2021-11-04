@@ -1,5 +1,6 @@
 package Modelo.dao;
 
+import Estructura.ListaDobleCircular;
 import Modelo.Cliente;
 import Modelo.Conexion;
 import Modelo.Empleados;
@@ -16,55 +17,23 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 public class VentaDao {
+
     Conexion conectar = new Conexion();
     Connection con;
     PreparedStatement ps;
     ResultSet rs;
-    
-    public VentaDao(){
-        
+
+    public VentaDao() {
+
     }
-    
-    public ArrayList<Venta> selectAll() {
+
+    public ListaDobleCircular<Venta> selectAll() {
         String sql = "select * from venta";
         return select(sql);
     }
-    
-    public ArrayList<Venta> selectAllTo(String atributo, String condicion) {
-        String sql = "select * from venta where " + atributo + "='" + condicion + "'";
-        return select(sql);
-    }
-    
+
     public ArrayList<Venta> selectId(int id) {
         String sql = "select * from venta where idVenta=" + id;
-        return select(sql);
-    } 
-    
-    public ArrayList<Venta> buscar(String dato) {
-        String sql = "select * from venta where idVenta like '" + dato + "%' or  nFactura like '" + dato + "%' or fechaVenta like '" + dato + "%' or precioTotal like '" + dato + "%'";
-        return select(sql);
-    }
-    
-    public boolean insert(Venta obj){
-        String sql = "insert into venta(nFactura, fechaVenta, precioTotal)VALUES(?,?,?)";
-        return alterarRegistro(sql, obj);
-    }
-    
-    public boolean update(Venta obj) {
-        String sql = "update venta set idVenta =?, nFactura =?, fechaVenta =?, precioTotal =? where idVenta=" + obj.getIdFactura();
-        return alterarRegistro(sql, obj);
-    }
-    public boolean updateVenta(Venta obj) {
-        String sql = "update venta set nFactura =?, fechaVenta =?, precioTotal =?, estado=?, idCliente=?, idCaja=?, idEmpleado=?, idEmpresa=? where idVenta=" + obj.getIdFactura();
-        return alterarVenta(sql, obj);
-    }
-    public boolean insertarVenta(Venta obj) {
-        String sql = "insert into venta(nFactura, fechaVenta, precioTotal, estado,idCliente, idCaja,  idEmpleado, idEmpresa)VALUES(?,?,?,?,?,?,?,?)";
-        return insertarVenta(sql, obj);
-    }
-    
-    
-    private ArrayList<Venta> select(String sql){
         ArrayList<Venta> lista = new ArrayList();
         Venta obj = null;
         try {
@@ -72,7 +41,7 @@ public class VentaDao {
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
 
-            while(rs.next()) {
+            while (rs.next()) {
                 obj = new Venta();
                 //obj.setIdGasto(rs.getInt("idGastos"));
                 obj.setIdFactura(rs.getInt("idVenta"));
@@ -86,21 +55,80 @@ public class VentaDao {
                 obj.setEmpresa(new Empresa(rs.getInt("idEmpresa")));
                 lista.add(obj);
             }
-            
-        }catch(Exception e) {
+
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error en sql");
             e.printStackTrace();
-        }finally{
+        } finally {
             try {
                 ps.close();
             } catch (Exception ex) {
-                
+
             }
             conectar.closeConexion(con);
         }
-        
+
         return lista;
     }
+
+    public boolean insert(Venta obj) {
+        String sql = "insert into venta(nFactura, fechaVenta, precioTotal)VALUES(?,?,?)";
+        return alterarRegistro(sql, obj);
+    }
+
+    public boolean update(Venta obj) {
+        String sql = "update venta set idVenta =?, nFactura =?, fechaVenta =?, precioTotal =? where idVenta=" + obj.getIdFactura();
+        return alterarRegistro(sql, obj);
+    }
+
+    public boolean updateVenta(Venta obj) {
+        String sql = "update venta set nFactura =?, fechaVenta =?, precioTotal =?, estado=?, idCliente=?, idCaja=?, idEmpleado=?, idEmpresa=? where idVenta=" + obj.getIdFactura();
+        return alterarVenta(sql, obj);
+    }
+
+    public boolean insertarVenta(Venta obj) {
+        String sql = "insert into venta(nFactura, fechaVenta, precioTotal, estado,idCliente, idCaja,  idEmpleado, idEmpresa)VALUES(?,?,?,?,?,?,?,?)";
+        return insertarVenta(sql, obj);
+    }
+
+    private ListaDobleCircular<Venta> select(String sql) {
+        ListaDobleCircular<Venta> lista = new ListaDobleCircular();
+        Venta obj = null;
+        try {
+            con = conectar.getConexion();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                obj = new Venta();
+                //obj.setIdGasto(rs.getInt("idGastos"));
+                obj.setIdFactura(rs.getInt("idVenta"));
+                obj.setnFactura(rs.getString("nFactura"));
+                obj.setFechaVenta(rs.getDate("fechaVenta"));
+                obj.setSaldoTotal(rs.getDouble("precioTotal"));
+                obj.setEstado(rs.getInt("estado"));
+                obj.setCliente(new Cliente(rs.getInt("idCliente")));
+                obj.setInicioCaja(new InicioCaja(rs.getInt("idCaja")));
+                obj.setEmpleado(new Empleados(rs.getInt("idEmpleado")));
+                obj.setEmpresa(new Empresa(rs.getInt("idEmpresa")));
+                lista.insertar(obj);
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error en sql");
+            e.printStackTrace();
+        } finally {
+            try {
+                ps.close();
+            } catch (Exception ex) {
+
+            }
+            conectar.closeConexion(con);
+        }
+
+        return lista;
+    }
+
     private boolean alterarVenta(String sql, Venta obj) {
         try {
             con = conectar.getConexion();
@@ -116,7 +144,7 @@ public class VentaDao {
             ps.setInt(7, obj.getEmpleado().getIdEmpleado());
             ps.setInt(8, obj.getEmpresa().getIdEmpresa());
             ps.execute();
-            Alerta alerta = new Alerta(null, true, "Venta exitosa","/img/exito.png");
+            Alerta alerta = new Alerta(null, true, "Venta exitosa", "/img/exito.png");
             alerta.show();
             return true;
         } catch (Exception e) {
@@ -132,46 +160,45 @@ public class VentaDao {
         }
         return false;
     }
-    
-    private boolean alterarRegistro(String sql, Venta obj){
+
+    private boolean alterarRegistro(String sql, Venta obj) {
         try {
             con = conectar.getConexion();
             ps = con.prepareStatement(sql);
-            
+
             ps.setInt(1, obj.getIdFactura());//aqui
-            ps.setDate(2, (Date)obj.getFechaVenta());//aqui
+            ps.setDate(2, (Date) obj.getFechaVenta());//aqui
             ps.setDouble(3, obj.getSaldoTotal());//aqui
-            
-            
+
             ps.execute();
-            
+
             return true;
-        }catch(Exception e) {
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error en sql");
             e.printStackTrace();
-        }finally{
+        } finally {
             try {
                 ps.close();
             } catch (Exception ex) {
-                
+
             }
             conectar.closeConexion(con);
         }
-        return false; 
+        return false;
     }
-    
+
     public boolean delete(Venta obj) {
         String sql = "delete from venta where idVenta='" + obj.getIdFactura() + "'";//aqui
-        
+
         try {
             con = conectar.getConexion();
             ps = con.prepareStatement(sql);
             ps.execute();
             return true;
-        }catch(Exception e) {
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error en sql");
             e.printStackTrace();
-        }finally{
+        } finally {
             try {
                 ps.close();
                 conectar.closeConexion(con);
@@ -181,6 +208,7 @@ public class VentaDao {
 
         return false;
     }
+
     private boolean insertarVenta(String sql, Venta obj) {
         try {
             con = conectar.getConexion();
@@ -191,7 +219,7 @@ public class VentaDao {
             ps.setDate(2, new java.sql.Date(obj.getFechaVenta().getTime()));
             ps.setDouble(3, obj.getSaldoTotal());//aqui
             ps.setInt(4, obj.getEstado());
-             ps.setInt(5, obj.getCliente().getIdCliente());
+            ps.setInt(5, obj.getCliente().getIdCliente());
             ps.setInt(6, obj.getInicioCaja().getIdAdminCaja());
             ps.setInt(7, obj.getEmpleado().getIdEmpleado());
             ps.setInt(8, obj.getEmpresa().getIdEmpresa());
@@ -211,33 +239,7 @@ public class VentaDao {
         }
         return false;
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
     public ArrayList<Producto> listaProductComb() {
         ArrayList<Producto> listaProduc = new ArrayList();
         ArrayList<Producto> listaProdT = new ArrayList();
@@ -271,7 +273,7 @@ public class VentaDao {
 
         return listaProduc;
     }
-    
+
     public ArrayList<Empleados> listaEmpleaComb() {
         ArrayList<Empleados> listaEmple = new ArrayList();
         Empleados obj = null;

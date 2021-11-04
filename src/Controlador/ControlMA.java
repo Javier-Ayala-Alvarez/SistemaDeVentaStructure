@@ -184,6 +184,8 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
         this.reporteSeleccionado = new Reporte();
         this.productoSeleccionadoAun = new Producto();
         this.clienteSeleccionado = new Cliente();
+        this.ventaSeleccionada = new Venta();
+        
         llamarVistaConsulta("menuAdministrador");
 //usuario dao
     }
@@ -364,14 +366,9 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
             clienteMA.jtDatos.setRowSorter(sorter);
 
         } else if (padreActiva.equals("registroVentas")) {
-            ArrayList<Venta> lista = daoVenta.buscar(RegistrosDeVentas.tfBuscar.getText() + e.getKeyChar());
-
-            if (lista.isEmpty()) {
-                mostrarDatos();
-            } else {
-                mostrarBusqueda(lista);
-
-            }
+//            TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(((DefaultTableModel) productoModi.jtDatos.getModel()));
+//            sorter.setRowFilter(RowFilter.regexFilter(productoModi.tfBuscar.getText()));
+//            productoModi.jtDatos.setRowSorter(sorter);
 
         } else if (padreActiva.equals("productoModi")) {
             TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(((DefaultTableModel) productoModi.jtDatos.getModel()));
@@ -684,18 +681,20 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
             this.consultarVentas.lbFecha.setText(String.valueOf(ventaSeleccionada.getFechaVenta()));
             this.consultarVentas.lbEmpleado.setText(ventaSeleccionada.getEmpleado().getNombre());
             this.consultarVentas.lbSucursal.setText(ventaSeleccionada.getEmpresa().getNombre());
-            ArrayList<Registros> registros = daoRegistro.selectAllTo("idVenta", String.valueOf(ventaSeleccionada.getIdFactura()));
-            for (Registros x : registros) {
-                totalVe = totalVe + x.getPrecioTotalProducto();
 
+            listita = daoRegistro.selectAllTo("idVenta", String.valueOf(ventaSeleccionada.getIdFactura()));
+            for (Object j : listita.toArrayAsc()) {
+                Registros x = (Registros) j;
                 Object datos[] = {x.getCantidadProducto(), x.getProducto().getNombreProducto(), x.getProducto().getPrecioVenta(), x.getPrecioTotalProducto()};
                 modelo.addRow(datos);
+                totalVe = totalVe + x.getPrecioTotalProducto();
             }
+
             consultarVentas.jDatos.setModel(modelo);
             consultarVentas.lbTotal.setText(String.valueOf(totalVe));
 
             consultarVentas.iniciar();
-            ventaSeleccionada = null;
+          
         } else if (vista.equals("guardarProducto")) {
             padreActiva = "productoModi";
             this.productoModi = new ProductoModi(menuAdministrador, true);
@@ -1149,9 +1148,10 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
         else if (padreActiva.equals("registroVentas")) {
             String titulos[] = {"N", "Fecha", "Cliente", "Empleado", "Precio Total"};
             modelo.setColumnIdentifiers(titulos);
-            ArrayList<Venta> venta1 = daoVenta.selectAll();
+            listita = daoVenta.selectAll();
             float total1 = 0;
-            for (Venta x : venta1) {
+            for (Object j : listita.toArrayDes()) {
+                Venta x = (Venta) j;
                 if (x.getEstado() == 1) {
 
                     Object datos[] = {x.getnFactura(), x.getFechaVenta(), x.getCliente().getNombre(), x.getEmpleado().getNombre(), x.getSaldoTotal()};
@@ -1339,21 +1339,21 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
                     && !this.clienteMA.tfApellido.getText().isEmpty()
                     && !this.clienteMA.tfTelefono.getText().isEmpty()
                     && !this.clienteMA.tfDireccion.getText().isEmpty()) {
-                
-                    int opccion = JOptionPane.showConfirmDialog(null, "Deseas Modificar?", "Welcome", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
-                    if (opccion == 0) {
-                        
-                        clienteSeleccionado.setNombre(ClienteMA.tfNombre.getText());
-                        clienteSeleccionado.setApellido(ClienteMA.tfApellido.getText());
-                        clienteSeleccionado.setTelefono(ClienteMA.tfTelefono.getText());
-                        clienteSeleccionado.setDireccion(ClienteMA.tfDireccion.getText());
-                        daoCliente.update(clienteSeleccionado);
-                        vaciarVista();
-                        Alerta aler = new Alerta(menuAdministrador, true, "Modificado con exito", "/img/Succes.png");
-                        aler.show();
-                        
-                    }
-                
+
+                int opccion = JOptionPane.showConfirmDialog(null, "Deseas Modificar?", "Welcome", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+                if (opccion == 0) {
+
+                    clienteSeleccionado.setNombre(ClienteMA.tfNombre.getText());
+                    clienteSeleccionado.setApellido(ClienteMA.tfApellido.getText());
+                    clienteSeleccionado.setTelefono(ClienteMA.tfTelefono.getText());
+                    clienteSeleccionado.setDireccion(ClienteMA.tfDireccion.getText());
+                    daoCliente.update(clienteSeleccionado);
+                    vaciarVista();
+                    Alerta aler = new Alerta(menuAdministrador, true, "Modificado con exito", "/img/Succes.png");
+                    aler.show();
+
+                }
+
             } else {
                 Alerta aler = new Alerta(menuAdministrador, true, "Campos incompletos o vacios", "/img/Succes.png");
                 aler.show();
@@ -1781,12 +1781,9 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
             }
             ////////////////////////////////////fin  Usuario////////////////////////////////////
         } else if (padreActiva.equals("registroVentas") && e.getActionCommand().equals("Detalle")) {
-            if (ventaSeleccionada != null) {
+            
                 llamarVistaConsulta("Detalle");
-            } else {
-                Alerta aler = new Alerta(menuAdministrador, true, "Seleccione un registro", "/img/error.png");
-                aler.show();
-            }
+            
         }
 
     }
@@ -2123,8 +2120,19 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
         } else if (padreActiva.equals("registroVentas")) {
             int fila = registrosDeVenta.jtDatos.getSelectedRow();
             String id = registrosDeVenta.jtDatos.getValueAt(fila, 0).toString();
-            ArrayList<Venta> lista = daoVenta.selectAllTo("nFactura", id);
-            ventaSeleccionada = lista.get(0);
+            listita.antesDe(id);
+            for (Object j : listita.toArrayAsc()) {
+                Venta x = (Venta) j;
+                if (x.getnFactura().equals(id)) {
+                    ventaSeleccionada.setFechaVenta(x.getFechaVenta());
+                    ventaSeleccionada.setnFactura(x.getnFactura());
+                    ventaSeleccionada.setIdFactura(x.getIdFactura());
+                    ventaSeleccionada.setCliente(x.getCliente());
+                    ventaSeleccionada.setEmpleado(x.getEmpleado());
+                    ventaSeleccionada.setEmpresa(x.getEmpresa());
+
+                }
+            }
 
         } else if (padreActiva.equals("registrosDeProductos")) {
             int fila = this.registrosDeProductos.jtDatos.getSelectedRow();

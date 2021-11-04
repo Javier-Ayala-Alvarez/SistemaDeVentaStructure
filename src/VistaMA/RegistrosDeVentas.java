@@ -13,7 +13,6 @@ public class RegistrosDeVentas extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         x = "x";
-        jpLogo1.setBorder(new Fondo(LogoE));
         btnDetalle.setActionCommand("Detalle");
         
     }
@@ -41,7 +40,6 @@ public class RegistrosDeVentas extends javax.swing.JDialog {
         panelFondoRV = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel5 = new javax.swing.JLabel();
-        jpLogo1 = new javax.swing.JPanel();
         btnCerrarRV = new principal.MaterialButtonCircle();
         lbTotal = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -83,30 +81,19 @@ public class RegistrosDeVentas extends javax.swing.JDialog {
             }
         });
 
-        panelFondoRV.setBackground(new java.awt.Color(255, 255, 255));
+        panelFondoRV.setBackground(new java.awt.Color(219, 211, 247));
         panelFondoRV.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         panelFondoRV.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 750, 10));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel5.setText("Ventas");
-        panelFondoRV.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, 210, 60));
+        jLabel5.setText("Factura");
+        panelFondoRV.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 210, 60));
 
-        javax.swing.GroupLayout jpLogo1Layout = new javax.swing.GroupLayout(jpLogo1);
-        jpLogo1.setLayout(jpLogo1Layout);
-        jpLogo1Layout.setHorizontalGroup(
-            jpLogo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 50, Short.MAX_VALUE)
-        );
-        jpLogo1Layout.setVerticalGroup(
-            jpLogo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 50, Short.MAX_VALUE)
-        );
-
-        panelFondoRV.add(jpLogo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 50, 50));
-
-        btnCerrarRV.setBackground(new java.awt.Color(255, 0, 0));
+        btnCerrarRV.setBackground(new java.awt.Color(219, 211, 247));
+        btnCerrarRV.setForeground(new java.awt.Color(0, 0, 0));
         btnCerrarRV.setText("X");
+        btnCerrarRV.setFont(new java.awt.Font("Aharoni", 2, 17)); // NOI18N
         btnCerrarRV.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCerrarRVActionPerformed(evt);
@@ -119,7 +106,7 @@ public class RegistrosDeVentas extends javax.swing.JDialog {
         lbTotal.setText(".");
         panelFondoRV.add(lbTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 470, 130, -1));
 
-        jtDatos.setBackground(new java.awt.Color(199, 207, 214));
+        jtDatos.setBackground(new java.awt.Color(255, 255, 255));
         jtDatos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
@@ -161,7 +148,7 @@ public class RegistrosDeVentas extends javax.swing.JDialog {
         jLabel4.setText("TOTAL:");
         panelFondoRV.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 470, -1, -1));
 
-        tfBuscar.setBackground(new java.awt.Color(213, 216, 221));
+        tfBuscar.setBackground(new java.awt.Color(255, 255, 255));
         tfBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 tfBuscarKeyTyped(evt);
@@ -267,7 +254,6 @@ public class RegistrosDeVentas extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JPanel jpLogo1;
     public static javax.swing.JTable jtDatos;
     public static javax.swing.JLabel lbTotal;
     private principal.MaterialButtonCircle materialButtonCircle1;

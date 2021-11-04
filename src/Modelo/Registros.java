@@ -4,7 +4,7 @@ package Modelo;
 import Modelo.dao.ProductoDao;
 import java.util.ArrayList;
 
-public class Registros {
+public class Registros implements Comparable<Registros>{
     private int idRegistros;
     private int cantidadProducto;
     private double precioTotalProducto;
@@ -71,5 +71,17 @@ public class Registros {
     public void setVenta(Venta venta) {
         this.venta = venta;
     }       
+
+    @Override
+    public int compareTo(Registros t) {
+        Registros actual = this;
+        return(String.valueOf(actual.getPrecioTotalProducto()).compareToIgnoreCase(String.valueOf(t.getPrecioTotalProducto())));
+    }
+
+    @Override
+    public String toString() {
+        return  String.valueOf(idRegistros) ;
+    }
+    
     
 }
