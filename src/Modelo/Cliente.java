@@ -85,6 +85,10 @@ public class Cliente extends Persona implements Comparable<Cliente>{
     public String toString() {
         return  codigo ;
     }
+
+    public boolean isEmpty() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
    
     

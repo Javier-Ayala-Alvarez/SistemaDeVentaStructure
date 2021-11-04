@@ -8,7 +8,7 @@ package VistaLogin;
 import Controlador.ControlLogin;
 import VistaMA.MenuAdministrador;
 import VistaMV.Factura;
-import VistaMV.Facturacion;
+
 
 /**
  *
@@ -20,7 +20,7 @@ public class Iniciar {
         Login vista = new Login();
         Factura vistaF = new Factura();
         MenuAdministrador vistaMA = new MenuAdministrador();
-        Facturacion facturacion = new Facturacion();
+        
         
         //ControlLogin control = new ControlLogin(vista, facturacion, vistaF, vistaMA, );
         ControlLogin control = new ControlLogin(vista, vistaF, vistaMA, vista.tfUser.getText());

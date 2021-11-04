@@ -14,16 +14,15 @@ public class Factura extends javax.swing.JFrame {
     public Factura() {
         initComponents();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);//PANTALLA COMPLETA
-        escritorioFactura.setVisible(false);
+        
         //
         jpLogo1.setBorder(new Fondo("/img/Logo.jpg"));
         res = "res";
-         jPanel3.setVisible(false);
+         
         desplace = new Desface();
-         desplace.desplazarIzquierda(jPanel3, jPanel3.getX(), -110, 10, 10);
-        btnTiket.setActionCommand("tiket");
+        desplace.desplazarIzquierda(jPanel3, jPanel3.getX(), -110, 10, 10);
         btnNuevoCliente.setActionCommand("NuevoCliente");
-        btnCerrarCaja.setActionCommand("newCC");
+        btnCerrarCaja.setActionCommand("cerrar");
         btnCliente.setActionCommand("SeleccionarCliente");
         btnProducto.setActionCommand("SeleccionarProducto");
         btnAgregarProducto.setActionCommand("agregarProducto");
@@ -31,8 +30,7 @@ public class Factura extends javax.swing.JFrame {
         btnAgregarProducto.setActionCommand("agregarProducto");
         rSDateFecha.setDatoFecha(new Date());
         btnVender.setActionCommand("vender");
-        btnPrestamo.setActionCommand("prestamo");
-        btnConsumo.setActionCommand("consumo");
+        
         
        
         
@@ -49,13 +47,10 @@ public class Factura extends javax.swing.JFrame {
 
     public void setControladorF(ControlFactura controlF) {
         btnVender.addActionListener(controlF);
-        btnPrestamo.addActionListener(controlF);
-        btnConsumo.addActionListener(controlF);
         escritorioFactura.addMouseListener(controlF);
-        btnTiket.addActionListener(controlF);
         btnNuevoCliente.addActionListener(controlF);
         btnCerrarCaja.addActionListener(controlF);
-        btnCerrarFactura.addActionListener(controlF);
+        
         btnCliente.addActionListener(controlF);
         btnProducto.addActionListener(controlF);
         tfCantidad.addKeyListener(controlF);
@@ -68,10 +63,9 @@ public class Factura extends javax.swing.JFrame {
 
     public void visibilidad(boolean bool) {
         this.btnNuevoCliente.setVisible(bool);
-        this.btnTiket.setVisible(bool);
         this.lbNombreUsuario.setVisible(bool);
         this.btnCerrarCaja.setVisible(bool);
-        this.btnCerrarFactura.setVisible(!bool);
+       
     }
 
     @SuppressWarnings("unchecked")
@@ -119,7 +113,6 @@ public class Factura extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         btnPrestamo = new rojeru_san.complementos.RSButtonHover();
         btnVender = new rojeru_san.complementos.RSButtonHover();
-        btnConsumo = new rojeru_san.complementos.RSButtonHover();
         tfEfectivo = new principal.MaterialTextField();
         tfCambio = new principal.MaterialTextField();
         jLabel13 = new javax.swing.JLabel();
@@ -128,12 +121,10 @@ public class Factura extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         lbNombreUsuario = new javax.swing.JLabel();
-        btnCerrarFactura = new principal.MaterialButtonCircle();
         jpLogo1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         btnNuevoCliente = new rojeru_san.complementos.RSButtonHover();
         btnCerrarCaja = new rojeru_san.complementos.RSButtonHover();
-        btnTiket = new rojeru_san.complementos.RSButtonHover();
         jLabel3 = new javax.swing.JLabel();
 
         jMenu1.setText("jMenu1");
@@ -364,7 +355,7 @@ public class Factura extends javax.swing.JFrame {
         });
 
         btnEliminarFila.setBackground(new java.awt.Color(255, 51, 51));
-        btnEliminarFila.setText("Retirar");
+        btnEliminarFila.setText("Cancelar");
         btnEliminarFila.setActionCommand("Eliminar");
         btnEliminarFila.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -393,7 +384,7 @@ public class Factura extends javax.swing.JFrame {
         jLabel12.setText("Nueva Factura.");
 
         btnPrestamo.setBackground(new java.awt.Color(255, 153, 0));
-        btnPrestamo.setText("Prestamo");
+        btnPrestamo.setText("Quitar de Carrito");
         btnPrestamo.setActionCommand("prestamo");
         btnPrestamo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -401,19 +392,10 @@ public class Factura extends javax.swing.JFrame {
             }
         });
 
-        btnVender.setText("Vender");
+        btnVender.setText("Facturar");
         btnVender.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnVenderActionPerformed(evt);
-            }
-        });
-
-        btnConsumo.setBackground(new java.awt.Color(102, 0, 0));
-        btnConsumo.setText("Consumo");
-        btnConsumo.setActionCommand("consumo");
-        btnConsumo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnConsumoActionPerformed(evt);
             }
         });
 
@@ -510,15 +492,8 @@ public class Factura extends javax.swing.JFrame {
                         .addGroup(escritorioFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 1085, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, escritorioFacturaLayout.createSequentialGroup()
-                                .addGroup(escritorioFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(escritorioFacturaLayout.createSequentialGroup()
-                                        .addComponent(btnEliminarFila, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(btnConsumo, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(btnPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18))
-                                    .addGroup(escritorioFacturaLayout.createSequentialGroup()
+                                .addGroup(escritorioFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, escritorioFacturaLayout.createSequentialGroup()
                                         .addGap(3, 3, 3)
                                         .addComponent(jLabel13)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -529,7 +504,13 @@ public class Factura extends javax.swing.JFrame {
                                         .addComponent(tfCambio, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(65, 65, 65)
                                         .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(39, 39, 39)))
+                                        .addGap(39, 39, 39))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, escritorioFacturaLayout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addComponent(btnPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(50, 50, 50)
+                                        .addComponent(btnEliminarFila, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(59, 59, 59)))
                                 .addGroup(escritorioFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(tfTotalPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(btnVender, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))))))
@@ -591,13 +572,7 @@ public class Factura extends javax.swing.JFrame {
                         .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(escritorioFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(escritorioFacturaLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(escritorioFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfTotalPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(escritorioFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(escritorioFacturaLayout.createSequentialGroup()
                         .addGap(48, 48, 48)
                         .addGroup(escritorioFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -607,14 +582,18 @@ public class Factura extends javax.swing.JFrame {
                             .addGroup(escritorioFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(tfEfectivo, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(tfCambio, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18)
-                        .addGroup(escritorioFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnEliminarFila, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnConsumo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnVender, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addContainerGap())))
+                                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(escritorioFacturaLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(escritorioFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tfTotalPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(18, 18, 18)
+                .addGroup(escritorioFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnVender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEliminarFila, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel2.setBackground(new java.awt.Color(71, 139, 184));
@@ -634,20 +613,6 @@ public class Factura extends javax.swing.JFrame {
         lbNombreUsuario.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         lbNombreUsuario.setForeground(new java.awt.Color(255, 255, 255));
         lbNombreUsuario.setText(".");
-
-        btnCerrarFactura.setBackground(new java.awt.Color(220, 20, 20));
-        btnCerrarFactura.setText("X");
-        btnCerrarFactura.setActionCommand("cerrarFactura");
-        btnCerrarFactura.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnCerrarFacturaMouseClicked(evt);
-            }
-        });
-        btnCerrarFactura.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCerrarFacturaActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jpLogo1Layout = new javax.swing.GroupLayout(jpLogo1);
         jpLogo1.setLayout(jpLogo1Layout);
@@ -671,9 +636,7 @@ public class Factura extends javax.swing.JFrame {
                 .addComponent(lbNombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnCerrarFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(80, 80, 80))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -681,13 +644,14 @@ public class Factura extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnCerrarFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1)
-                            .addComponent(lbNombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 22, Short.MAX_VALUE))
+                        .addComponent(lbNombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 38, Short.MAX_VALUE))
                     .addComponent(jpLogo1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(72, 139, 183));
@@ -723,21 +687,6 @@ public class Factura extends javax.swing.JFrame {
             }
         });
 
-        btnTiket.setBackground(new java.awt.Color(72, 139, 183));
-        btnTiket.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Tiket.png"))); // NOI18N
-        btnTiket.setText("Pago");
-        btnTiket.setAlignmentY(2.0F);
-        btnTiket.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btnTiket.setHideActionText(true);
-        btnTiket.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        btnTiket.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        btnTiket.setIconTextGap(40);
-        btnTiket.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTiketActionPerformed(evt);
-            }
-        });
-
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/menu2.png"))); // NOI18N
         jLabel3.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 10));
@@ -760,7 +709,6 @@ public class Factura extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnCerrarCaja, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(btnTiket, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(btnNuevoCliente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -769,9 +717,7 @@ public class Factura extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addComponent(jLabel3)
-                .addGap(66, 66, 66)
-                .addComponent(btnTiket, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(54, 54, 54)
+                .addGap(172, 172, 172)
                 .addComponent(btnNuevoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(77, 77, 77)
                 .addComponent(btnCerrarCaja, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -798,66 +744,22 @@ public class Factura extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(escritorioFactura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                        .addContainerGap(20, Short.MAX_VALUE))))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnCerrarFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarFacturaActionPerformed
-//        int opccion = JOptionPane.showConfirmDialog(null, "Deseas Salir?", "Confirmar salida",
-//            JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
-//        if(opccion == 0){
-//            Login vista = new Login();
-//            vista.show();
-//            this.dispose();
-//        }
-        this.dispose();
-    }//GEN-LAST:event_btnCerrarFacturaActionPerformed
-
     private void btnNuevoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoClienteActionPerformed
-//       String xm = Facturacion.s;
-//        Facturacion vista = new Facturacion();
-//        if((xm == null)){
-//            escritorioFactura.add(vista);
-//            vista.show();
-//        }else{
-//            JOptionPane.showMessageDialog(escritorioFactura, "Ventana ya abierta!!!");
-//
-//        }
+
     }//GEN-LAST:event_btnNuevoClienteActionPerformed
 
     private void btnCerrarCajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarCajaActionPerformed
-//        int opccion = JOptionPane.showConfirmDialog(null, "Deseas Salir de Facturacion?", "Confirmar salida", 
-//               JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE); 
-//        if(opccion == 0){
-//         Login vista = new Login();
-//        vista.show();
-//        this.dispose();
-//        }
+
     }//GEN-LAST:event_btnCerrarCajaActionPerformed
 
-    private void btnTiketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTiketActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnTiketActionPerformed
-
     private void btnEliminarFilaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarFilaActionPerformed
-        //        if(!existe()){
-            //            if( !tfCodigo.getText().isEmpty()
-                //                &&!tfDescrip.getText().isEmpty()
-                //                &&!tfPrecio.getText().isEmpty()){
-                //                double precio = Double.parseDouble(tfPrecio.getText());
-                //                TablaProducto obj = new TablaProducto(tfCodigo.getText(),tfDescrip.getText(),precio);
-                //                producto.add(obj);
-                //                limpiar();
-                //                mostrar();
-                //
-                //            }else{
-                //                JOptionPane.showMessageDialog(null,"Campos Vacios","Error",JOptionPane.ERROR_MESSAGE);
-                //            }
-            //        }else{
-            //            JOptionPane.showMessageDialog(null,"Codigo ya existe","Error",JOptionPane.ERROR_MESSAGE);
-            //        }
+        
     }//GEN-LAST:event_btnEliminarFilaActionPerformed
 
     private void tfTotalPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfTotalPagarActionPerformed
@@ -865,23 +767,8 @@ public class Factura extends javax.swing.JFrame {
     }//GEN-LAST:event_tfTotalPagarActionPerformed
 
     private void btnAgregarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarProductoActionPerformed
-        //        // TODO add your handling code here:
-        //        if(!tfCliente.getText().isEmpty()
-            //            && !tfDireccion.getText().isEmpty()
-            //            && !tfCantidad.getText().isEmpty()
-            //            //            && !rSDateFecha.getDatoFecha().isEmpty()
-            //
-            //        ){
-            //
-            //            //            Aqui voy hacer que se almacenen en la tabla
-            //
-            ////            limpiarVista();
-            ////
-            ////        }else{
-            ////            actualizar();
-            ////            JOptionPane.showMessageDialog(null,"Llenar todos los Campos","ERROR",JOptionPane.ERROR_MESSAGE);
-            //        }
-        //
+     
+      
     }//GEN-LAST:event_btnAgregarProductoActionPerformed
 
     private void tfPrecioTotal1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfPrecioTotal1ActionPerformed
@@ -901,23 +788,7 @@ public class Factura extends javax.swing.JFrame {
     }//GEN-LAST:event_tfDireccionActionPerformed
 
     private void btnClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClienteActionPerformed
-        //        // TODO add your handling code here:
-        //        if(!tfCliente.getText().isEmpty()
-            //            && !tfDireccion.getText().isEmpty()
-            //            && !tfCantidad.getText().isEmpty()
-            //            //            && !rSDateFecha.getDatoFecha().isEmpty()
-            //
-            //        ){
-            //
-            //            //            Aqui voy hacer que se almacenen en la tabla
-            //
-            ////            limpiarVista();
-            ////
-            ////        }else{
-            ////            actualizar();
-            ////            JOptionPane.showMessageDialog(null,"Llenar todos los Campos","ERROR",JOptionPane.ERROR_MESSAGE);
-            //        }
-        //
+        
     }//GEN-LAST:event_btnClienteActionPerformed
 
     private void tfNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfNombreActionPerformed
@@ -936,17 +807,9 @@ public class Factura extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tfNFacturaActionPerformed
 
-    private void btnPrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrestamoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnPrestamoActionPerformed
-
     private void btnVenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVenderActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnVenderActionPerformed
-
-    private void btnConsumoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsumoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnConsumoActionPerformed
 
     private void tfEfectivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfEfectivoActionPerformed
         // TODO add your handling code here:
@@ -975,21 +838,18 @@ public class Factura extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jLabel3MouseClicked
 
-    private void btnCerrarFacturaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarFacturaMouseClicked
+    private void btnPrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrestamoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnCerrarFacturaMouseClicked
+    }//GEN-LAST:event_btnPrestamoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public rojeru_san.complementos.RSButtonHover btnAgregarProducto;
     public rojeru_san.complementos.RSButtonHover btnCerrarCaja;
-    public principal.MaterialButtonCircle btnCerrarFactura;
     public static rojeru_san.complementos.RSButtonHover btnCliente;
-    public rojeru_san.complementos.RSButtonHover btnConsumo;
     public rojeru_san.complementos.RSButtonHover btnEliminarFila;
     public rojeru_san.complementos.RSButtonHover btnNuevoCliente;
-    public rojeru_san.complementos.RSButtonHover btnPrestamo;
+    private rojeru_san.complementos.RSButtonHover btnPrestamo;
     public static rojeru_san.complementos.RSButtonHover btnProducto;
-    public rojeru_san.complementos.RSButtonHover btnTiket;
     public rojeru_san.complementos.RSButtonHover btnVender;
     public static javax.swing.JPanel escritorioFactura;
     private javax.swing.JDialog jDialog1;

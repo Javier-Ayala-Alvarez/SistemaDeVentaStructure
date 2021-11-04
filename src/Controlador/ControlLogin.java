@@ -21,11 +21,9 @@ import VistaMA.MenuAdministrador;
 import VistaMA.ProductoModi;
 import VistaMA.RegistrosDeProductos;
 import VistaMA.RegistrosDeVentas;
+import VistaMV.BuscarProducto;
 import VistaMV.Factura;
-import VistaMV.Facturacion;
 import VistaMV.Mensaje;
-import VistaMV.Producto;
-import VistaMV.TablaProducto;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -55,9 +53,8 @@ public class ControlLogin extends MouseAdapter implements ActionListener, KeyLis
     RegistrosDeVentas registrosDeVentas;
     ConsultarVentas consultarVentas;
     /*Objetos para el Constructor de ControlFactura*/
-    Facturacion facturacion;
     Mensaje mensaje;
-    TablaProducto tablaProducto;
+    BuscarProducto tablaProducto;
 
     UsuarioDao daoUsuario = new UsuarioDao();
      EmpleadoDao daoEmpleado = new EmpleadoDao();
@@ -117,10 +114,10 @@ public class ControlLogin extends MouseAdapter implements ActionListener, KeyLis
                 String l = String.valueOf(listaUsuario.get(0).getIdUsuario());
                 login.dispose();
                 factura.setControlador(this);
-                ControlFactura controlF = new ControlFactura(factura, facturacion, mensaje, tablaProducto, l);
+               // ControlFactura controlF = new ControlFactura(factura, facturacion, mensaje, tablaProducto, l);
 //            login.dispose();
 //            factura.setControlador(this);
-//            ControlFactura controlF = new ControlFactura(factura, facturacion, mensaje, tablaProducto);
+            ControlFactura controlF = new ControlFactura(factura, mensaje, tablaProducto);
         } else if (vista.equals("Admin")) {
             login.dispose();
             menuAdministrador.setControlador(this);
