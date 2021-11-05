@@ -90,7 +90,7 @@ public class ControlFactura extends MouseAdapter implements ActionListener, KeyL
     private String acceso;
     public String padreActiva = "";
     public int estado, id = 0;
-    private ListaDobleCircular listita, VentaLista, registros,VentaLista1;
+    private ListaDobleCircular listita, VentaLista, registros, VentaLista1;
 
     public ControlFactura(Factura factura, Mensaje mensaje, BuscarProducto producto) {
         this.factura = factura;
@@ -156,39 +156,23 @@ public class ControlFactura extends MouseAdapter implements ActionListener, KeyL
 
     public void accion(String accion) {
         if (accion.equals("agregarProducto")) {
-            
+
             Registros obj1 = new Registros(id, Integer.parseInt(factura.tfCantidad.getText()),
                     productoSeleccionado.getPrecioVenta() * Double.parseDouble(factura.tfCantidad.getText()),
                     productoSeleccionado, ventaSeleccionada);
-            
-            if (VentaLista.buscar(obj1)== null) {
+            if (VentaLista.buscar(obj1) == null) {
                 VentaLista.insertar(obj1);
             } else {
                 Alerta aler = new Alerta(factura, true, "No puede ingresar un mismo producto", "/img/Succes.png");
                 aler.show();
             }
-            
             id++;
             padreActiva = "agregarProducto";
             mostrarDatos();
 
         } else if (accion.equals("QuitarDeCarrito")) {
             padreActiva = "agregarProducto";
-            for (Object j : VentaLista.toArrayAsc()) {
-                Registros x = (Registros) j;
-                System.out.println(x.getProducto().getNombreProducto());
-
-            }
-
             VentaLista.eliminar(RegistroSeleccionada);
-            System.out.println("---------------" + RegistroSeleccionada.getIdRegistros());
-            System.out.println(RegistroSeleccionada.getProducto().getNombreProducto());
-            for (Object j : VentaLista.toArrayAsc()) {
-                Registros x = (Registros) j;
-                System.out.println(x.getProducto().getNombreProducto());
-
-            }
-            //Trabajando------------------------------------------------
             mostrarDatos();
 
         } else if (accion.equals("cancelar")) {
@@ -203,12 +187,6 @@ public class ControlFactura extends MouseAdapter implements ActionListener, KeyL
             VentaLista.isEmpty();//Trabajando------------------------------------------------
             System.out.println("---------------");
             //System.out.println(RegistroSeleccionada.getIdRegistros());
-            for (Object j : VentaLista.toArrayAsc()) {
-                Registros x = (Registros) j;
-                System.out.println(x.getCantidadProducto());
-
-            }
-
             mostrarDatos();
 
         } else if (accion.equals("modificar") && padreActiva.equals("NuevoCliente")) {
@@ -357,17 +335,17 @@ public class ControlFactura extends MouseAdapter implements ActionListener, KeyL
             double total = 0;
             String titulos[] = {"Nº", "Codigo", "Nombre", "Cantidad", "Precio Unitario", "Total"};
             modelo.setColumnIdentifiers(titulos);
+            
+                for (Object j : VentaLista.toArrayAsc()) {
+                    Registros x = (Registros) j;
+                    Object datos[] = {x.getIdRegistros(), x.getProducto().getCodigoProducto(), x.getProducto().getNombreProducto(), x.getCantidadProducto(), x.getProducto().getPrecioVenta(), x.getPrecioTotalProducto()};
+                    modelo.addRow(datos);
+                    total = total + x.getPrecioTotalProducto();
 
-            for (Object j : VentaLista.toArrayAsc()) {
-                Registros x = (Registros) j;
-                Object datos[] = {x.getIdRegistros(), x.getProducto().getCodigoProducto(), x.getProducto().getNombreProducto(), x.getCantidadProducto(), x.getProducto().getPrecioVenta(), x.getPrecioTotalProducto()};
-                modelo.addRow(datos);
-                total = total + x.getPrecioTotalProducto();
-
-            }
-            this.factura.tfTotalPagar.setText(String.valueOf(total));
-            this.factura.miTb12.setModel(modelo);
-
+                }
+                this.factura.tfTotalPagar.setText(String.valueOf(total));
+                this.factura.miTb12.setModel(modelo);
+          
         }
     }
 
@@ -538,7 +516,6 @@ public class ControlFactura extends MouseAdapter implements ActionListener, KeyL
 
             for (Object j : VentaLista.toArrayAsc()) {
                 Registros x = (Registros) j;
-                System.out.println("datos" + x.getIdRegistros());
                 if (x.getIdRegistros() == Integer.parseInt(id1)) {
                     RegistroSeleccionada.setIdRegistros(x.getIdRegistros());
                     RegistroSeleccionada.setCantidadProducto(x.getCantidadProducto());
@@ -548,7 +525,6 @@ public class ControlFactura extends MouseAdapter implements ActionListener, KeyL
                 }
 
             }
-            System.out.println("0+0" + RegistroSeleccionada.getPrecioTotalProducto());
         }
     }
 
