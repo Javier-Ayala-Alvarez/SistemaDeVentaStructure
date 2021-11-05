@@ -90,7 +90,7 @@ public class ControlFactura extends MouseAdapter implements ActionListener, KeyL
     private String acceso;
     public String padreActiva = "";
     public int estado, id = 0;
-    private ListaDobleCircular listita, VentaLista, registros;
+    private ListaDobleCircular listita, VentaLista, registros,VentaLista1;
 
     public ControlFactura(Factura factura, Mensaje mensaje, BuscarProducto producto) {
         this.factura = factura;
@@ -105,6 +105,7 @@ public class ControlFactura extends MouseAdapter implements ActionListener, KeyL
         this.listita = new ListaDobleCircular();
         this.VentaLista = new ListaDobleCircular();
         this.registros = new ListaDobleCircular();
+        this.VentaLista1 = new ListaDobleCircular();
         this.clienteSeleccionado = new Cliente();
         this.productoSeleccionado = new Producto();
         this.ventaSeleccionada = new Venta();
@@ -155,24 +156,59 @@ public class ControlFactura extends MouseAdapter implements ActionListener, KeyL
 
     public void accion(String accion) {
         if (accion.equals("agregarProducto")) {
-            //ventaSeleccionada.setIdFactura(1);
-            VentaLista.insertar(new Registros(id, Integer.parseInt(factura.tfCantidad.getText()),
+            
+            Registros obj1 = new Registros(id, Integer.parseInt(factura.tfCantidad.getText()),
                     productoSeleccionado.getPrecioVenta() * Double.parseDouble(factura.tfCantidad.getText()),
-                    productoSeleccionado, ventaSeleccionada));
+                    productoSeleccionado, ventaSeleccionada);
+            
+            if (VentaLista.buscar(obj1)== null) {
+                VentaLista.insertar(obj1);
+            } else {
+                Alerta aler = new Alerta(factura, true, "No puede ingresar un mismo producto", "/img/Succes.png");
+                aler.show();
+            }
+            
             id++;
             padreActiva = "agregarProducto";
             mostrarDatos();
 
         } else if (accion.equals("QuitarDeCarrito")) {
             padreActiva = "agregarProducto";
+            for (Object j : VentaLista.toArrayAsc()) {
+                Registros x = (Registros) j;
+                System.out.println(x.getProducto().getNombreProducto());
+
+            }
+
             VentaLista.eliminar(RegistroSeleccionada);
+            System.out.println("---------------" + RegistroSeleccionada.getIdRegistros());
+            System.out.println(RegistroSeleccionada.getProducto().getNombreProducto());
+            for (Object j : VentaLista.toArrayAsc()) {
+                Registros x = (Registros) j;
+                System.out.println(x.getProducto().getNombreProducto());
+
+            }
             //Trabajando------------------------------------------------
             mostrarDatos();
 
         } else if (accion.equals("cancelar")) {
-            System.out.println("cancelar");
+
             padreActiva = "agregarProducto";
+            for (Object j : VentaLista.toArrayAsc()) {
+                Registros x = (Registros) j;
+                System.out.println(x.getCantidadProducto());
+
+            }
+
             VentaLista.isEmpty();//Trabajando------------------------------------------------
+            System.out.println("---------------");
+            //System.out.println(RegistroSeleccionada.getIdRegistros());
+            for (Object j : VentaLista.toArrayAsc()) {
+                Registros x = (Registros) j;
+                System.out.println(x.getCantidadProducto());
+
+            }
+
             mostrarDatos();
 
         } else if (accion.equals("modificar") && padreActiva.equals("NuevoCliente")) {
@@ -246,10 +282,10 @@ public class ControlFactura extends MouseAdapter implements ActionListener, KeyL
             desplace = new Desface();
             desplace.desplazarIzquierda(factura.jPanel3, factura.jPanel3.getX(), -110, 10, 10);
             String iniciales = "NF-";
-            VentaLista = daoVenta.selectAll();
+            VentaLista1 = daoVenta.selectAll();
             int id = 0;
-            if (!VentaLista.isEmpty()) {
-                id = VentaLista.toArrayDes().size() + 1;
+            if (!VentaLista1.isEmpty()) {
+                id = VentaLista1.toArrayDes().size() + 1;
             }
             this.factura.tfNFactura.setText(crearCodigo(iniciales, id));
             factura.iniciar();
@@ -330,7 +366,7 @@ public class ControlFactura extends MouseAdapter implements ActionListener, KeyL
 
             }
             this.factura.tfTotalPagar.setText(String.valueOf(total));
-            this.factura.miTb1.setModel(modelo);
+            this.factura.miTb12.setModel(modelo);
 
         }
     }
@@ -416,7 +452,7 @@ public class ControlFactura extends MouseAdapter implements ActionListener, KeyL
         modeloTabla = new DefaultTableModel();
         String titule[] = {"Codigo", "Producto", "Cantidad", "Precio/U", "Total"};
         this.modeloTabla.setColumnIdentifiers(titule);
-        factura.miTb1.setModel(modeloTabla);
+        factura.miTb12.setModel(modeloTabla);
     }
 
     @Override
@@ -494,20 +530,25 @@ public class ControlFactura extends MouseAdapter implements ActionListener, KeyL
             factura.tfPrecioTotal1.setText("");
             factura.tfCantidad.setText("");
         } else {
-            int fila = factura.miTb1.getSelectedRow();
-            String id = factura.miTb1.getValueAt(fila, 0).toString();
-            RegistroSeleccionada.setIdRegistros(Integer.parseInt(id));
-            listita.antesDe(id);
-            for (Object j : listita.toArrayAsc()) {
+
+            int fila = factura.miTb12.getSelectedRow();
+            String id1 = factura.miTb12.getValueAt(fila, 0).toString();
+            System.out.println(id1);
+            VentaLista.antesDe(id1);
+
+            for (Object j : VentaLista.toArrayAsc()) {
                 Registros x = (Registros) j;
-                if (x.getIdRegistros()== Integer.parseInt(id)) {
+                System.out.println("datos" + x.getIdRegistros());
+                if (x.getIdRegistros() == Integer.parseInt(id1)) {
                     RegistroSeleccionada.setIdRegistros(x.getIdRegistros());
                     RegistroSeleccionada.setCantidadProducto(x.getCantidadProducto());
                     RegistroSeleccionada.setPrecioTotalProducto(x.getPrecioTotalProducto());
                     RegistroSeleccionada.setProducto(x.getProducto());
                     RegistroSeleccionada.setVenta(x.getVenta());
                 }
+
             }
+            System.out.println("0+0" + RegistroSeleccionada.getPrecioTotalProducto());
         }
     }
 
