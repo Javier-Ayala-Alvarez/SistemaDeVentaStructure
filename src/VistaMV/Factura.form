@@ -297,9 +297,9 @@
                                       </Group>
                                       <Group type="102" alignment="1" attributes="0">
                                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                          <Component id="btnPrestamo" min="-2" pref="160" max="-2" attributes="0"/>
+                                          <Component id="btnQuitarDeCarrito" min="-2" pref="160" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
-                                          <Component id="btnEliminarFila" min="-2" pref="160" max="-2" attributes="0"/>
+                                          <Component id="btnCancelar" min="-2" pref="160" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
@@ -417,8 +417,8 @@
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="btnVender" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnPrestamo" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnEliminarFila" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnQuitarDeCarrito" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnCancelar" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -781,7 +781,7 @@
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
           </AuxValues>
         </Component>
-        <Component class="rojeru_san.complementos.RSButtonHover" name="btnEliminarFila">
+        <Component class="rojeru_san.complementos.RSButtonHover" name="btnCancelar">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="33" green="33" red="ff" type="rgb"/>
@@ -790,7 +790,7 @@
             <Property name="actionCommand" type="java.lang.String" value="Eliminar"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEliminarFilaActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelarActionPerformed"/>
           </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
@@ -844,7 +844,7 @@
             <Property name="text" type="java.lang.String" value="Nueva Factura."/>
           </Properties>
         </Component>
-        <Component class="rojeru_san.complementos.RSButtonHover" name="btnPrestamo">
+        <Component class="rojeru_san.complementos.RSButtonHover" name="btnQuitarDeCarrito">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="99" red="ff" type="rgb"/>
@@ -853,7 +853,7 @@
             <Property name="actionCommand" type="java.lang.String" value="prestamo"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPrestamoActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnQuitarDeCarritoActionPerformed"/>
           </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
