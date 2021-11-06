@@ -227,7 +227,6 @@ public class MenuAdministrador extends javax.swing.JFrame {
         setFocusTraversalPolicyProvider(true);
         setLocationByPlatform(true);
         setModalExclusionType(null);
-        setUndecorated(true);
         setSize(new java.awt.Dimension(10, 10));
         setState(5);
         setType(java.awt.Window.Type.POPUP);

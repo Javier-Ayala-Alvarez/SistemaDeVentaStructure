@@ -184,9 +184,9 @@ public class ControlFactura extends MouseAdapter implements ActionListener, KeyL
 
             }
 
-            VentaLista.isEmpty();//Trabajando------------------------------------------------
+            VentaLista.isEmpty();//Trabajando-´´´´´´´´´´´´´´-----------------------------------------------
             System.out.println("---------------");
-            //System.out.println(RegistroSeleccionada.getIdRegistros());
+            //System.out.println(RegistroSeleccionadrra.getIdRegistros());
             mostrarDatos();
 
         } else if (accion.equals("modificar") && padreActiva.equals("NuevoCliente")) {
