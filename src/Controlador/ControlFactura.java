@@ -338,13 +338,20 @@ public class ControlFactura extends MouseAdapter implements ActionListener, KeyL
                 int opccion = JOptionPane.showConfirmDialog(null, "Su factura no se registrara?", "Alerta", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
                 if (opccion == 0) {
                     this.factura.dispose();
-                    login = new Login();
-                    login.iniciar();
+                    factura.dispose();
+                    Login logg = new Login();
+                    Factura vistaFf = new Factura();
+                    MenuAdministrador vistaMAa = new MenuAdministrador();
+
+                    ControlLogin controlLo = new ControlLogin(logg, vistaFf, vistaMAa, logg.tfUser.getText());
                 }
             } else {
-                this.factura.dispose();
-                login = new Login();
-                login.iniciar();
+                factura.dispose();
+                Login logg = new Login();
+                Factura vistaFf = new Factura();
+                MenuAdministrador vistaMAa = new MenuAdministrador();
+
+                ControlLogin controlLo = new ControlLogin(logg, vistaFf, vistaMAa, logg.tfUser.getText());
             }
         } else if (accion.equals("SeleccionarProducto")) {
             tbproducto = new BuscarProducto(factura, true);
