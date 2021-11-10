@@ -1040,7 +1040,7 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
             for (Object j : listita.toArrayAsc()) {
                 Reporte x = (Reporte) j;
                 Object datos[] = {x.getIdReporte(), x.getProducto().getCodigoProducto(), x.getProducto().getNombreProducto(), x.getCantidad(),
-                    x.getPrecioCompra(), x.getProducto().getPrecioVenta(), x.getFechaCompra()};///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                   String.format("%.2f", x.getPrecioCompra()),String.format("%.2f", x.getProducto().getPrecioVenta()), x.getFechaCompra()};///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 modelo.addRow(datos);
             }
             this.productoModi.jtDatos.setModel(modelo);
@@ -1072,7 +1072,7 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
                 }
                 total0 = total0 + totalPro;
                 precioCompraTotal = (precioCompraTotal / cantidad) * x.getCantidad();
-                Object datos[] = {x.getCodigoProducto(), x.getNombreProducto(), x.getCantidad(), x.getGananciaUni(), precioCompraTotal / x.getCantidad(), precioCompraTotal, x.getPrecioVenta(), x.getEmpresa().getNombre(), totalPro};
+                Object datos[] = {x.getCodigoProducto(), x.getNombreProducto(), x.getCantidad(),String.format("%.2f", x.getGananciaUni()) , String.format("%.2f", precioCompraTotal / x.getCantidad()),String.format("%.2f",precioCompraTotal ) ,String.format("%.2f",x.getPrecioVenta() ) , x.getEmpresa().getNombre(), String.format("%.2f",totalPro)};
                 modelo.addRow(datos);
                 precioCompraTotal = 0;
                 totalPro = 0;
