@@ -114,7 +114,7 @@ public class RegistrosDao {
         try {
             con = conectar.getConexion();
             ps = con.prepareStatement(sql);
-            //ps.setInt(0, obj.getIdGasto());
+            
             ps.setInt(1, obj.getCantidadProducto());
             ps.setDouble(2, obj.getPrecioTotalProducto());
             ps.setInt(3, obj.getVenta().getIdFactura());

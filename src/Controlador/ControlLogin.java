@@ -117,7 +117,7 @@ public class ControlLogin extends MouseAdapter implements ActionListener, KeyLis
                // ControlFactura controlF = new ControlFactura(factura, facturacion, mensaje, tablaProducto, l);
 //            login.dispose();
 //            factura.setControlador(this);
-            ControlFactura controlF = new ControlFactura(factura, mensaje, tablaProducto);
+            ControlFactura controlF = new ControlFactura(factura, mensaje, tablaProducto,l);
         } else if (vista.equals("Admin")) {
             login.dispose();
             menuAdministrador.setControlador(this);

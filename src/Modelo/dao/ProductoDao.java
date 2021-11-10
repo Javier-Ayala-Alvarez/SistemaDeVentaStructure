@@ -194,13 +194,6 @@ public class ProductoDao {
         String sql = "insert into reporte( fechaCompra,cantidad, precioCompra, idProducto)VALUES(?,?,?,?)";
         return alterarRegistroRe(sql, obj);
     }
-    
-
-    public void update(Producto obj) {
-        String sql = "update producto set idProducto =?, codigoProducto =?, nombreProducto =?, precioCompra =?, cantida =?, fechaVencimiento =?, max =?, min =?, estado =?, gananciaUni =?, iva =?, precioVenta =?, idEmpresa =? where idProducto=" + obj.getIdProducto();
-        alterarRegistro(sql, obj);
-    }
-
     public boolean insertProducto(Producto obj) {
         String sql = "INSERT INTO producto(codigoProducto, nombreProducto, cantidad, gananciaUni, precioVenta, idEmpresa)VALUES(?,?,?,?,?,?)";
         return alterarRegistro(sql, obj);
@@ -209,11 +202,6 @@ public class ProductoDao {
     public boolean updateProducto(Producto obj) {
         String sql = "UPDATE producto SET codigoProducto =?, nombreProducto =?, cantidad =?, gananciaUni =?, precioVenta =?, idEmpresa =? WHERE idProducto=" + obj.getIdProducto();
         return alterarRegistro(sql, obj);
-    }
-
-    public boolean updateCantidad(Producto obj) {
-        String sql = "update producto set codigoProducto =?, nombreProducto =?, precioCompra =?, cantidad =?, fechaVencimiento =?, max =?, min =?, estado =?, gananciaUni =?, iva =?, precioVenta =? where idProducto=" + obj.getIdProducto();
-        return alterarRegistroCantidad(sql, obj);
     }
 
     public ListaDobleCircular<Producto> listaProductComb() {
