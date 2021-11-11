@@ -16,7 +16,6 @@ public class Factura extends javax.swing.JFrame {
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);//PANTALLA COMPLETA
 
         //
-        jpLogo1.setBorder(new Fondo("/img/Logo.jpg"));
         res = "res";
 
         desplace = new Desface();
@@ -26,9 +25,9 @@ public class Factura extends javax.swing.JFrame {
         btnCliente.setActionCommand("SeleccionarCliente");
         btnProducto.setActionCommand("SeleccionarProducto");
         btnAgregarProducto.setActionCommand("agregarProducto");
-        btnCancelar.setActionCommand("cancelar");
+        btnCalculadora.setActionCommand("calculadora");
         rSDateFecha.setDatoFecha(new Date());
-        btnVender.setActionCommand("vender");
+        btnFacturar.setActionCommand("facturar");
         btnQuitarDeCarrito.setActionCommand("QuitarDeCarrito");
 
     }
@@ -42,7 +41,8 @@ public class Factura extends javax.swing.JFrame {
     }
 
     public void setControladorF(ControlFactura controlF) {
-        btnVender.addActionListener(controlF);
+        btnCalculadora.addActionListener(controlF);
+        btnFacturar.addActionListener(controlF);
         escritorioFactura.addMouseListener(controlF);
         btnNuevoCliente.addActionListener(controlF);
         btnCerrarCaja.addActionListener(controlF);
@@ -52,7 +52,6 @@ public class Factura extends javax.swing.JFrame {
         tfCantidad.addKeyListener(controlF);
         tfEfectivo.addKeyListener(controlF);
         btnAgregarProducto.addActionListener(controlF);
-        btnCancelar.addActionListener(controlF);
         miTb12.addMouseListener(controlF);
 
     }
@@ -102,12 +101,11 @@ public class Factura extends javax.swing.JFrame {
         btnProducto = new rojeru_san.complementos.RSButtonHover();
         jScrollPane2 = new javax.swing.JScrollPane();
         btnAgregarProducto = new rojeru_san.complementos.RSButtonHover();
-        btnCancelar = new rojeru_san.complementos.RSButtonHover();
         tfTotalPagar = new principal.MaterialTextField();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         btnQuitarDeCarrito = new rojeru_san.complementos.RSButtonHover();
-        btnVender = new rojeru_san.complementos.RSButtonHover();
+        btnFacturar = new rojeru_san.complementos.RSButtonHover();
         tfEfectivo = new principal.MaterialTextField();
         tfCambio = new principal.MaterialTextField();
         jLabel13 = new javax.swing.JLabel();
@@ -116,11 +114,11 @@ public class Factura extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         lbNombreUsuario = new javax.swing.JLabel();
-        jpLogo1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         btnNuevoCliente = new rojeru_san.complementos.RSButtonHover();
         btnCerrarCaja = new rojeru_san.complementos.RSButtonHover();
         jLabel3 = new javax.swing.JLabel();
+        btnCalculadora = new rojeru_san.complementos.RSButtonHover();
 
         jMenu1.setText("jMenu1");
 
@@ -307,7 +305,7 @@ public class Factura extends javax.swing.JFrame {
             }
         });
 
-        btnCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/buscar1.png"))); // NOI18N
+        btnCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/buscar.png"))); // NOI18N
         btnCliente.setActionCommand("SeleccionarCliente");
         btnCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -315,7 +313,7 @@ public class Factura extends javax.swing.JFrame {
             }
         });
 
-        btnProducto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/buscar1.png"))); // NOI18N
+        btnProducto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/buscar.png"))); // NOI18N
         btnProducto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnProductoActionPerformed(evt);
@@ -349,15 +347,6 @@ public class Factura extends javax.swing.JFrame {
             }
         });
 
-        btnCancelar.setBackground(new java.awt.Color(255, 51, 51));
-        btnCancelar.setText("Cancelar");
-        btnCancelar.setActionCommand("Eliminar");
-        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelarActionPerformed(evt);
-            }
-        });
-
         tfTotalPagar.setBackground(new java.awt.Color(213, 216, 221));
         tfTotalPagar.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         tfTotalPagar.setFocusable(false);
@@ -387,10 +376,10 @@ public class Factura extends javax.swing.JFrame {
             }
         });
 
-        btnVender.setText("Facturar");
-        btnVender.addActionListener(new java.awt.event.ActionListener() {
+        btnFacturar.setText("Facturar");
+        btnFacturar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVenderActionPerformed(evt);
+                btnFacturarActionPerformed(evt);
             }
         });
 
@@ -502,12 +491,10 @@ public class Factura extends javax.swing.JFrame {
                                 .addGap(13, 13, 13)))))
                 .addContainerGap(9, Short.MAX_VALUE))
             .addGroup(escritorioFacturaLayout.createSequentialGroup()
-                .addGap(350, 350, 350)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnQuitarDeCarrito, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(99, 99, 99)
-                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnVender, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(200, 200, 200)
+                .addComponent(btnFacturar, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(58, 58, 58))
         );
         escritorioFacturaLayout.setVerticalGroup(
@@ -585,8 +572,7 @@ public class Factura extends javax.swing.JFrame {
                 .addGap(36, 36, 36)
                 .addGroup(escritorioFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnQuitarDeCarrito, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnVender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnFacturar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(52, Short.MAX_VALUE))
         );
 
@@ -608,27 +594,14 @@ public class Factura extends javax.swing.JFrame {
         lbNombreUsuario.setForeground(new java.awt.Color(255, 255, 255));
         lbNombreUsuario.setText(".");
 
-        javax.swing.GroupLayout jpLogo1Layout = new javax.swing.GroupLayout(jpLogo1);
-        jpLogo1.setLayout(jpLogo1Layout);
-        jpLogo1Layout.setHorizontalGroup(
-            jpLogo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 82, Short.MAX_VALUE)
-        );
-        jpLogo1Layout.setVerticalGroup(
-            jpLogo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(jpLogo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(106, 106, 106)
+                .addGap(206, 206, 206)
                 .addComponent(lbNombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 695, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(80, 80, 80))
         );
@@ -636,12 +609,8 @@ public class Factura extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(lbNombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 38, Short.MAX_VALUE))
-                    .addComponent(jpLogo1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addComponent(lbNombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(44, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addComponent(jLabel1)
@@ -691,6 +660,20 @@ public class Factura extends javax.swing.JFrame {
             }
         });
 
+        btnCalculadora.setBackground(new java.awt.Color(72, 139, 183));
+        btnCalculadora.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/calculator_40px.png"))); // NOI18N
+        btnCalculadora.setText("Calculadora");
+        btnCalculadora.setActionCommand("NuevoCliente");
+        btnCalculadora.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnCalculadora.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        btnCalculadora.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        btnCalculadora.setIconTextGap(20);
+        btnCalculadora.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCalculadoraActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -703,7 +686,8 @@ public class Factura extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnCerrarCaja, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(btnNuevoCliente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(btnNuevoCliente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(btnCalculadora, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -711,9 +695,11 @@ public class Factura extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addComponent(jLabel3)
-                .addGap(172, 172, 172)
+                .addGap(118, 118, 118)
                 .addComponent(btnNuevoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(77, 77, 77)
+                .addGap(32, 32, 32)
+                .addComponent(btnCalculadora, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(48, 48, 48)
                 .addComponent(btnCerrarCaja, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -751,10 +737,6 @@ public class Factura extends javax.swing.JFrame {
     private void btnCerrarCajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarCajaActionPerformed
 
     }//GEN-LAST:event_btnCerrarCajaActionPerformed
-
-    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-
-    }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void tfTotalPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfTotalPagarActionPerformed
         // TODO add your handling code here:
@@ -801,9 +783,9 @@ public class Factura extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tfNFacturaActionPerformed
 
-    private void btnVenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVenderActionPerformed
+    private void btnFacturarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFacturarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnVenderActionPerformed
+    }//GEN-LAST:event_btnFacturarActionPerformed
 
     private void tfEfectivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfEfectivoActionPerformed
         // TODO add your handling code here:
@@ -836,15 +818,19 @@ public class Factura extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnQuitarDeCarritoActionPerformed
 
+    private void btnCalculadoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalculadoraActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCalculadoraActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public rojeru_san.complementos.RSButtonHover btnAgregarProducto;
-    public rojeru_san.complementos.RSButtonHover btnCancelar;
+    public rojeru_san.complementos.RSButtonHover btnCalculadora;
     public rojeru_san.complementos.RSButtonHover btnCerrarCaja;
     public static rojeru_san.complementos.RSButtonHover btnCliente;
+    public rojeru_san.complementos.RSButtonHover btnFacturar;
     public rojeru_san.complementos.RSButtonHover btnNuevoCliente;
     public static rojeru_san.complementos.RSButtonHover btnProducto;
     public rojeru_san.complementos.RSButtonHover btnQuitarDeCarrito;
-    public rojeru_san.complementos.RSButtonHover btnVender;
     public static javax.swing.JPanel escritorioFactura;
     private javax.swing.JDialog jDialog1;
     private javax.swing.JLabel jLabel1;
@@ -876,7 +862,6 @@ public class Factura extends javax.swing.JFrame {
     public javax.swing.JPanel jPanel2;
     public javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JPanel jpLogo1;
     private javax.swing.JLabel lbNombre;
     public javax.swing.JLabel lbNombreUsuario;
     public static final javax.swing.JTable miTb12 = new javax.swing.JTable();

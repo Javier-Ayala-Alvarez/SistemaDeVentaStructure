@@ -68,6 +68,9 @@ public class ControlLogin extends MouseAdapter implements ActionListener, KeyLis
         llamarVistaConsulta("login");
     }
 
+    public ControlLogin() {
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         /*  Esta función verifica que el botón presionado contenga un determinado
@@ -114,10 +117,7 @@ public class ControlLogin extends MouseAdapter implements ActionListener, KeyLis
                 String l = String.valueOf(listaUsuario.get(0).getIdUsuario());
                 login.dispose();
                 factura.setControlador(this);
-               // ControlFactura controlF = new ControlFactura(factura, facturacion, mensaje, tablaProducto, l);
-//            login.dispose();
-//            factura.setControlador(this);
-            ControlFactura controlF = new ControlFactura(factura, mensaje, tablaProducto);
+            ControlFactura controlF = new ControlFactura(factura, mensaje, tablaProducto,l);
         } else if (vista.equals("Admin")) {
             login.dispose();
             menuAdministrador.setControlador(this);

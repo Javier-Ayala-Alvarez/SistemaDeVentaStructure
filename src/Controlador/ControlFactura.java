@@ -18,12 +18,14 @@ import Modelo.Usuario;
 import Modelo.Venta;
 import Modelo.dao.ClienteDao;
 import Modelo.dao.EmpleadoDao;
+import Modelo.dao.EmpresaDao;
 import Modelo.dao.RegistrosDao;
 import Modelo.dao.UsuarioDao;
 import VistaLogin.Alerta;
 import VistaMA.ClienteMA;
 import VistaMV.BuscarCliente;
 import VistaMV.BuscarProducto;
+import VistaMV.Calculadora;
 
 import VistaMV.Tiket;
 import desplazable.Desface;
@@ -51,55 +53,63 @@ import javax.swing.table.TableRowSorter;
  */
 public class ControlFactura extends MouseAdapter implements ActionListener, KeyListener, ItemListener, FocusListener {
 
-    Desface desplace;
+    private Desface desplace;
     /*Objetos para el Constructor de esta clase*/
-    Factura factura;
-    Mensaje mensaje;
-    BuscarProducto tbproducto;
+    private Factura factura;
+    private Mensaje mensaje;
+    private BuscarProducto tbproducto;
     /*Objetos para el Constructor de ControlLogin*/
-    Login login;
+    private Login login;
 
     //NUEVO
     private ArrayList<Producto> listaProduc;
-    DefaultTableModel modelo;
-    DefaultTableModel modeloTabla;
-    ProductoDao daoProducto = new ProductoDao();
-    Producto productoSeleccionado = null;
-    Registros RegistroSeleccionada = null;
-    Producto producto;
-    Registros registroMd;
-    RegistrosDao daoRegistros;
-    Cliente clienteMd;
-    Cliente clienteSeleccionado = null;
-    Empleados empleadoMd;
-    EmpleadoDao daoEmpleado;//added Lunes
-    Tiket tiket;
-    Usuario usuario;//added
-    UsuarioDao daoUsuario;//added
-    Venta venta;
-    Venta ventaSeleccionada = null;
-    ClienteMA clienteMA;
-    Cliente cliente;
-    VentaDao daoVenta = new VentaDao();
-    ClienteDao daoCliente = new ClienteDao();
-    Empresa empresa;
-    public int cliente1;
+    private DefaultTableModel modelo;
+    private DefaultTableModel modeloTabla;
+    private ProductoDao daoProducto = new ProductoDao();
+    private Producto productoSeleccionado = null;
+    private Registros RegistroSeleccionada = null;
+    private Producto producto;
+    private Registros registroMd;
+    private RegistrosDao daoRegistros = new RegistrosDao();
+    ;
+    private Cliente clienteMd;
+    private Cliente clienteSeleccionado = null;
+    private Empleados empleadoMd;
+    private ArrayList<Empleados> empleadoSeleccionado;
+    private EmpleadoDao daoEmpleado = new EmpleadoDao();//added Lunes
+    private Tiket tiket;
+    private Usuario usuario;//added
+    private UsuarioDao daoUsuario;//added
+    private Venta venta;
+    private Venta ventaSeleccionada = null;
+    private Venta max = null;
+    private ArrayList<Venta> VentaD;
+    private ClienteMA clienteMA;
+    private Calculadora calculadora;
+    private Cliente cliente;
+    private VentaDao daoVenta = new VentaDao();
+    private ClienteDao daoCliente = new ClienteDao();
+    private ArrayList<Empresa> empresa;
+    private EmpresaDao daoEmpresa = new EmpresaDao();
 
-    BuscarCliente buscarCliente;
+    public int cliente1;
+    private String codigoUsuario;
+    private BuscarCliente buscarCliente;
 
     private String acceso;
     public String padreActiva = "";
     public int estado, id = 0;
     private ListaDobleCircular listita, VentaLista, registros, VentaLista1;
 
-    public ControlFactura(Factura factura, Mensaje mensaje, BuscarProducto producto) {
+    public ControlFactura(Factura factura, Mensaje mensaje, BuscarProducto producto, String l) {
         this.factura = factura;
         this.mensaje = mensaje;
+        this.codigoUsuario = l;
         this.tbproducto = producto;
         this.acceso = acceso;
         desplace = new Desface();
         factura.tfCantidad.setEditable(false);
-        limpiarDatos();
+
         llamarVFactura("inicio");
 
         this.listita = new ListaDobleCircular();
@@ -109,9 +119,13 @@ public class ControlFactura extends MouseAdapter implements ActionListener, KeyL
         this.clienteSeleccionado = new Cliente();
         this.productoSeleccionado = new Producto();
         this.ventaSeleccionada = new Venta();
+        this.max = new Venta();
         this.RegistroSeleccionada = new Registros();
+        this.empleadoSeleccionado = new ArrayList<>();
         this.registroMd = new Registros();
+        this.empresa = new ArrayList<>();
         this.venta = new Venta();
+        this.VentaD = new ArrayList<>();
 
     }
 
@@ -142,11 +156,14 @@ public class ControlFactura extends MouseAdapter implements ActionListener, KeyL
             case "agregarProducto":
                 accion("agregarProducto");
                 break;
-            case "cancelar":
-                accion("cancelar");
+            case "facturar":
+                accion("facturar");
                 break;
             case "QuitarDeCarrito":
                 accion("QuitarDeCarrito");
+                break;
+            case "calculadora":
+                llamarVFactura("calculadora");
                 break;
             default:
 
@@ -156,39 +173,81 @@ public class ControlFactura extends MouseAdapter implements ActionListener, KeyL
 
     public void accion(String accion) {
         if (accion.equals("agregarProducto")) {
-
-            Registros obj1 = new Registros(id, Integer.parseInt(factura.tfCantidad.getText()),
-                    productoSeleccionado.getPrecioVenta() * Double.parseDouble(factura.tfCantidad.getText()),
-                    productoSeleccionado, ventaSeleccionada);
-            if (VentaLista.buscar(obj1) == null) {
-                VentaLista.insertar(obj1);
+            if (!this.factura.tfCantidad.getText().isEmpty()) {
+                Registros obj1 = new Registros(id, Integer.parseInt(factura.tfCantidad.getText()),
+                        productoSeleccionado.getPrecioVenta() * Double.parseDouble(factura.tfCantidad.getText()),
+                        productoSeleccionado, ventaSeleccionada);
+                if (VentaLista.buscar(obj1) == null) {
+                    VentaLista.insertar(obj1);
+                    buelto();
+                } else {
+                    Alerta aler = new Alerta(factura, true, "No puede ingresar un mismo producto", "/img/Succes.png");
+                    aler.show();
+                }
+                id++;
+                padreActiva = "agregarProducto";
+                mostrarDatos();
             } else {
-                Alerta aler = new Alerta(factura, true, "No puede ingresar un mismo producto", "/img/Succes.png");
+                Alerta aler = new Alerta(factura, true, "Campos incompletos o vacios", "/img/Succes.png");
                 aler.show();
             }
-            id++;
-            padreActiva = "agregarProducto";
-            mostrarDatos();
-
         } else if (accion.equals("QuitarDeCarrito")) {
             padreActiva = "agregarProducto";
             VentaLista.eliminar(RegistroSeleccionada);
             mostrarDatos();
+            buelto();
+        } else if (accion.equals("facturar")) {
+            if (!this.factura.tfProducto.getText().equals("No Agregado")
+                    && !this.factura.tfNombre.getText().equals("No Registrado")
+                    && !this.factura.tfPrecioTotal1.getText().isEmpty()) {
+                ventaSeleccionada.setnFactura(factura.tfNFactura.getText());
+                ventaSeleccionada.setEstado(1);
+                ventaSeleccionada.setFechaVenta(factura.rSDateFecha.getDatoFecha());
+                ventaSeleccionada.setSaldoTotal(Double.parseDouble(factura.tfTotalPagar.getText()));
+                ventaSeleccionada.setCliente(clienteSeleccionado);
+                empleadoSeleccionado = daoEmpleado.selectAllTo("idUsuario", codigoUsuario);
+                ventaSeleccionada.setEmpleado(empleadoSeleccionado.get(0));
+                empresa = daoEmpresa.selectAll();
+                ventaSeleccionada.setEmpresa(empresa.get(0));
+                if (daoVenta.insertarVenta(ventaSeleccionada)) {
+                    max = daoVenta.getSelectMax();
+                    ventaSeleccionada.setIdFactura(max.getMax());
+                    for (Object j : VentaLista.toArrayAsc()) {
+                        Registros x = (Registros) j;
 
-        } else if (accion.equals("cancelar")) {
+                        RegistroSeleccionada.setVenta(ventaSeleccionada);
+                        RegistroSeleccionada.setCantidadProducto(x.getCantidadProducto());
+                        RegistroSeleccionada.setPrecioTotalProducto(x.getPrecioTotalProducto());
+                        RegistroSeleccionada.setProducto(x.getProducto());
 
-            padreActiva = "agregarProducto";
-            for (Object j : VentaLista.toArrayAsc()) {
-                Registros x = (Registros) j;
-                System.out.println(x.getCantidadProducto());
+                        daoRegistros.insert(RegistroSeleccionada);
+                        productoSeleccionado = RegistroSeleccionada.getProducto();
+                        productoSeleccionado.setCantidad(x.getProducto().getCantidad() - x.getCantidadProducto());
+                        daoProducto.updateProducto(productoSeleccionado);
+                        VentaLista.eliminar(RegistroSeleccionada);
+                    }
 
+                    String iniciales = "NF-";
+                    VentaLista1 = daoVenta.selectAll();
+                    int id = 0;
+                    if (!VentaLista1.isEmpty()) {
+                        id = VentaLista1.toArrayDes().size() + 1;
+                    }
+                    this.factura.tfNFactura.setText(crearCodigo(iniciales, id));
+                    limpiarCb1();
+                    this.id = 0;
+                    mostrarDatos();
+                    buelto();
+                    Alerta aler = new Alerta(factura, true, "Factura con exito", "/img/Succes.png");
+                    aler.show();
+                } else {
+                    Alerta aler = new Alerta(factura, true, "Se produjo un error", "/img/Succes.png");
+                    aler.show();
+                }
+            } else {
+                Alerta aler = new Alerta(factura, true, "Campos incompletos o vacios", "/img/Succes.png");
+                aler.show();
             }
-
-            VentaLista.isEmpty();//Trabajando-´´´´´´´´´´´´´´-----------------------------------------------
-            System.out.println("---------------");
-            //System.out.println(RegistroSeleccionadrra.getIdRegistros());
-            mostrarDatos();
-
         } else if (accion.equals("modificar") && padreActiva.equals("NuevoCliente")) {
             if (!this.clienteMA.tfNombre.getText().isEmpty()
                     && !this.clienteMA.tfApellido.getText().isEmpty()
@@ -267,6 +326,10 @@ public class ControlFactura extends MouseAdapter implements ActionListener, KeyL
             }
             this.factura.tfNFactura.setText(crearCodigo(iniciales, id));
             factura.iniciar();
+        } else if (accion.equals("calculadora")) {
+            calculadora = new Calculadora(factura, true);
+            calculadora.setControlador(this);
+            calculadora.iniciar();
         } else if (accion.equals("NuevoCliente")) {
             clienteMA = new ClienteMA(factura, true);
             clienteMA.setControlador(this);
@@ -280,9 +343,25 @@ public class ControlFactura extends MouseAdapter implements ActionListener, KeyL
             mostrarDatos();
             buscarCliente.iniciar();
         } else if (accion.equals("cerrar")) {
-            this.factura.dispose();
-            login = new Login();
-            login.iniciar();
+            if (!this.factura.tfPrecioTotal1.getText().isEmpty()) {
+                int opccion = JOptionPane.showConfirmDialog(null, "Su factura no se registrara?", "Alerta", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+                if (opccion == 0) {
+                    this.factura.dispose();
+                    factura.dispose();
+                    Login logg = new Login();
+                    Factura vistaFf = new Factura();
+                    MenuAdministrador vistaMAa = new MenuAdministrador();
+
+                    ControlLogin controlLo = new ControlLogin(logg, vistaFf, vistaMAa, logg.tfUser.getText());
+                }
+            } else {
+                factura.dispose();
+                Login logg = new Login();
+                Factura vistaFf = new Factura();
+                MenuAdministrador vistaMAa = new MenuAdministrador();
+
+                ControlLogin controlLo = new ControlLogin(logg, vistaFf, vistaMAa, logg.tfUser.getText());
+            }
         } else if (accion.equals("SeleccionarProducto")) {
             tbproducto = new BuscarProducto(factura, true);
             tbproducto.setControlador(this);
@@ -301,7 +380,7 @@ public class ControlFactura extends MouseAdapter implements ActionListener, KeyL
             listita = daoProducto.selectAll();
             for (Object j : listita.toArrayAsc()) {
                 Producto x = (Producto) j;
-                Object datos[] = {x.getCodigoProducto(), x.getNombreProducto(), x.getCantidad(), x.getPrecioVenta()};
+                Object datos[] = {x.getCodigoProducto(), x.getNombreProducto(), x.getCantidad(), String.format("%.2f", x.getPrecioVenta())};
                 modelo.addRow(datos);
 
             }
@@ -335,17 +414,17 @@ public class ControlFactura extends MouseAdapter implements ActionListener, KeyL
             double total = 0;
             String titulos[] = {"Nº", "Codigo", "Nombre", "Cantidad", "Precio Unitario", "Total"};
             modelo.setColumnIdentifiers(titulos);
-            
-                for (Object j : VentaLista.toArrayAsc()) {
-                    Registros x = (Registros) j;
-                    Object datos[] = {x.getIdRegistros(), x.getProducto().getCodigoProducto(), x.getProducto().getNombreProducto(), x.getCantidadProducto(), x.getProducto().getPrecioVenta(), x.getPrecioTotalProducto()};
-                    modelo.addRow(datos);
-                    total = total + x.getPrecioTotalProducto();
 
-                }
-                this.factura.tfTotalPagar.setText(String.valueOf(total));
-                this.factura.miTb12.setModel(modelo);
-          
+            for (Object j : VentaLista.toArrayAsc()) {
+                Registros x = (Registros) j;
+                Object datos[] = {x.getIdRegistros(), x.getProducto().getCodigoProducto(), x.getProducto().getNombreProducto(), x.getCantidadProducto(), String.format("%.2f", x.getProducto().getPrecioVenta()), String.format("%.2f", x.getPrecioTotalProducto())};
+                modelo.addRow(datos);
+                total = total + x.getPrecioTotalProducto();
+
+            }
+            this.factura.tfTotalPagar.setText(String.format("%.2f", total));
+            this.factura.miTb12.setModel(modelo);
+
         }
     }
 
@@ -400,6 +479,12 @@ public class ControlFactura extends MouseAdapter implements ActionListener, KeyL
         clienteMA.tfDireccion.setText("");
     }
 
+    public void buelto() {
+
+        factura.tfEfectivo.setText("");
+        factura.tfCambio.setText("");
+    }
+
     public void limpiarCb1() {
         this.factura.tfPrecioUni.setText("");
         this.factura.tfPrecioTotal1.setText("");
@@ -408,29 +493,6 @@ public class ControlFactura extends MouseAdapter implements ActionListener, KeyL
         this.factura.tfNombre.setText("No Registrado");
         this.factura.tfDireccion.setText("No Registrado");
 
-    }
-
-    public void limpiarCb() {
-        this.factura.tfPrecioUni.setText("");
-        this.factura.tfPrecioTotal1.setText("");
-        this.factura.tfCantidad.setText("");
-        this.factura.tfProducto.setText("No Agregado");
-
-    }
-
-    public void limpiarDatos() {
-        this.factura.tfNFactura.setText("");
-        this.factura.tfNombre.setText("No Registrado");
-        this.factura.tfDireccion.setText("No Registrado");
-        this.factura.tfCantidad.setText("");
-        this.factura.tfPrecioUni.setText("");
-        this.factura.tfPrecioTotal1.setText("");
-        this.factura.tfTotalPagar.setText("");
-
-        modeloTabla = new DefaultTableModel();
-        String titule[] = {"Codigo", "Producto", "Cantidad", "Precio/U", "Total"};
-        this.modeloTabla.setColumnIdentifiers(titule);
-        factura.miTb12.setModel(modeloTabla);
     }
 
     @Override
@@ -493,6 +555,7 @@ public class ControlFactura extends MouseAdapter implements ActionListener, KeyL
                 Producto x = (Producto) j;
                 if (x.getCodigoProducto().equals(id)) {
                     productoSeleccionado.setIdProducto(x.getIdProducto());
+                    productoSeleccionado.setCodigoProducto(x.getCodigoProducto());
                     productoSeleccionado.setNombreProducto(x.getNombreProducto());
                     productoSeleccionado.setCantidad(x.getCantidad());
                     productoSeleccionado.setEmpresa(x.getEmpresa());

@@ -16,7 +16,7 @@ public class Venta  implements Comparable<Venta>{
    private Cliente cliente;
    private Empleados empleado;
    private Empresa empresa;
-   
+   private int max;
    
     
 
@@ -77,6 +77,14 @@ public class Venta  implements Comparable<Venta>{
     public int getEstado() {
 
         return estado;
+    }
+
+    public int getMax() {
+        return max;
+    }
+
+    public void setMax(int max) {
+        this.max = max;
     }
 
     public void setEstado(int estado) {
@@ -179,7 +187,8 @@ public class Venta  implements Comparable<Venta>{
     public String toString() {
         return nFactura;
     }
-    
+
+ 
     
 
   

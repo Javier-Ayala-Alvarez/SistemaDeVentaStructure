@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -49,7 +50,74 @@ public class VentaDao {
                 obj.setSaldoTotal(rs.getDouble("precioTotal"));
                 obj.setEstado(rs.getInt("estado"));
                 obj.setCliente(new Cliente(rs.getInt("idCliente")));
-            
+
+                obj.setEmpleado(new Empleados(rs.getInt("idEmpleado")));
+                obj.setEmpresa(new Empresa(rs.getInt("idEmpresa")));
+                lista.add(obj);
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error en sql");
+            e.printStackTrace();
+        } finally {
+            try {
+                ps.close();
+            } catch (Exception ex) {
+
+            }
+            conectar.closeConexion(con);
+        }
+
+        return lista;
+    }
+
+    public Venta getSelectMax(){
+        String sql = "SELECT MAX(idVenta) max from Venta";
+
+        Venta obj = null;
+        try {
+            con = conectar.getConexion();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            rs.next();
+            obj = new Venta();
+            obj.setMax(rs.getInt("max"));
+            return obj;
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error en sql");
+            e.printStackTrace();
+        } finally {
+            try {
+                ps.close();
+            } catch (Exception ex) {
+
+            }
+            conectar.closeConexion(con);
+        }
+
+        return null;
+    }
+
+    public ArrayList<Venta> selectTo(String id) {
+
+        String sql = "select * from venta where nFactura =" + id;
+        ArrayList<Venta> lista = new ArrayList();
+        Venta obj = null;
+        try {
+            con = conectar.getConexion();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                obj = new Venta();
+                obj.setIdFactura(rs.getInt("idVenta"));
+                obj.setnFactura(rs.getString("nFactura"));
+                obj.setFechaVenta(rs.getDate("fechaVenta"));
+                obj.setSaldoTotal(rs.getDouble("precioTotal"));
+                obj.setEstado(rs.getInt("estado"));
+                obj.setCliente(new Cliente(rs.getInt("idCliente")));
+
                 obj.setEmpleado(new Empleados(rs.getInt("idEmpleado")));
                 obj.setEmpresa(new Empresa(rs.getInt("idEmpresa")));
                 lista.add(obj);
@@ -107,7 +175,7 @@ public class VentaDao {
                 obj.setSaldoTotal(rs.getDouble("precioTotal"));
                 obj.setEstado(rs.getInt("estado"));
                 obj.setCliente(new Cliente(rs.getInt("idCliente")));
-               
+
                 obj.setEmpleado(new Empleados(rs.getInt("idEmpleado")));
                 obj.setEmpresa(new Empresa(rs.getInt("idEmpresa")));
                 lista.insertar(obj);
