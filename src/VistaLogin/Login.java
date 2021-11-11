@@ -12,7 +12,7 @@ public static String LogoE= "/img/Logo.jpg";
     public Login() {
         initComponents();
         
-        this.setIconImage(new ImageIcon(getClass().getResource(LogoE)).getImage());
+       
         this.btnEntrar.setActionCommand("Entrar");
         
        
