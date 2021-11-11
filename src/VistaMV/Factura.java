@@ -26,7 +26,7 @@ public class Factura extends javax.swing.JFrame {
         btnCliente.setActionCommand("SeleccionarCliente");
         btnProducto.setActionCommand("SeleccionarProducto");
         btnAgregarProducto.setActionCommand("agregarProducto");
-        
+        btnCalculadora.setActionCommand("calculadora");
         rSDateFecha.setDatoFecha(new Date());
         btnFacturar.setActionCommand("facturar");
         btnQuitarDeCarrito.setActionCommand("QuitarDeCarrito");
@@ -42,6 +42,7 @@ public class Factura extends javax.swing.JFrame {
     }
 
     public void setControladorF(ControlFactura controlF) {
+        btnCalculadora.addActionListener(controlF);
         btnFacturar.addActionListener(controlF);
         escritorioFactura.addMouseListener(controlF);
         btnNuevoCliente.addActionListener(controlF);
@@ -119,6 +120,7 @@ public class Factura extends javax.swing.JFrame {
         btnNuevoCliente = new rojeru_san.complementos.RSButtonHover();
         btnCerrarCaja = new rojeru_san.complementos.RSButtonHover();
         jLabel3 = new javax.swing.JLabel();
+        btnCalculadora = new rojeru_san.complementos.RSButtonHover();
 
         jMenu1.setText("jMenu1");
 
@@ -677,6 +679,20 @@ public class Factura extends javax.swing.JFrame {
             }
         });
 
+        btnCalculadora.setBackground(new java.awt.Color(72, 139, 183));
+        btnCalculadora.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/calculator_40px.png"))); // NOI18N
+        btnCalculadora.setText("Calculadora");
+        btnCalculadora.setActionCommand("NuevoCliente");
+        btnCalculadora.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnCalculadora.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        btnCalculadora.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        btnCalculadora.setIconTextGap(20);
+        btnCalculadora.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCalculadoraActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -689,7 +705,8 @@ public class Factura extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnCerrarCaja, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(btnNuevoCliente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(btnNuevoCliente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(btnCalculadora, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -697,9 +714,11 @@ public class Factura extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addComponent(jLabel3)
-                .addGap(172, 172, 172)
+                .addGap(118, 118, 118)
                 .addComponent(btnNuevoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(77, 77, 77)
+                .addGap(32, 32, 32)
+                .addComponent(btnCalculadora, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(48, 48, 48)
                 .addComponent(btnCerrarCaja, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -818,8 +837,13 @@ public class Factura extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnQuitarDeCarritoActionPerformed
 
+    private void btnCalculadoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalculadoraActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCalculadoraActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public rojeru_san.complementos.RSButtonHover btnAgregarProducto;
+    public rojeru_san.complementos.RSButtonHover btnCalculadora;
     public rojeru_san.complementos.RSButtonHover btnCerrarCaja;
     public static rojeru_san.complementos.RSButtonHover btnCliente;
     public rojeru_san.complementos.RSButtonHover btnFacturar;

@@ -25,6 +25,7 @@ import VistaLogin.Alerta;
 import VistaMA.ClienteMA;
 import VistaMV.BuscarCliente;
 import VistaMV.BuscarProducto;
+import VistaMV.Calculadora;
 
 import VistaMV.Tiket;
 import desplazable.Desface;
@@ -84,6 +85,7 @@ public class ControlFactura extends MouseAdapter implements ActionListener, KeyL
     private Venta max = null;
     private ArrayList<Venta> VentaD;
     private ClienteMA clienteMA;
+    private Calculadora calculadora;
     private Cliente cliente;
     private VentaDao daoVenta = new VentaDao();
     private ClienteDao daoCliente = new ClienteDao();
@@ -159,6 +161,9 @@ public class ControlFactura extends MouseAdapter implements ActionListener, KeyL
                 break;
             case "QuitarDeCarrito":
                 accion("QuitarDeCarrito");
+                break;
+            case "calculadora":
+                llamarVFactura("calculadora");
                 break;
             default:
 
@@ -321,6 +326,10 @@ public class ControlFactura extends MouseAdapter implements ActionListener, KeyL
             }
             this.factura.tfNFactura.setText(crearCodigo(iniciales, id));
             factura.iniciar();
+        } else if (accion.equals("calculadora")) {
+            calculadora = new Calculadora(factura, true);
+            calculadora.setControlador(this);
+            calculadora.iniciar();
         } else if (accion.equals("NuevoCliente")) {
             clienteMA = new ClienteMA(factura, true);
             clienteMA.setControlador(this);
