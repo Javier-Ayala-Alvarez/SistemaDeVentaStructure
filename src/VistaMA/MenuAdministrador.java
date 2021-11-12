@@ -23,8 +23,8 @@ public class MenuAdministrador extends javax.swing.JFrame {
 
         noVisible();
         //this.setResizable(false);//No Maximo
-        this.setExtendedState(JFrame.MAXIMIZED_BOTH);//PANTALLA COMPLETA
-        this.setIconImage(new ImageIcon(getClass().getResource(LogoE)).getImage());
+       // this.setExtendedState(JFrame.MAXIMIZED_BOTH);//PANTALLA COMPLETA
+       // this.setIconImage(new ImageIcon(getClass().getResource(LogoE)).getImage());
         
         xm = "xm";
         jpProductos.setBorder(new Fondo("/img/producto2.png"));

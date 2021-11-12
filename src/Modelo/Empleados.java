@@ -1,19 +1,19 @@
 package Modelo;
 
-
 import Modelo.dao.BonoDao;
 import Modelo.dao.EmpresaDao;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Empleados extends Persona{
+public class Empleados extends Persona implements Comparable<Empleados> {
+
     private int idUsuario;
     private int idEmpleado;
-    private String cargoEmpleado,codigoEmpleado;
+    private String cargoEmpleado, codigoEmpleado;
     private double salarioEmpleado, afp, isss;
     private Date fechaContratacion;
     private Usuario usuario;
-    private  Bono bono;
+    private Bono bono;
     private Empresa empresa;
     private ArrayList<Venta> ventas;
     private int estado;
@@ -34,8 +34,6 @@ public class Empleados extends Persona{
         this.ventas = ventas;
         this.estado = estado;
     }
-
-   
 
     public Empleados() {
         ventas = new ArrayList();
@@ -61,7 +59,6 @@ public class Empleados extends Persona{
         this.estado = estado;
     }
 
-
     public Empleados(String cargoEmpleado, double salarioEmpleado, double afp, double isss, Date fechaContratacion, String nombre, String apellido, String telefono, String direccion) {
         super(nombre, apellido, telefono, direccion);
         this.cargoEmpleado = cargoEmpleado;
@@ -69,7 +66,7 @@ public class Empleados extends Persona{
         this.afp = afp;
         this.isss = isss;
         this.fechaContratacion = fechaContratacion;
-        
+
         ventas = new ArrayList();
     }
 
@@ -104,9 +101,8 @@ public class Empleados extends Persona{
     public void setVentas(ArrayList<Venta> ventas) {
         this.ventas = ventas;
     }
-    
 
-   public int getIdEmpleado() {
+    public int getIdEmpleado() {
         return idEmpleado;
     }
 
@@ -154,25 +150,26 @@ public class Empleados extends Persona{
         this.fechaContratacion = fechaContratacion;
     }
 
-
-
     public Usuario getUsuario() {
         return usuario;
     }
 
-    public void addVenta(Venta x){
+    public void addVenta(Venta x) {
         ventas.add(x);
     }
-    public void addBono(Bono x){
+
+    public void addBono(Bono x) {
         this.bono = x;
     }
-    public void addUsuario(Usuario x){
+
+    public void addUsuario(Usuario x) {
         this.usuario = x;
     }
-    public void addEmpresa(){
-         EmpresaDao daoempresa = new EmpresaDao();
-       this.empresa = daoempresa.selectId(1).get(0);
-       // System.out.println("sa");
+
+    public void addEmpresa() {
+        EmpresaDao daoempresa = new EmpresaDao();
+        this.empresa = daoempresa.selectId(1).get(0);
+        // System.out.println("sa");
     }
 
     public String getCodigoEmpleado() {
@@ -193,9 +190,9 @@ public class Empleados extends Persona{
 
     public Bono getBono() {
         BonoDao daoBono = new BonoDao();
-            bono = daoBono.selectId(bono.getIdBono()).get(0);
-            return bono;        
-        
+        bono = daoBono.selectId(bono.getIdBono()).get(0);
+        return bono;
+
     }
 
     public void setBono(Bono bono) {
@@ -203,12 +200,25 @@ public class Empleados extends Persona{
     }
 
     public Empresa getEmpresa() {
-       
+
         return empresa;
     }
 
     public void setEmpresa(Empresa empresa) {
         this.empresa = empresa;
     }
-    
+
+    @Override
+    public int compareTo(Empleados t) {
+        Empleados actual = this;
+        return (actual.getCodigoEmpleado().compareToIgnoreCase(t.getCodigoEmpleado()));
+    }
+
+    @Override
+    public String toString() {
+        return "Empleados{" + "idUsuario=" + idUsuario + ", idEmpleado=" + idEmpleado + ", cargoEmpleado=" + cargoEmpleado + ", codigoEmpleado=" + codigoEmpleado
+                + ", salarioEmpleado=" + salarioEmpleado + ", afp=" + afp + ", isss=" + isss + ", fechaContratacion=" + fechaContratacion
+                + ", nombre=" + getNombre() + ", estado=" + estado + '}';
+    }
+
 }
