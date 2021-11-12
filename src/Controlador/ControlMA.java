@@ -57,6 +57,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -159,7 +160,7 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
     private Producto productoSeleccionadoAun = null;
 
     public String padreActiva = "", hijaActiva = "";
-    private ListaDobleCircular listita, listita1;
+    private ListaDobleCircular listita, listita1, listaOfEmp;
 
     ///******Consulta Factura******////
     private ConsultarVentas consultarVentas;
@@ -179,12 +180,13 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
         this.consultarVentas = consultarVentas;
         this.listita = new ListaDobleCircular();
         this.listita1 = new ListaDobleCircular();
+        this.listaOfEmp = new ListaDobleCircular();
         this.productoSeleccionado = new Producto();
         this.reporteSeleccionado = new Reporte();
         this.productoSeleccionadoAun = new Producto();
         this.clienteSeleccionado = new Cliente();
         this.ventaSeleccionada = new Venta();
-        
+
         llamarVistaConsulta("menuAdministrador");
 //usuario dao
     }
@@ -511,12 +513,13 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
                         empleadoGM.alerta1.setText("");
                     }
                 }
-                ArrayList<Empleados> lista = daoEmpleado.buscar(empleadoGM.buscar.getText());
+
+                ListaDobleCircular lista = daoEmpleado.buscar(empleadoGM.buscar.getText());
                 if (lista.isEmpty()) {
                     //System.out.println("busca");
                     mostrarDatos();
                 } else {
-                    mostrarBusqueda(lista);
+                    mostrarBusqueda(lista.toArrayAsc());
                     //System.out.println("NObusca");
 
                 }
@@ -645,6 +648,7 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
             menuAdministrador.setControladorMA(this);
             mostrarDatos();
             menuAdministrador.iniciar();
+            this.listaOfEmp = daoEmpleado.selectAll();
         } else if (vista.equals("ventas")) {
             padreActiva = "vistaGraficas";
             this.vistaGrafica = new vistaGrafica(menuAdministrador, true);
@@ -693,7 +697,7 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
             consultarVentas.lbTotal.setText(String.valueOf(totalVe));
 
             consultarVentas.iniciar();
-          
+
         } else if (vista.equals("guardarProducto")) {
             padreActiva = "productoModi";
             this.productoModi = new ProductoModi(menuAdministrador, true);
@@ -714,7 +718,7 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
             padreActiva = "vistaEmpleadoGM";
             String inicial = "EMP";
             ListaDobleCircular<Producto> producto = daoProducto.selectAll();
-            this.vistaEmpleadoGM.tfCodigo.setText(crearCodigo(inicial, 5));/////////////////////////////////////
+            this.vistaEmpleadoGM.tfCodigo.setText(crearCodigo(inicial, listaOfEmp.toArrayAsc().size()+1));/////////////////////////////////////
             this.vistaEmpleadoGM.iniciar();
 
         } else if (vista.equals("consultarEmpleado")) {
@@ -722,6 +726,7 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
             this.empleadoGM = new EmpleadoGM(menuAdministrador, true, false);
             this.empleadoGM.setControlador(this);
             mostrarDatos();
+            mostrarBusqueda(listaOfEmp.toArrayAsc());
             this.empleadoGM.iniciar();
 
         } else if (vista.equals("modificarEmpleado")) {
@@ -864,8 +869,9 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
 
         } else if (padreActiva.equals("gastosGM1")) {
 
-            ArrayList<Empleados> empleado = daoEmpleado.selectAll();
-            for (Empleados x : empleado) {
+            ListaDobleCircular empleado = daoEmpleado.selectAll();
+            for (Object jObject : empleado.toArrayAsc()) {
+                Empleados x = (Empleados) jObject;
                 if (x.getEstado() == 1) {
                     String selec = x.getCodigoEmpleado() + " - " + x.getNombre() + " - " + x.getApellido();
 
@@ -908,7 +914,6 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
         DefaultTableModel modelo1 = new DefaultTableModel();
         modelo1 = new DefaultTableModel();
 
-     
         ////////////******NOMBRE DE LA TIENDA********/////////////////
         String nombre = "";
         ArrayList<Empresa> empresa = daoEmpresa.selectAll();
@@ -1040,7 +1045,7 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
             for (Object j : listita.toArrayAsc()) {
                 Reporte x = (Reporte) j;
                 Object datos[] = {x.getIdReporte(), x.getProducto().getCodigoProducto(), x.getProducto().getNombreProducto(), x.getCantidad(),
-                   String.format("%.2f", x.getPrecioCompra()),String.format("%.2f", x.getProducto().getPrecioVenta()), x.getFechaCompra()};///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                    String.format("%.2f", x.getPrecioCompra()), String.format("%.2f", x.getProducto().getPrecioVenta()), x.getFechaCompra()};///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 modelo.addRow(datos);
             }
             this.productoModi.jtDatos.setModel(modelo);
@@ -1072,7 +1077,7 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
                 }
                 total0 = total0 + totalPro;
                 precioCompraTotal = (precioCompraTotal / cantidad) * x.getCantidad();
-                Object datos[] = {x.getCodigoProducto(), x.getNombreProducto(), x.getCantidad(),String.format("%.2f", x.getGananciaUni()) , String.format("%.2f", precioCompraTotal / x.getCantidad()),String.format("%.2f",precioCompraTotal ) ,String.format("%.2f",x.getPrecioVenta() ) , x.getEmpresa().getNombre(), String.format("%.2f",totalPro)};
+                Object datos[] = {x.getCodigoProducto(), x.getNombreProducto(), x.getCantidad(), String.format("%.2f", x.getGananciaUni()), String.format("%.2f", precioCompraTotal / x.getCantidad()), String.format("%.2f", precioCompraTotal), String.format("%.2f", x.getPrecioVenta()), x.getEmpresa().getNombre(), String.format("%.2f", totalPro)};
                 modelo.addRow(datos);
                 precioCompraTotal = 0;
                 totalPro = 0;
@@ -1088,9 +1093,10 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
         else if (padreActiva.equals("empleadoGM")) {
             String titulos[] = {"N", "codigo", "Nombre", "Apellido", "Telefono", "Direccion", "Salario", "afp", "isss", "Salario Total", "Cargo", "Fecha Contratacion"};
             modelo.setColumnIdentifiers(titulos);
-            ArrayList<Empleados> empleados = daoEmpleado.selectAll();
+
             int i = 1;
-            for (Empleados x : empleados) {
+            for (Object jObject : listaOfEmp.toArrayAsc()) {
+                Empleados x = (Empleados) jObject;
                 if (x.getEstado() > 0) {
 
                     Double salarioNeto = (x.getSalarioEmpleado() - x.getAfp() - x.getIsss());
@@ -1246,8 +1252,8 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
                 } catch (Exception exeption) {
 
                 }
-
-                ArrayList<Empleados> empleado1 = daoEmpleado.selectAllTo("idEmpleado", String.valueOf(idEmpleado));
+                ListaDobleCircular empleadox = daoEmpleado.selectAllTo("idEmpleado", String.valueOf(idEmpleado));
+                ArrayList<Empleados> empleado1 = empleadox.toArrayAsc();
 
                 String v = gastosGM.cbTipo.getSelectedItem().toString();
                 if (gastoSeleccionado == null) {
@@ -1503,10 +1509,12 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
                         vistaEmpleadoGM.tfTelefono1.getText(), vistaEmpleadoGM.tfDireccion.getText());
                 empleado.addEmpresa();
 
-                ArrayList<Empleados> existe = daoEmpleado.selectAllTo("codigoEmpleado", vistaEmpleadoGM.tfCodigo.getText());
+                ListaDobleCircular existe = daoEmpleado.selectAllTo("codigoEmpleado", vistaEmpleadoGM.tfCodigo.getText());
                 if (existe.isEmpty()) {
+                 
 
                     if (daoEmpleado.insert(empleado)) {
+                        
 
                         if (!vistaEmpleadoGM.tfCombobox_1.getSelectedItem().toString().equals("no añadir Bono")) {
                             bono = daoBono.selectAllTo("cargoEmpleado", vistaEmpleadoGM.tfCombobox.getSelectedItem().toString()).get(0);
@@ -1520,7 +1528,11 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
                                 }
 
                             }
+                          
+                            
                         }
+                          this.listaOfEmp.insertar(this.empleado);
+                         
                         Alerta aler = new Alerta(menuAdministrador, true, "Empleado añadido con exito", "/img/Succes.png");
                         aler.show();
                         this.vistaEmpleadoGM.dispose();
@@ -1591,7 +1603,8 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
                         }
 
                     }
-
+                    this.listaOfEmp.eliminar(this.empleadosSeleccionanda);
+                    this.listaOfEmp.insertar(this.empleadosSeleccionanda);
                     Alerta aler = new Alerta(menuAdministrador, true, "Empleado modificado con exito", "/img/Succes.png");
                     empleadosSeleccionanda = null;
                     mostrarDatos();
@@ -1610,7 +1623,22 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
                 && padreActiva.equals("empleadoGM") && empleadosSeleccionanda != null) {
             int opccion = JOptionPane.showConfirmDialog(null, "Deseas dar de baja ?", "Welcome", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (opccion == 0) {
-                if (daoEmpleado.darBaja(empleadosSeleccionanda)) {
+                 int col = empleadoGM.tbEmpleados.getSelectedRow();
+                if (daoEmpleado.darBaja(empleadosSeleccionanda) && empleadosSeleccionanda != null) {
+                   
+                   
+                    listaOfEmp.eliminar(empleadosSeleccionanda);
+                  mostrarDatos();
+                  empleadosSeleccionanda = null;
+
+                    /*
+        
+        );
+        mostrarAsc();
+        listita.eliminar(emp);
+        mostrarAsc();
+        // System.out.println(emp.toString());
+        this.eliminar.setVisible(false);*/
                     Alerta aler = new Alerta(menuAdministrador, true, "Empleado dado de baja con exito", "/img/Succes.png");
                     aler.show();
                     empleadosSeleccionanda = null;
@@ -1773,9 +1801,9 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
             }
             ////////////////////////////////////fin  Usuario////////////////////////////////////
         } else if (padreActiva.equals("registroVentas") && e.getActionCommand().equals("Detalle")) {
-            
-                llamarVistaConsulta("Detalle");
-            
+
+            llamarVistaConsulta("Detalle");
+
         }
 
     }
@@ -1791,9 +1819,11 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
     public void itemStateChanged(ItemEvent e) {
         if (padreActiva == "gastosGM1") {
 
-            ArrayList<Empleados> empleado1 = daoEmpleado.selectAll();
+            ListaDobleCircular empleado1 = daoEmpleado.selectAll();
             String vq[] = gastosGM.cbTipo.getSelectedItem().toString().split(" - ");
-            for (Empleados x : empleado1) {
+            for (Object jObject : empleado1.toArrayAsc()) {
+                Empleados x = (Empleados) jObject;
+
                 if (vq[0].equals(x.getCodigoEmpleado())) {
                     gastosGM.tfPago1.setText(String.valueOf(x.getSalarioEmpleado()));
 
@@ -1870,7 +1900,7 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
         if (padreActiva.equals("empleadoGM")) {
             String titulos[] = {"N", "codigo", "Nombre", "Apellido", "Telefono", "Direccion", "Salario", "afp", "isss", "Salario Total", "Cargo", "Fecha Contratacion"};
             modelo.setColumnIdentifiers(titulos);
-            ArrayList<Empleados> empleados = daoEmpleado.selectAll();
+            ListaDobleCircular empleados = daoEmpleado.selectAll();
             int i = 1;
             for (Object obj : lista) {
                 Empleados x = (Empleados) obj;
@@ -2048,13 +2078,33 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
 
         } //para empleado
         else if (padreActiva.equals("empleadoGM")) {
-            int fila = empleadoGM.tbEmpleados.getSelectedRow();
-            String id = empleadoGM.tbEmpleados.getValueAt(fila, 1).toString();
-            System.out.println(id);
-            ArrayList<Empleados> lista = daoEmpleado.selectAllTo("codigoEmpleado", id);
-            empleadosSeleccionanda = lista.get(0);
+            
+            
+            //String titulos[] = 
+            //{"N", "", "Nombre", "Apellido", "Telefono", "Direccion", "", "afp", "isss", "Salario Total", "", ""};
+           int col = empleadoGM.tbEmpleados.getSelectedRow();
+            System.out.println(col);
+            //String cargoEmpleado, String codigoEmpleado, 
+            //double salarioEmpleado, Date fechaContratacion, String nombre, String apellido, String telefono, String direccion) {
+                    empleadosSeleccionanda = new Empleados(empleadoGM.tbEmpleados.getValueAt(col, 10).toString(),
+                            empleadoGM.tbEmpleados.getValueAt(col, 1).toString(),
+                            Double.parseDouble(empleadoGM.tbEmpleados.getValueAt(col, 6).toString()),
+                            ParseFecha(empleadoGM.tbEmpleados.getValueAt(col, 11).toString()),
+                            empleadoGM.tbEmpleados.getValueAt(col, 2).toString(),
+                            empleadoGM.tbEmpleados.getValueAt(col, 3).toString(),
+                            empleadoGM.tbEmpleados.getValueAt(col, 4).toString(),
+                            empleadoGM.tbEmpleados.getValueAt(col, 5).toString()
+                    );
+                    System.out.println(empleadosSeleccionanda.toString());
+                    
+//            String id = empleadoGM.tbEmpleados.getValueAt(fila, 1).toString();
+//            System.out.println(id);
+//            ListaDobleCircular lista = daoEmpleado.selectAllTo("codigoEmpleado", id);
+                
+           
             if (empleadosSeleccionanda != null) {
                 empleadoGM.setEstado(true);
+                empleadosSeleccionanda = (Empleados)listaOfEmp.buscar(empleadosSeleccionanda).getDato();
             }
         } //fin empleado
         //inicio Usuario
@@ -2206,7 +2256,6 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
 //
 //        // this.vistaGrafica.setContentPane(chartPanel ); 
 //    }
-
 //    private CategoryDataset createDataset() {
 //        //variables a usar
 //        int mes = 0, auxMes = 0, contadorMes = 0;
@@ -2278,5 +2327,14 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
 //
 //        return dataset;
 //    }
-
+    public Date ParseFecha(String fecha) {
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        Date fechaDate = null;
+        try {
+            fechaDate = formato.parse(fecha);
+        } catch (ParseException ex) {
+            System.out.println(ex);
+        }
+        return fechaDate;
+    }
 }

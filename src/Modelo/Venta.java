@@ -163,7 +163,7 @@ public class Venta  implements Comparable<Venta>{
 
     public Empleados getEmpleado() {
         EmpleadoDao daoEmpleado = new EmpleadoDao();
-        empleado = daoEmpleado.selectId(empleado.getIdEmpleado()).get(0);
+        empleado = (Empleados)daoEmpleado.selectId(empleado.getIdEmpleado()).toArrayAsc().get(0);
         return empleado;
     }
 

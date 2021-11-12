@@ -1,9 +1,8 @@
 package Estructura;
 
-import Modelo.Producto;
 import java.util.ArrayList;
 
-    public class ListaDobleCircular<T> {
+public class ListaDobleCircular<T> {
 
     private NodoDoble lista;
 
@@ -20,14 +19,12 @@ import java.util.ArrayList;
         if (isEmpty()) {
             lista = nuevo;
             nuevo.setSiguiente(lista);//Nuevo
-            lista.setAnterior(nuevo);
         } else if (dato.compareTo(lista.getDato()) < 0) {
             NodoDoble ultimo = ultimo();//agregar
             nuevo.setSiguiente(lista);
             lista.setAnterior(nuevo);
             lista = nuevo;
             ultimo.setSiguiente(lista);//Agregado
-            lista.setAnterior(ultimo);
 
         } else {
             NodoDoble ant = ubicar(dato);
@@ -37,7 +34,6 @@ import java.util.ArrayList;
             }
             ant.setSiguiente(nuevo);
             nuevo.setAnterior(ant);
-            
         }
 
     }
@@ -50,11 +46,9 @@ import java.util.ArrayList;
             lista.setAnterior(nuevo);
             lista = nuevo;
             ultimo.setSiguiente(lista);//Agregado
-            lista.setAnterior(ultimo);
         } else {
-           lista = nuevo;
+            lista = nuevo;
             nuevo.setSiguiente(lista);//Nuevo
-            lista.setAnterior(nuevo);
         }
 
     }
@@ -67,11 +61,9 @@ import java.util.ArrayList;
             ultimo.setSiguiente(nuevo);
             ultimo = nuevo;
             nuevo.setSiguiente(lista);
-            lista.setAnterior(ultimo);
         } else {
-          lista = nuevo;
+            lista = nuevo;
             nuevo.setSiguiente(lista);//Nuevo
-            lista.setAnterior(nuevo);
         }
 
     }
@@ -80,40 +72,47 @@ import java.util.ArrayList;
         NodoDoble nuevo = new NodoDoble(dato);
 
         if (!isEmpty()) {
+
             NodoDoble encontrado = antesDe(condicion);
             NodoDoble ultimo = ultimo();
-            if (encontrado != null && encontrado.getAnterior() != ultimo) {
+            
+            if (encontrado != null && (condicion.compareTo(lista.getDato()) != 0)) {
+
                 nuevo.setAnterior(encontrado.getAnterior());
                 encontrado.getAnterior().setSiguiente(nuevo);
+
                 nuevo.setSiguiente(encontrado);
+
                 encontrado.setAnterior(nuevo);
-            }else if(encontrado.getAnterior() == ultimo){
-            nuevo.setSiguiente(lista);
-            lista.setAnterior(nuevo);
-            lista = nuevo;
-            ultimo.setSiguiente(lista);//Agregado
-            lista.setAnterior(ultimo);
-            
-            }else{             
-                nuevo.setSiguiente(encontrado);          
+
+            }else{
+                
+                nuevo.setSiguiente(encontrado);
+                
                 encontrado.setAnterior(nuevo);
-                ultimo.setSiguiente(nuevo);                
+                
+                ultimo.setSiguiente(nuevo);
+                
+                lista = nuevo;
+                
             }
                
         } else {
             lista = nuevo;
             nuevo.setSiguiente(lista);//Nuevo
-            lista.setAnterior(nuevo);
         }
     }
 
     public <T extends Comparable> NodoDoble antesDe(T condicion) {
         NodoDoble aux = lista;
         //condicion!= (aux.getDato()) 
-        while (condicion.toString().compareTo(aux.getDato().toString()) !=0) {
-                aux = aux.getSiguiente();
+        while (condicion.compareTo(aux.getDato()) != 0) {
+
+            System.out.println(condicion.toString());
+            System.out.println(aux.getDato().toString() + "\n");
+            aux = aux.getSiguiente();
+
         }
-        System.out.println(condicion.toString());
         System.out.println(aux.getDato().toString() + "/n s");
         return aux;
     }
@@ -211,11 +210,5 @@ import java.util.ArrayList;
         quitar = null;
 
     }
-
-    public int compareToIgnoreCase(ListaDobleCircular<Producto> producto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
- 
 
 }

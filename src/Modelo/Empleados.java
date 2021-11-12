@@ -18,21 +18,12 @@ public class Empleados extends Persona implements Comparable<Empleados> {
     private ArrayList<Venta> ventas;
     private int estado;
 
-    public Empleados(int idUsuario, int idEmpleado, String cargoEmpleado, String codigoEmpleado, double salarioEmpleado, double afp, double isss, Date fechaContratacion, Usuario usuario, Bono bono, Empresa empresa, ArrayList<Venta> ventas, int estado, int idPersona) {
-        super(idPersona);
-        this.idUsuario = idUsuario;
-        this.idEmpleado = idEmpleado;
+      public Empleados(String cargoEmpleado, String codigoEmpleado, double salarioEmpleado, Date fechaContratacion, String nombre, String apellido, String telefono, String direccion) {
+        super(nombre, apellido, telefono, direccion);
         this.cargoEmpleado = cargoEmpleado;
         this.codigoEmpleado = codigoEmpleado;
         this.salarioEmpleado = salarioEmpleado;
-        this.afp = afp;
-        this.isss = isss;
         this.fechaContratacion = fechaContratacion;
-        this.usuario = usuario;
-        this.bono = bono;
-        this.empresa = empresa;
-        this.ventas = ventas;
-        this.estado = estado;
     }
 
     public Empleados() {
@@ -85,6 +76,8 @@ public class Empleados extends Persona implements Comparable<Empleados> {
         this.idUsuario = idUsuario;
         this.cargoEmpleado = cargoEmpleado;
     }
+
+ 
 
     public int getIdUsuario() {
         return idUsuario;

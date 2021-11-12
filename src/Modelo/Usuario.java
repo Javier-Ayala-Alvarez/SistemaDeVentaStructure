@@ -65,15 +65,15 @@ public class Usuario{
     public void AddEpleado(String id)
     {
         EmpleadoDao empleadoDao = new EmpleadoDao();
-        if (empleadoDao.selectCodigo(id).get(0) != null) {
-            this.empleados = empleadoDao.selectCodigo(id).get(0);
+        if (empleadoDao.selectCodigo(id).toArrayAsc().get(0) != null) {
+            this.empleados = (Empleados)empleadoDao.selectCodigo(id).toArrayAsc().get(0);
         }
     }
         public void AddEpleado1(String id)
     {
         EmpleadoDao empleadoDao = new EmpleadoDao();
 //        if (empleadoDao.selectCodigo(id).get(0) != null) {
-            this.empleados = empleadoDao.selectAllTo("idUsuario", id).get(0);
+            this.empleados = (Empleados)empleadoDao.selectAllTo("idUsuario", id).toArrayAsc().get(0);
         //}
     }
 

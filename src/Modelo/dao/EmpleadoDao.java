@@ -1,5 +1,6 @@
 package Modelo.dao;
 
+import Estructura.ListaDobleCircular;
 import Modelo.Bono;
 import Modelo.Conexion;
 import Modelo.Empleados;
@@ -23,37 +24,37 @@ public class EmpleadoDao {
 
     }
 
-    public ArrayList<Empleados> selectAll() {
+    public ListaDobleCircular selectAll() {
         String sql = "SELECT * fROM Empleado";
         return select(sql);
     }
 
-    public ArrayList<Empleados> selectAllTo(String atributo, String condicion) {
+    public ListaDobleCircular selectAllTo(String atributo, String condicion) {
         String sql = "SELECT * fROM empleado WHERE  " + atributo + "='" + condicion + "'";
         return select(sql);
     }
-    public ArrayList<Empleados> selectAllUsu() {
+    public ListaDobleCircular selectAllUsu() {
         String sql = "SELECT * fROM empleado WHERE  cargoEmpleado = 'Administrador' AND estado = '1' AND idUsuario != 'null'";
         return select(sql);
     }
     
-    public ArrayList<Empleados> selectAllTo(String atributo, int condicion) {
+    public ListaDobleCircular selectAllTo(String atributo, int condicion) {
         String sql = "SELECT * fROM empleado WHERE  " + atributo + "='" + condicion + "'";
         return select(sql);
     }
 
-    public ArrayList<Empleados> selectId(int id) {
+    public ListaDobleCircular selectId(int id) {
         String sql = "SELECT * fROM empleado WHERE  idEmpleado = " + id;
         return select(sql);
     }
-        public ArrayList<Empleados> selectCodigo(String id) {
+        public ListaDobleCircular selectCodigo(String id) {
         String sql = "SELECT * fROM empleado WHERE codigoEmpleado  = '" + id + "'";
         return select(sql);
     }
         
 
 
-    public ArrayList<Empleados> buscar(String dato) {
+    public ListaDobleCircular buscar(String dato) {
         String sql = "SELECT * fROM empleado WHERE codigoEmpleado like '" + dato
                 + "%' or cargoEmpleado like '" + dato + "%' or nombre like '" + dato + "%' ";
         return select(sql);
@@ -89,8 +90,8 @@ public class EmpleadoDao {
     }
 
 
-    private ArrayList<Empleados> select(String sql) {
-        ArrayList<Empleados> lista = new ArrayList();
+    private ListaDobleCircular select(String sql) {
+       ListaDobleCircular lista = new ListaDobleCircular();
         Empleados obj = null;
         try {
             con = conectar.getConexion();
@@ -121,7 +122,7 @@ public class EmpleadoDao {
                 obj.addUsuario(usuario);
                 obj.setBono(bono);
 
-                lista.add(obj);
+                lista.insertar(obj);
             }
 
         } catch (Exception e) {

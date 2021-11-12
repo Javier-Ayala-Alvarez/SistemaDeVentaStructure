@@ -205,7 +205,7 @@ public class ControlFactura extends MouseAdapter implements ActionListener, KeyL
                 ventaSeleccionada.setFechaVenta(factura.rSDateFecha.getDatoFecha());
                 ventaSeleccionada.setSaldoTotal(Double.parseDouble(factura.tfTotalPagar.getText()));
                 ventaSeleccionada.setCliente(clienteSeleccionado);
-                empleadoSeleccionado = daoEmpleado.selectAllTo("idUsuario", codigoUsuario);
+                empleadoSeleccionado = daoEmpleado.selectAllTo("idUsuario", codigoUsuario).toArrayAsc();
                 ventaSeleccionada.setEmpleado(empleadoSeleccionado.get(0));
                 empresa = daoEmpresa.selectAll();
                 ventaSeleccionada.setEmpresa(empresa.get(0));
