@@ -1,5 +1,15 @@
 package Controlador;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import java.awt.Desktop;
+import java.awt.Image;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import static Controlador.ControlMA.crearCodigo;
 import Estructura.ListaDobleCircular;
 import Modelo.Cliente;
@@ -28,6 +38,10 @@ import VistaMV.BuscarProducto;
 import VistaMV.Calculadora;
 
 import VistaMV.Tiket;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 import desplazable.Desface;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -39,6 +53,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JOptionPane;
@@ -234,6 +250,12 @@ public class ControlFactura extends MouseAdapter implements ActionListener, KeyL
                         id = VentaLista1.toArrayDes().size() + 1;
                     }
                     this.factura.tfNFactura.setText(crearCodigo(iniciales, id));
+                    int opccion = JOptionPane.showConfirmDialog(null, "Imprimir factura?", "Welcome", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+                    if (opccion == 0) {
+                        reporteFactura(ventaSeleccionada.getnFactura());
+                        abrirReporte("Facturas/"+ventaSeleccionada.getnFactura()+".pdf");
+
+                    }
                     limpiarCb1();
                     this.id = 0;
                     mostrarDatos();
@@ -588,6 +610,96 @@ public class ControlFactura extends MouseAdapter implements ActionListener, KeyL
                 }
 
             }
+        }
+    }
+
+    public void reporteFactura(String nombre) {
+        try {
+            Document documento = new Document();
+
+            String path = new File(".").getCanonicalPath();
+            String FILE_NAME = path + "/Facturas/"+nombre+".pdf";
+            PdfWriter.getInstance(documento, new FileOutputStream(new File(FILE_NAME)));
+            documento.open();
+//            Image icono = Image.getInstante("mineria.png");
+//            icono.setAbsolutePosition(14,425f);
+//            documento.add(icono);
+            Paragraph titulo2 = new Paragraph();
+            titulo2.add("N° factura: " + factura.tfNFactura.getText());
+            titulo2.setAlignment(Element.ALIGN_RIGHT);
+            documento.add(titulo2);
+
+            Paragraph re = new Paragraph();
+            re.add("Factura");
+            re.setAlignment(Element.ALIGN_LEFT);
+
+            documento.add(re);
+
+            Paragraph titulo = new Paragraph();
+            titulo.add("Empresa: " + empresa.get(0).getNombre());
+            titulo.setAlignment(Element.ALIGN_LEFT);
+            documento.add(titulo);
+
+            Paragraph titulo3 = new Paragraph();
+            titulo3.add("Cliente: " + factura.tfNombre.getText());
+            titulo3.setAlignment(Element.ALIGN_LEFT);
+            documento.add(titulo3);
+            
+            Paragraph titulo6 = new Paragraph();
+            titulo6.add( "Direccion: " + factura.tfDireccion.getText());
+            titulo6.setAlignment(Element.ALIGN_LEFT);
+            documento.add(titulo6);
+
+            Paragraph titulo4 = new Paragraph();
+            titulo4.add("Empleado: " + ventaSeleccionada.getEmpleado().getNombre() + " " + ventaSeleccionada.getEmpleado().getApellido());
+            titulo4.setAlignment(Element.ALIGN_LEFT);
+            documento.add(titulo4);
+
+            Paragraph espacio = new Paragraph();
+            espacio.add("                       ");
+            espacio.setAlignment(Element.ALIGN_CENTER);
+            documento.add(espacio);
+
+
+            PdfPTable pdfTable = new PdfPTable(factura.miTb12.getColumnCount());
+
+            for (int i = 0; i < factura.miTb12.getColumnCount(); i++) {
+                pdfTable.addCell(factura.miTb12.getColumnName(i));
+            }
+
+            for (int fila = 0; fila < factura.miTb12.getRowCount(); fila++) {
+                for (int col = 0; col < factura.miTb12.getColumnCount(); col++) {
+                    pdfTable.addCell(factura.miTb12.getModel().getValueAt(fila, col).toString());
+                }
+            }
+            
+            
+            documento.add(pdfTable);
+            
+            Paragraph espacio1 = new Paragraph();
+            espacio1.add("                       ");
+            espacio1.setAlignment(Element.ALIGN_CENTER);
+            documento.add(espacio1);
+            
+            Paragraph titulo5 = new Paragraph();
+            titulo5.add("Total: " + factura.tfTotalPagar.getText());
+            titulo5.setAlignment(Element.ALIGN_RIGHT);
+            documento.add(titulo5);
+            
+            documento.close();
+           
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "PDF NO REALIZADO CORRECTAMENTE");
+        }
+    }
+
+    private void abrirReporte(String reporte) {
+
+        try {
+            File objetofile = new File(reporte);
+            Desktop.getDesktop().open(objetofile);
+        } catch (IOException ex) {
+            System.out.println(ex);
         }
     }
 
