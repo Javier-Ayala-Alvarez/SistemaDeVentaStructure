@@ -92,29 +92,30 @@ public class ArbolBinario {
     }
 
     protected <T> ListaDoble recorridoAmplitud(Nodo raiz) {
-        // creamos un cola      
+        // creamos una cola      
         Queue<Nodo<T>> cola = new LinkedList<Nodo<T>>();
-        
-        // encolamos la raiz     
-        cola.add(raiz);
-        
         //creamos la lista
         ListaDoble datos = new ListaDoble();
-        
-        // iteramos mientras que la cola no quede vacia     
-        while (!cola.isEmpty()) {
-            // desencolamos un elemento      
-            Nodo<T> n = cola.poll();
-            // lo procesamos    
-            datos.insertar((Comparable) n.getDatos());
-            System.out.println("-"+ n.getDatos());
-            // si el nodo desencolado tiene hijo izquierdo => lo encolamos   
-            if (n.getIzdo() != null) {
-                cola.add(n.getIzdo());
-            }
-            // idem con el hijo derecho    
-            if (n.getDcho() != null) {
-                cola.add(n.getDcho());
+
+        if (raiz != null) {
+            // encolamos la raiz     
+            cola.add(raiz);
+
+            // iteramos mientras que la cola no quede vacia     
+            while (!cola.isEmpty()) {
+                // desencolamos un elemento      
+                Nodo<T> n = cola.poll();
+                // lo procesamos    
+                datos.insertar((Comparable) n.getDatos());
+                System.out.println("-" + n.getDatos());
+                // si el nodo desencolado tiene hijo izquierdo => lo encolamos   
+                if (n.getIzdo() != null) {
+                    cola.add(n.getIzdo());
+                }
+                // idem con el hijo derecho    
+                if (n.getDcho() != null) {
+                    cola.add(n.getDcho());
+                }
             }
         }
         return datos;

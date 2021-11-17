@@ -3,13 +3,14 @@
 package Modelo;
 import Modelo.dao.EmpleadoDao;
 import Modelo.dao.EmpresaDao;
+import java.io.Serializable;
 import java.util.Date;
 //Asociacion, Agregacion y herencia
 /**
  * 
  * @author Sammy Guergachi <sguergachi at gmail.com>
  */
-public class GastoEmpresa {
+public class GastoEmpresa implements  Serializable,Comparable<GastoEmpresa>{
     private int idGasto;
     private String codigoGastos;
     private Date fecha;
@@ -122,5 +123,11 @@ public class GastoEmpresa {
     public void setSaldo(double saldo) {
         this.saldo = saldo;
     }   
+
+    @Override
+    public int compareTo(GastoEmpresa t) {
+        GastoEmpresa actual = this;
+        return (actual.getCodigoGastos().compareToIgnoreCase(t.getCodigoGastos()));
+    }
 
 }

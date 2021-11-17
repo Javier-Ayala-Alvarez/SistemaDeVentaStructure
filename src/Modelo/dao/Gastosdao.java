@@ -7,6 +7,7 @@ import Modelo.Empresa;
 import Modelo.GastoEmpresa;
 import VistaLogin.Alerta;
 import VistaMA.GastosGM;
+import arboles.ArbolBB;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -24,7 +25,7 @@ public class Gastosdao {
         
     }
     
-    public ArrayList<GastoEmpresa> selectAll() {
+    public ArbolBB selectAll() {
         String sql = "select * from gastoempresa";
         
         return select(sql);
@@ -68,17 +69,17 @@ public class Gastosdao {
         return select1(sql);
     }
     
-    public ArrayList<GastoEmpresa> selectAllTo(String atributo, String condicion) {
+    public ArbolBB selectAllTo(String atributo, String condicion) {
         String sql = "select * from gastoempresa where " + atributo + "='" + condicion + "'";
         return select(sql);
     }
     
-    public ArrayList<GastoEmpresa> selectId(int id) {
+    public ArbolBB selectId(int id) {
         String sql = "select * from gastoempresa where idGastos=" + id;
         return select(sql);
     } 
     
-    public ArrayList<GastoEmpresa> buscar(String dato) {
+    public ArbolBB buscar(String dato) {
         String sql = "select * from gastoempresa where idGastos like '" + dato + "%' or codigoGasto like '" + dato + "%' or fecha like '" + dato + "%'  or tipo like '" + dato + "%'  or saldo like '" + dato + "%' or idEmpresa like '" + dato + "%' or idEmpleado like '" + dato + "%'";
         return select(sql);
     }
@@ -131,8 +132,8 @@ public class Gastosdao {
     }
     
     
-    private ArrayList<GastoEmpresa> select(String sql){
-        ArrayList<GastoEmpresa> lista = new ArrayList();
+    private ArbolBB  select(String sql){
+       arboles.ArbolBB datos = new ArbolBB();
         GastoEmpresa obj = null;
         try {
             con = conectar.getConexion();
@@ -149,7 +150,7 @@ public class Gastosdao {
                 obj.setEmpresa(new Empresa(rs.getInt("idEmpresa")));
                 obj.setEmpleado(new Empleados(rs.getInt("idEmpleado")));
                 
-                lista.add(obj);
+               datos.insertar(obj);
             }
             
         }catch(Exception e) {
@@ -165,7 +166,7 @@ public class Gastosdao {
             conectar.closeConexion(con);
         }
         
-        return lista;
+        return datos;
     }
      
     private ArrayList<GastoEmpresa> select1(String sql){
