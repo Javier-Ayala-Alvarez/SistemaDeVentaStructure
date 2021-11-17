@@ -63,8 +63,13 @@ public class GastoEmpresa implements  Serializable,Comparable<GastoEmpresa>{
         this.empleado = empleado;
     }
     public Empleados getEmpleado() {
-        EmpleadoDao daoEmpleado = new EmpleadoDao();
+        try {
+            EmpleadoDao daoEmpleado = new EmpleadoDao();
         empleado = (Empleados)daoEmpleado.selectId(empleado.getIdEmpleado()).toArrayAsc().get(0);
+        } catch (Exception e) {
+            System.out.println(e);
+            empleado = null;
+        }
         return empleado;
     }
 
@@ -81,8 +86,13 @@ public class GastoEmpresa implements  Serializable,Comparable<GastoEmpresa>{
     }
 
     public Empresa getEmpresa() {
-        EmpresaDao daoEmpresa = new EmpresaDao();
+        try {
+             EmpresaDao daoEmpresa = new EmpresaDao();
         empresa = daoEmpresa.selectId(empresa.getIdEmpresa()).get(0);
+        } catch (Exception e) {
+            System.out.println(e);
+            empresa = null;
+        }
 
         return empresa;
     }
