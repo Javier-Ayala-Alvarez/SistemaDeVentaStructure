@@ -6,7 +6,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Usuario{
+public class Usuario implements Comparable<Usuario>{
     private int idUsuario;
     private String usuario;
     private String contraseña;
@@ -55,7 +55,7 @@ public class Usuario{
     }
  
 
-    public int getIdUsuario() {
+    public Integer getIdUsuario() {
         return idUsuario;
     }
 
@@ -79,6 +79,12 @@ public class Usuario{
 
     public Empleados getEmpleados() {
         return empleados;
+    }
+
+    @Override
+    public int compareTo(Usuario o) {
+        Usuario actual = this;
+        return actual.getIdUsuario().compareTo(o.getIdUsuario());
     }
     
 }

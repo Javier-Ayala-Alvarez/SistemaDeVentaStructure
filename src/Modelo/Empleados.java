@@ -183,7 +183,7 @@ public class Empleados extends Persona implements Comparable<Empleados> {
 
     public Bono getBono() {
         BonoDao daoBono = new BonoDao();
-        bono = daoBono.selectId(bono.getIdBono()).get(0);
+        bono = (Bono)daoBono.selectId(bono.getIdBono()).toArrayAsc().get(0);
         return bono;
 
     }

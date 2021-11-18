@@ -3,7 +3,7 @@ package Modelo;
 
 import java.util.Date;
 
-public class Bono  {
+public class Bono  implements Comparable<Bono>{
     private Double bono;
     private int idBono;
     private String CargoEmpleado;
@@ -33,7 +33,7 @@ public class Bono  {
         this.bono = bono;
     }
 
-    public int getIdBono() {
+    public Integer getIdBono() {
         return idBono;
     }
 
@@ -47,6 +47,13 @@ public class Bono  {
 
     public void setCargoEmpleado(String CargoEmpleado) {
         this.CargoEmpleado = CargoEmpleado;
+    }
+
+    @Override
+    public int compareTo(Bono o) {
+        
+        Bono actual = this;
+        return actual.getIdBono().compareTo(o.getIdBono());
     }
 
     

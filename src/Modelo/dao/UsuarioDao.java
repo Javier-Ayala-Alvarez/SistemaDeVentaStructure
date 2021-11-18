@@ -1,4 +1,5 @@
 package Modelo.dao;
+import Estructura.ListaDoble;
 import Modelo.Conexion;
 import Modelo.Usuario;
 import Modelo.Empresa;
@@ -20,22 +21,22 @@ public class UsuarioDao {
         
     }
     
-    public ArrayList<Usuario> selectAll() {
+    public ListaDoble selectAll() {
         String sql = "SELECT * fROM usuario";
         return select(sql);
     }
     
-    public ArrayList<Usuario> selectAllTo(String atributo, String condicion) {
+    public ListaDoble selectAllTo(String atributo, String condicion) {
         String sql = "SELECT * fROM usuario WHERE  " + atributo + "='" + condicion + "'";
         return select(sql);
     }
     
-    public ArrayList<Usuario> selectId(int id) {
+    public ListaDoble selectId(int id) {
         String sql = "SELECT * fROM usuario WHERE  idUsuario = " + id;
         return select(sql);
     } 
     
-    public ArrayList<Usuario> buscar(String dato) {
+    public ListaDoble buscar(String dato) {
             String sql = "SELECT * fROM usuario WHERE usuario like '" + dato 
                        + "%' or idUsuario like '" + dato + "%'";
         return select(sql);
@@ -54,8 +55,8 @@ public class UsuarioDao {
    
     
     
-    private ArrayList<Usuario> select(String sql){
-        ArrayList<Usuario> lista = new ArrayList();
+    private ListaDoble select(String sql){
+       ListaDoble lista = new ListaDoble();
         Usuario obj = null;
         try {
             con = conectar.getConexion();
@@ -70,7 +71,7 @@ public class UsuarioDao {
                 obj.setUsuario(rs.getString("usuario"));
                 obj.setContraseña(rs.getString("contraseña"));
                 
-                lista.add(obj);
+                lista.insertar(obj);
             }
             
         }catch(Exception e) {

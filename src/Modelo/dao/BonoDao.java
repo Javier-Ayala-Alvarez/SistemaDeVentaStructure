@@ -1,9 +1,12 @@
 package Modelo.dao;
+import Estructura.ListaDoble;
 import Modelo.Conexion;
 import Modelo.Bono;
 import Modelo.Empresa;
 import Modelo.Usuario;
 import VistaLogin.Alerta;
+import arboles.ArbolBB;
+import arboles.ArbolBinario;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -21,22 +24,22 @@ public class BonoDao {
         
     }
     
-    public ArrayList<Bono> selectAll() {
+    public ListaDoble selectAll() {
         String sql = "SELECT * fROM bono";
         return select(sql);
     }
     
-    public ArrayList<Bono> selectAllTo(String atributo, String condicion) {
+    public ListaDoble selectAllTo(String atributo, String condicion) {
         String sql = "SELECT * fROM bono WHERE  " + atributo + "='" + condicion + "'";
         return select(sql);
     }
     
-    public ArrayList<Bono> selectId(int id) {
+    public ListaDoble selectId(int id) {
         String sql = "SELECT * fROM bono WHERE  idBono = " + id;
         return select(sql);
     } 
     
-    public ArrayList<Bono> buscar(String dato) {
+    public ListaDoble buscar(String dato) {
         String sql = "SELECT * fROM bono WHERE cargoEmpleado like '" + dato 
                        + "%' or bono like '" + dato + "%' ";
         return select(sql);
@@ -53,8 +56,8 @@ public class BonoDao {
     }
     
     
-    private ArrayList<Bono> select(String sql){
-        ArrayList<Bono> lista = new ArrayList();
+    private ListaDoble select(String sql){
+        ListaDoble lista = new ListaDoble();
         Bono obj = null;
         try {
             con = conectar.getConexion();
@@ -69,7 +72,7 @@ public class BonoDao {
                 obj.setCargoEmpleado(rs.getString("cargoEmpleado"));
           
                 
-                lista.add(obj);
+                lista.insertar(obj);
             }
             
         }catch(Exception e) {

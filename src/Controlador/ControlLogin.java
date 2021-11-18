@@ -113,7 +113,7 @@ public class ControlLogin extends MouseAdapter implements ActionListener, KeyLis
             String p = login.tfUser.getText();
                 ArrayList<Usuario> listaUsuario = new ArrayList();
                 UsuarioDao daoUser = new UsuarioDao();
-                listaUsuario = daoUser.selectAllTo("usuario", p);
+                listaUsuario = daoUser.selectAllTo("usuario", p).toArrayAsc();
                 String l = String.valueOf(listaUsuario.get(0).getIdUsuario());
                 login.dispose();
                 factura.setControlador(this);
@@ -134,7 +134,7 @@ public class ControlLogin extends MouseAdapter implements ActionListener, KeyLis
         } else if ((login.pfPass.getText().isEmpty()) || login.tfUser.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "¡Ningún campo debe quedar en blanco!", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-            ArrayList<Usuario> usuario1 = daoUsuario.selectAllTo("usuario", login.tfUser.getText());
+            ArrayList<Usuario> usuario1 = daoUsuario.selectAllTo("usuario", login.tfUser.getText()).toArrayAsc();
             String clave = Encriptacion.getStringMessageDigest(login.pfPass.getText(), Encriptacion.SHA256);
                 try{
             usuario1.get(0).AddEpleado1(String.valueOf(usuario1.get(0).getIdUsuario()));

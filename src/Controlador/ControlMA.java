@@ -1,5 +1,6 @@
 package Controlador;
 
+import Estructura.ListaDoble;
 import Estructura.ListaDobleCircular;
 import Estructura.NodoDoble;
 import Modelo.Bono;
@@ -582,7 +583,7 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
                         usuarioGM.buscar.setText(usuarioGM.buscar.getText().replace(comilla, ""));
                     } else {
                         usuarioGM.alerta1.setText("");
-                        ArrayList<Usuario> lista = daoUsuario.buscar(usuarioGM.buscar.getText());
+                        ArrayList<Usuario> lista = daoUsuario.buscar(usuarioGM.buscar.getText()).toArrayAsc();
                         if (lista.isEmpty()) {
                             //System.out.println("no buscA");
                             mostrarDatos();
@@ -899,7 +900,7 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
 
             String dato = "";
 
-            ArrayList<Bono> lista = daoBono.selectAllTo("cargoEmpleado", vistaEmpleadoGM.tfCombobox.getSelectedItem().toString());
+            ArrayList<Bono> lista = daoBono.selectAllTo("cargoEmpleado", vistaEmpleadoGM.tfCombobox.getSelectedItem().toString()).toArrayAsc();
             if (!lista.isEmpty()) {
                 vistaEmpleadoGM.tfCombobox_1.addItem("$" + lista.get(0).getBono().toString());
             }
@@ -1115,7 +1116,7 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
         else if (padreActiva.equals("usuarioGM")) {
             String titulos[] = {"N", "usuario", "Nombre Empleado", "cargo"};
             modelo.setColumnIdentifiers(titulos);
-            ArrayList<Usuario> usuarios = daoUsuario.selectAll();
+            ArrayList<Usuario> usuarios = daoUsuario.selectAll().toArrayAsc();
             int i = 1;
             for (Usuario x : usuarios) {
                 if (!x.getUsuario().isEmpty()) {
@@ -1135,7 +1136,7 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
         else if (padreActiva.equals("bonoGM")) {
             String titulos[] = {"N", " $ ", "Cargo del Empleado "};
             modelo.setColumnIdentifiers(titulos);
-            ArrayList<Bono> bonos = daoBono.selectAll();
+            ArrayList<Bono> bonos = daoBono.selectAll().toArrayAsc();
             int i = 1;
             for (Bono x : bonos) {
                 Object datos[] = {i, x.getBono(), x.getCargoEmpleado()};
@@ -1537,7 +1538,7 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
                     if (daoEmpleado.insert(empleado)) {
 
                         if (!vistaEmpleadoGM.tfCombobox_1.getSelectedItem().toString().equals("no añadir Bono")) {
-                            bono = daoBono.selectAllTo("cargoEmpleado", vistaEmpleadoGM.tfCombobox.getSelectedItem().toString()).get(0);
+                            bono = (Bono) daoBono.selectAllTo("cargoEmpleado", vistaEmpleadoGM.tfCombobox.getSelectedItem().toString()).toArrayAsc().get(0);
                             // System.out.println(bono.getCargoEmpleado());
                             if (bono != null) {
 
@@ -1603,7 +1604,7 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
                 if (daoEmpleado.update(empleadosSeleccionanda)) {
 
                     if (!vistaEmpleadoGM.tfCombobox_1.getSelectedItem().toString().equals("no añadir Bono")) {
-                        bono = daoBono.selectAllTo("cargoEmpleado", vistaEmpleadoGM.tfCombobox.getSelectedItem().toString()).get(0);
+                        bono = (Bono) daoBono.selectAllTo("cargoEmpleado", vistaEmpleadoGM.tfCombobox.getSelectedItem().toString()).toArrayAsc().get(0);
                         if (bono != null) {
                             empleadosSeleccionanda.addBono(bono);
                             daoEmpleado.agregarBono(empleadosSeleccionanda);
@@ -1676,7 +1677,7 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
 
                 bono = new Bono(Double.valueOf(vistaBono.tfBono.getText()), vistaBono.tfCombobox.getSelectedItem().toString());
 
-                ArrayList<Bono> existe = daoBono.selectAllTo("cargoEmpleado", vistaBono.tfCombobox.getSelectedItem().toString());
+                ListaDoble existe = daoBono.selectAllTo("cargoEmpleado", vistaBono.tfCombobox.getSelectedItem().toString());
                 if (existe.isEmpty()) {
                     if (daoBono.insert(bono)) {
                         Alerta aler = new Alerta(menuAdministrador, true, "Bono añadido con exito", "/img/Succes.png");
@@ -1742,11 +1743,11 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
 
                     System.out.println(codigoEmpleado[1]);
 
-                    ArrayList<Usuario> existe = daoUsuario.selectAllTo("usuario", vistaUsuario.tfUsuario.getText());
+                   ListaDoble existe = daoUsuario.selectAllTo("usuario", vistaUsuario.tfUsuario.getText());
                     if (existe.isEmpty()) {
                         //daoEmpleado.agregarUsuario(usuario.getEmpleados()) &&
                         if (daoUsuario.insert(usuario)) {
-                            usuario = daoUsuario.selectAllTo("usuario", usuario.getUsuario()).get(0);
+                            usuario =(Usuario) daoUsuario.selectAllTo("usuario", usuario.getUsuario()).toArrayAsc().get(0);
                             usuario.AddEpleado(codigoEmpleado[1]);
                             if (daoEmpleado.agregarUsuario(usuario)) {
                                 Alerta aler = new Alerta(menuAdministrador, true, "usuario añadido con exito", "/img/Succes.png");
@@ -1862,14 +1863,14 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
         GastoEmpresa x = (GastoEmpresa) j;
 
         ////////////******GASTOS Empresa********/////////////////
-        if (padreActiva.equals("gastosGM") && x.getEmpresa() !=null) {
+        if (padreActiva.equals("gastosGM") && x.getEmpresa() != null) {
             String titulos[] = {"Codigo", "Categoria", "Fecha", "Saldo", "Empresa"};
             modelo.setColumnIdentifiers(titulos);
             ///Variables de Reporte//
             double totalR = 0;
 
             Object datos[] = {x.getCodigoGastos(), x.getCategoria(), x.getFecha(), x.getSaldo(), x.getEmpresa().getNombre()};
-                    totalR = x.getSaldo();
+            totalR = x.getSaldo();
             modelo.addRow(datos);
 
             GastosGM.jtDatos.setModel(modelo);
@@ -1924,7 +1925,7 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
         else if (padreActiva.equals("usuarioGM")) {
             String titulos[] = {"N", "usuario", "Nombre Empleado", "cargo"};
             modelo.setColumnIdentifiers(titulos);
-            ArrayList<Usuario> usuarios = daoUsuario.selectAll();
+            ArrayList<Usuario> usuarios = daoUsuario.selectAll().toArrayAsc();
             int i = 1;
             for (Object obj : lista) {
                 Usuario x = (Usuario) obj;
@@ -2129,7 +2130,7 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
             int fila = usuarioGM.tbEmpleados.getSelectedRow();
             String id = usuarioGM.tbEmpleados.getValueAt(fila, 1).toString();
             System.out.println(id);
-            ArrayList<Usuario> lista = daoUsuario.selectAllTo("usuario", id);
+            ArrayList<Usuario> lista = daoUsuario.selectAllTo("usuario", id).toArrayAsc();
             usuarioSeleccionando = lista.get(0);
             System.out.println(usuarioSeleccionando.getUsuario());
             if (usuarioSeleccionando != null) {
@@ -2140,7 +2141,7 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
             int fila = bonoGM.tbBono.getSelectedRow();
             String id = bonoGM.tbBono.getValueAt(fila, 2).toString();
             System.out.println(id);
-            ArrayList<Bono> lista = daoBono.selectAllTo("cargoEmpleado", id);
+            ArrayList<Bono> lista = daoBono.selectAllTo("cargoEmpleado", id).toArrayAsc();
             bonoSelecionado = lista.get(0);
             //System.out.println(usuarioSeleccionando.getUsuario());
             if (bonoSelecionado != null) {
