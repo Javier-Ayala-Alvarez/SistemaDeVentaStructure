@@ -3,8 +3,7 @@ package VistaMA;
 import Controlador.ControlMA;
 import static VistaLogin.Login.LogoE;
 import VistaMV.Fondo;
-import org.jfree.chart.JFreeChart;
-import org.jfree.data.category.DefaultCategoryDataset;
+
 
 public class UsuarioGM extends javax.swing.JDialog {
     

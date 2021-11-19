@@ -1,36 +1,28 @@
 package VistaMA;
-
 import Controlador.ControlLogin;
 import Controlador.ControlMA;
-import static VistaLogin.Login.LogoE;
-import java.awt.Color;
-import javax.swing.JFrame;
 import VistaMV.Fondo;
 import desplazable.Desface;
-import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
+
 
 public class MenuAdministrador extends javax.swing.JFrame {
 
     Desface desplace;
     public static String xm;
     public static int opcion;
-//    ArrayList<GastosEmpresa> Gastos;
+
 
     public MenuAdministrador() {
         initComponents();
         desplace = new Desface();
 
         noVisible();
-        //this.setResizable(false);//No Maximo
-       // this.setExtendedState(JFrame.MAXIMIZED_BOTH);//PANTALLA COMPLETA
-       // this.setIconImage(new ImageIcon(getClass().getResource(LogoE)).getImage());
+     
         
         xm = "xm";
         jpProductos.setBorder(new Fondo("/img/producto2.png"));
         jpCliente.setBorder(new Fondo("/img/cliente2.png"));
-//        Gastos = new ArrayList();
-        /*ActionCommand de los menus y sub-botones*/
+
         menuVenta.setActionCommand("menuVenta");
         btnRegistrarFacturaItem.setActionCommand("registrarFacturaItem");
 
@@ -55,7 +47,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
         this.consultarEmpresa.setActionCommand("consultarEmpresa");
 
         /*ActionCommand de los Botones principales*/
-        this.btnVentas.setActionCommand("Ventas");
+       
 
         btnCerrarMenuAdmin.setActionCommand("cerrarMenu");
     }
@@ -96,7 +88,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
         this.modificarEmpresa.addActionListener(controlMA);
 
         /*Agregando botones principales*/
-        btnVentas.addActionListener(controlMA);
+    
 
         btnCerrarMenuAdmin.addActionListener(controlMA);
     }
@@ -144,7 +136,6 @@ public class MenuAdministrador extends javax.swing.JFrame {
         materialShadowCircle2 = new efectos.MaterialShadowCircle();
         jRadioButtonMenuItem1 = new javax.swing.JRadioButtonMenuItem();
         jPopupMenu1 = new javax.swing.JPopupMenu();
-        exitOnClose1 = new demo.orsoncharts.swing.ExitOnClose();
         rSDateChooserBeanInfo1 = new rojeru_san.componentes.RSDateChooserBeanInfo();
         jpEscritorio1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
@@ -181,7 +172,6 @@ public class MenuAdministrador extends javax.swing.JFrame {
         btnVentas18 = new rojeru_san.complementos.RSButtonHover();
         modificarEmpresa = new rojeru_san.complementos.RSButtonHover();
         consultarEmpresa = new rojeru_san.complementos.RSButtonHover();
-        btnVentas = new rojeru_san.complementos.RSButtonHover();
 
         jMenu1.setText("jMenu1");
 
@@ -644,18 +634,6 @@ public class MenuAdministrador extends javax.swing.JFrame {
             }
         });
 
-        btnVentas.setBackground(new java.awt.Color(86, 86, 86));
-        btnVentas.setBorder(null);
-        btnVentas.setText("* Grafica Ventas");
-        btnVentas.setColorHover(new java.awt.Color(102, 102, 102));
-        btnVentas.setColorTextHover(new java.awt.Color(255, 51, 51));
-        btnVentas.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnVentas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVentasActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
@@ -663,7 +641,6 @@ public class MenuAdministrador extends javax.swing.JFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnVentas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(menuGDS, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(menuVenta, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(menuProductos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
@@ -739,9 +716,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
                 .addComponent(modificarEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(consultarEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnVentas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 82, Short.MAX_VALUE))
+                .addGap(0, 128, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jpEscritorio1Layout = new javax.swing.GroupLayout(jpEscritorio1);
@@ -798,10 +773,6 @@ public class MenuAdministrador extends javax.swing.JFrame {
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         xm = null;
     }//GEN-LAST:event_formWindowClosing
-
-    private void btnVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentasActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnVentasActionPerformed
 
     private void menuVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuVentaActionPerformed
         noVisible();
@@ -939,13 +910,11 @@ public class MenuAdministrador extends javax.swing.JFrame {
     public rojeru_san.complementos.RSButtonHover ConsultarUsuario;
     public principal.MaterialButtonCircle btnCerrarMenuAdmin;
     public rojeru_san.complementos.RSButtonHover btnRegistrarFacturaItem;
-    public rojeru_san.complementos.RSButtonHover btnVentas;
     public rojeru_san.complementos.RSButtonHover btnVentas18;
     public rojeru_san.complementos.RSButtonHover consultarCliente;
     public rojeru_san.complementos.RSButtonHover consultarEmpleado;
     public rojeru_san.complementos.RSButtonHover consultarEmpresa;
     public rojeru_san.complementos.RSButtonHover consultarProducto;
-    private demo.orsoncharts.swing.ExitOnClose exitOnClose1;
     public rojeru_san.complementos.RSButtonHover guardarBono;
     public rojeru_san.complementos.RSButtonHover guardarEmpleado;
     public rojeru_san.complementos.RSButtonHover guardarProducto;

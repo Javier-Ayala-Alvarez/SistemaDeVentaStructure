@@ -2,14 +2,12 @@ package Controlador;
 
 import Estructura.ListaDoble;
 import Estructura.ListaDobleCircular;
-import Estructura.NodoDoble;
 import Modelo.Bono;
 import Modelo.Cliente;
 import Modelo.Empleados;
 import Modelo.Empresa;
 import Modelo.Encriptacion;
 import Modelo.GastoEmpresa;
-
 import Modelo.Producto;
 import Modelo.Usuario;
 import Modelo.Registros;
@@ -20,23 +18,19 @@ import Modelo.dao.ClienteDao;
 import Modelo.dao.EmpleadoDao;
 import Modelo.dao.EmpresaDao;
 import Modelo.dao.Gastosdao;
-
 import Modelo.dao.ProductoDao;
 import Modelo.dao.RegistrosDao;
 import Modelo.dao.ReporteDao;
 import Modelo.dao.UsuarioDao;
-
 import Modelo.dao.VentaDao;
 import VistaLogin.Alerta;
 import VistaLogin.Login;
 import VistaMA.BonoGM;
 import VistaMA.ClienteMA;
 import VistaMA.ConsultarVentas;
-
 import VistaMA.EmpleadoGM;
 import VistaMA.vistaEmpleadoGM;
 import VistaMA.GastosGM;
-import static VistaMA.GastosGM.jtDatos;
 import VistaMA.MenuAdministrador;
 import VistaMA.ProductoModi;
 import VistaMA.RegistrosDeProductos;
@@ -48,7 +42,6 @@ import VistaMA.vistaBono;
 import VistaMA.vistaGrafica;
 import VistaMV.Factura;
 import arboles.ArbolBB;
-import static demo.BubbleChartDemo1.createDataset;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
@@ -62,9 +55,7 @@ import java.awt.event.MouseEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
@@ -72,21 +63,10 @@ import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.data.category.CategoryDataset;
-import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.data.general.Dataset;
 
 public class ControlMA extends MouseAdapter implements ActionListener, KeyListener, ItemListener, FocusListener {
 
-    //para las graficas
-    JFreeChart grafico;
-    DefaultCategoryDataset dato = new DefaultCategoryDataset();
 // constantes//
-
     static final double AFP = 7.75;
     static final double ISSS = 7.5;
     //fin constantes
@@ -311,8 +291,6 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
                 empresaSeleccionanda.setDireccion(vistaEmpresa.tfDireccion.getText());
                 System.out.println(empresaSeleccionanda.getIdEmpresa() + empresaSeleccionanda.getNombre());
 
-                //= new Empresa(vistaEmpresa.tfNombre.getText(), vistaEmpresa.tfDireccion.getText(), 
-                //vistaEmpresa.tfCorreo.getText(),vistaEmpresa.tfCodigoEmpresa.getText());
                 if (daoEmpresa.update(empresaSeleccionanda)) {
                     System.out.println(empresaSeleccionanda.getIdEmpresa() + empresaSeleccionanda.getNombre());
                     mostrarDatos();
@@ -367,11 +345,6 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
             sorter.setRowFilter(RowFilter.regexFilter(clienteMA.tfBuscar.getText()));
             clienteMA.jtDatos.setRowSorter(sorter);
 
-        } else if (padreActiva.equals("registroVentas")) {
-//            TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(((DefaultTableModel) productoModi.jtDatos.getModel()));
-//            sorter.setRowFilter(RowFilter.regexFilter(productoModi.tfBuscar.getText()));
-//            productoModi.jtDatos.setRowSorter(sorter);
-
         } else if (padreActiva.equals("productoModi")) {
             TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(((DefaultTableModel) productoModi.jtDatos.getModel()));
             sorter.setRowFilter(RowFilter.regexFilter(productoModi.tfBuscar.getText()));
@@ -397,9 +370,9 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
             if ((!vistaEmpleadoGM.tfSalario.getText().isEmpty())) {
                 try {
                     double Salario = Double.valueOf(vistaEmpleadoGM.tfSalario.getText()), aux;
-                    // System.out.println("aaa");
+
                     if (Salario > 0) {
-                        //System.out.println("qq");
+
                         aux = (Salario * AFP) / 100;
                         vistaEmpleadoGM.tfAfp.setText(Double.toString(aux));
                         aux = (Salario * ISSS) / 100;
@@ -411,7 +384,7 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
                 }
             }
             if ((!vistaEmpleadoGM.tfDireccion.getText().isEmpty())) {
-                // System.out.println(e.paramString());
+
                 char c = e.getKeyChar();
                 String comilla = "'";
                 char comprobar = vistaEmpleadoGM.tfDireccion.getText().charAt(vistaEmpleadoGM.tfDireccion.getText().length() - 1);
@@ -430,7 +403,7 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
             }
             if ((!vistaEmpleadoGM.tfNombre.getText().isEmpty())) {
                 char c = e.getKeyChar();
-                // System.out.println(e.paramString());
+
                 char comprobar = vistaEmpleadoGM.tfNombre.getText().charAt(vistaEmpleadoGM.tfNombre.getText().length() - 1);
                 if (comprobar == c) {
                     if (Character.isDigit(c)) {
@@ -450,7 +423,6 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
                 char comprobar = vistaEmpleadoGM.tfApellido.getText().charAt(vistaEmpleadoGM.tfApellido.getText().length() - 1);
                 if (comprobar == c) {
                     if (Character.isDigit(c)) {
-                        // e.consume();
 
                         vistaEmpleadoGM.alerta1.setText("por favor ingrese solo letras");
                         vistaEmpleadoGM.tfApellido.setText(vistaEmpleadoGM.tfApellido.getText().replace(Character.toString(c), ""));
@@ -499,7 +471,7 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
         }
         if (padreActiva.equals("empleadoGM")) {
             if ((!empleadoGM.buscar.getText().isEmpty())) {
-                // System.out.println(e.paramString());
+
                 char c = e.getKeyChar();
                 String comilla = "'";
                 char comprobar = empleadoGM.buscar.getText().charAt(empleadoGM.buscar.getText().length() - 1);
@@ -517,11 +489,10 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
 
                 ListaDobleCircular lista = daoEmpleado.buscar(empleadoGM.buscar.getText());
                 if (lista.isEmpty()) {
-                    //System.out.println("busca");
+
                     mostrarDatos();
                 } else {
                     mostrarBusqueda(lista.toArrayAsc());
-                    //System.out.println("NObusca");
 
                 }
             }
@@ -1405,7 +1376,6 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
                 if (existe.isEmpty()) {
 
                     if (daoProducto.insertProducto(productoo)) {
-                        //int idReporte, Date fechaCompra, int cantidad, double precioCompra, Producto producto
 
                         ArrayList<Producto> id = daoProducto.selectId("codigoProducto", productoModi.tfCodigo.getText());
                         Reporte reporte = new Reporte(productoModi.dFecha.getDatoFecha(), Integer.parseInt(productoModi.tfCantidad.getText()), Double.parseDouble(productoModi.tfPrecioCompra.getText()), id.get(0));
@@ -1650,14 +1620,6 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
                     mostrarDatos();
                     empleadosSeleccionanda = null;
 
-                    /*
-        
-        );
-        mostrarAsc();
-        listita.eliminar(emp);
-        mostrarAsc();
-        // System.out.println(emp.toString());
-        this.eliminar.setVisible(false);*/
                     Alerta aler = new Alerta(menuAdministrador, true, "Empleado dado de baja con exito", "/img/Succes.png");
                     aler.show();
                     empleadosSeleccionanda = null;
@@ -1743,11 +1705,11 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
 
                     System.out.println(codigoEmpleado[1]);
 
-                   ListaDoble existe = daoUsuario.selectAllTo("usuario", vistaUsuario.tfUsuario.getText());
+                    ListaDoble existe = daoUsuario.selectAllTo("usuario", vistaUsuario.tfUsuario.getText());
                     if (existe.isEmpty()) {
                         //daoEmpleado.agregarUsuario(usuario.getEmpleados()) &&
                         if (daoUsuario.insert(usuario)) {
-                            usuario =(Usuario) daoUsuario.selectAllTo("usuario", usuario.getUsuario()).toArrayAsc().get(0);
+                            usuario = (Usuario) daoUsuario.selectAllTo("usuario", usuario.getUsuario()).toArrayAsc().get(0);
                             usuario.AddEpleado(codigoEmpleado[1]);
                             if (daoEmpleado.agregarUsuario(usuario)) {
                                 Alerta aler = new Alerta(menuAdministrador, true, "usuario añadido con exito", "/img/Succes.png");
@@ -1942,47 +1904,6 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
             }
             this.usuarioGM.tbEmpleados.setModel(modelo);
         } //------------------------------------------------fin Usuario------------------------------------------------//
-        //**************ProductoModi**************//
-        //**************MostrarVenta**************//
-        else if (padreActiva.equals("registroVentas")) {
-            String titulos[] = {"N", "Fecha", "Cliente", "Empleado", "Precio Total"};
-            modelo.setColumnIdentifiers(titulos);
-            float total1 = 0;
-            for (Object x : lista) {
-                Venta obj = (Venta) x;
-                Object datos[] = {obj.getnFactura(), obj.getFechaVenta(), obj.getCliente().getNombre(), obj.getEmpleado().getNombre(), obj.getSaldoTotal()};
-                modelo.addRow(datos);
-                total1 = (float) (total1 + obj.getSaldoTotal());
-            }
-            registrosDeVenta.jtDatos.setModel(modelo);
-            registrosDeVenta.lbTotal.setText(String.format("%.2f", total1));
-        } //***********Fin mostrarVenta**********//
-        //        //**************ProductoModi****************//
-        else if (padreActiva.equals("registrosDeProductos")) {
-            String titulos[] = {"Codigo", "Nombre", "Cantidad", "Precio Unitario", "Iva", "Ganacia", "Precio Compra", "Precio Venta", "fecha de Vencimiento", "Max", "Min", "Empresa", "Total"};
-            modelo.setColumnIdentifiers(titulos);
-
-            float precioUni = 0;
-            float totalUni = 0;
-            float total2 = 0;
-            int i = 0;
-            for (Object obj : lista) {
-                Producto x = (Producto) obj;
-                this.registrosDeProductos.jtDatos.editCellAt(3, i);
-//                precioUni = (float) (x.getPrecioCompra() / x.getCantidad());
-//                totalUni = (float) (x.getPrecioVenta() * x.getCantidad());
-//                Object datos[] = {x.getCodigoProducto(), x.getNombreProducto(), x.getCantidad(), precioUni,
-//                    x.getGananciaUni(), x.getPrecioCompra(), x.getPrecioVenta(), x.getFecha(),
-//                    x.getEmpresa().getNombre(), totalUni};///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                total2 = total2 + totalUni;
-//                modelo.addRow(datos);
-                i++;
-
-            }
-            this.registrosDeProductos.jtDatos.setModel(modelo);
-            this.registrosDeProductos.lbTotal.setText("$" + String.format("%.2f", total2));
-            //************Fin productoModi*************//
-        }
 
     }
 
@@ -2046,9 +1967,7 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
             try {
                 int fila = GastosGM.jtDatos.getSelectedRow();
                 String id = GastosGM.jtDatos.getValueAt(fila, 0).toString();
-//                ArrayList<GastoEmpresa> lista = daoGasto.selectAllTo("codigoGasto", id).recorridoAmplitud().toArrayAsc();
 
-                //gastoSeleccionado = lista.get(0);
                 gastoSeleccionado = new GastoEmpresa();
                 gastoSeleccionado.setCodigoGastos(id);
 
@@ -2143,7 +2062,6 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
             System.out.println(id);
             ArrayList<Bono> lista = daoBono.selectAllTo("cargoEmpleado", id).toArrayAsc();
             bonoSelecionado = lista.get(0);
-            //System.out.println(usuarioSeleccionando.getUsuario());
             if (bonoSelecionado != null) {
                 bonoGM.setEstado(true);
             }
@@ -2163,7 +2081,6 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
             productoModi.tfCantidad.setText(cantidad);
             productoModi.tfPrecioVenta.setText(precioVenta);
             reporteSeleccionado.setIdReporte(Integer.parseInt(id));
-//listita.toArrayAsc().get(0);
             for (Object j : listita.toArrayAsc()) {
                 Reporte x = (Reporte) j;
                 if (x.getProducto().getCodigoProducto().equals(codigo)) {
