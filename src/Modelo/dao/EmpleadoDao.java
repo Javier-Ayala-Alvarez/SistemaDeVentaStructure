@@ -59,6 +59,38 @@ public class EmpleadoDao {
                 + "%' or cargoEmpleado like '" + dato + "%' or nombre like '" + dato + "%' ";
         return select(sql);
     }
+    
+        public int  ultimoRegistro () {
+        String sql = "select idempleado from empleado  order  by idempleado desc limit 1;";
+        
+        
+        
+       
+        try {
+            con = conectar.getConexion();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            int ultimo = 0;
+
+            while (rs.next()) {
+                
+                ultimo = rs.getInt(1);
+            }
+            return ultimo;
+        } catch (Exception e) {
+            Alerta alert = new Alerta(null, true, "Error en sql", "/img/error.png");
+            alert.show();
+            e.printStackTrace();
+        } finally {
+            try {
+                ps.close();
+            } catch (Exception ex) {
+
+            }
+            conectar.closeConexion(con);
+        }
+       return 0;
+    }
 
     public boolean insert(Empleados obj) {
         String sql = "INSERT  INTO empleado (codigoEmpleado, nombre, apellido, telefonoEmpleado,dirrecionEmpleado,"

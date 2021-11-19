@@ -691,7 +691,10 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
             padreActiva = "vistaEmpleadoGM";
             String inicial = "EMP";
             ListaDobleCircular<Producto> producto = daoProducto.selectAll();
-            this.vistaEmpleadoGM.tfCodigo.setText(crearCodigo(inicial, listaOfEmp.toArrayAsc().size() + 1));/////////////////////////////////////
+           
+            int indice = daoEmpleado.ultimoRegistro();
+            this.vistaEmpleadoGM.tfCodigo.setText(crearCodigo(inicial, indice));
+            empleadosSeleccionanda = null;/////////////////////////////////////
             this.vistaEmpleadoGM.iniciar();
 
         } else if (vista.equals("consultarEmpleado")) {
@@ -1261,7 +1264,7 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
 
         } else if (e.getActionCommand().equals("Generar") && ((padreActiva.equals("gastosGM") || padreActiva.equals("gastosGM1")))) {
             String iniciales = "EG-";
-            this.gastosGM.tfCodigo.setText(crearCodigo(iniciales, arbolBB.recorridoAmplitud().toArrayAsc().size() + 1));
+            this.gastosGM.tfCodigo.setText(crearCodigo(iniciales,daoGasto.ultimoRegistro()));
 
             //    this.gastosGM.tfCodigo.setText(crearCodigo(iniciales, "Gastos"));////////////////////////////
         } else if (e.getActionCommand().equals("Eliminar")
