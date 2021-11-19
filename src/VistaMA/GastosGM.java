@@ -19,7 +19,7 @@ public class GastosGM extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
        
-        jpLogo1.setBorder(new Fondo(LogoE));
+        
         btnAgregar.setActionCommand("Agregar");
         btnEliminar.setActionCommand("Eliminar");
         btnModificar.setActionCommand("Modificar");
@@ -27,7 +27,8 @@ public class GastosGM extends javax.swing.JDialog {
         btnCategoria.setActionCommand("Categoria");
         dFecha.setDatoFecha(new Date());
         btnBuscar.setActionCommand("buscarGasto");
-        
+        btnRegresar.setActionCommand("regresar");
+        this.btnRegresar.setVisible(false);
 
                     
     }
@@ -44,6 +45,7 @@ public class GastosGM extends javax.swing.JDialog {
         jtDatosReporte.addMouseListener(control1);
         cbTipo.addItemListener(control1);
         btnCategoria.addActionListener(control1);
+        btnRegresar.addActionListener(control1);
         btnBuscar.addActionListener(control1);
         
     }
@@ -64,7 +66,6 @@ public class GastosGM extends javax.swing.JDialog {
         tfCodigo = new principal.MaterialTextField();
         tfBuscar = new principal.MaterialTextField();
         dFecha = new rojeru_san.componentes.RSDateChooser();
-        jpLogo1 = new javax.swing.JPanel();
         materialButtonCircle2 = new principal.MaterialButtonCircle();
         jScrollPane1 = new javax.swing.JScrollPane();
         btnGenerar = new rojeru_san.complementos.RSButtonHover();
@@ -88,6 +89,7 @@ public class GastosGM extends javax.swing.JDialog {
         lbPago = new javax.swing.JLabel();
         materialButtonCircle3 = new principal.MaterialButtonCircle();
         btnCategoria = new rojeru_san.complementos.RSButtonHover();
+        btnRegresar = new javax.swing.JButton();
         btnBuscar = new javax.swing.JButton();
 
         materialButtonCircle1.setBackground(new java.awt.Color(255, 0, 0));
@@ -109,7 +111,7 @@ public class GastosGM extends javax.swing.JDialog {
             }
         });
 
-        panelFondo.setBackground(new java.awt.Color(255, 255, 255));
+        panelFondo.setBackground(new java.awt.Color(219, 211, 247));
         panelFondo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
@@ -174,22 +176,13 @@ public class GastosGM extends javax.swing.JDialog {
             }
         });
         panelFondo.add(tfBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 330, 160, 30));
+
+        dFecha.setColorBackground(new java.awt.Color(0, 102, 102));
+        dFecha.setColorButtonHover(new java.awt.Color(0, 102, 102));
+        dFecha.setColorForeground(new java.awt.Color(0, 102, 102));
         panelFondo.add(dFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 260, 400, 40));
 
-        javax.swing.GroupLayout jpLogo1Layout = new javax.swing.GroupLayout(jpLogo1);
-        jpLogo1.setLayout(jpLogo1Layout);
-        jpLogo1Layout.setHorizontalGroup(
-            jpLogo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jpLogo1Layout.setVerticalGroup(
-            jpLogo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        panelFondo.add(jpLogo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 60, 60));
-
-        materialButtonCircle2.setBackground(new java.awt.Color(255, 0, 0));
+        materialButtonCircle2.setBackground(new java.awt.Color(219, 211, 247));
         materialButtonCircle2.setText("X");
         materialButtonCircle2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -237,6 +230,7 @@ public class GastosGM extends javax.swing.JDialog {
 
         panelFondo.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, 580, 160));
 
+        btnGenerar.setBackground(new java.awt.Color(0, 102, 102));
         btnGenerar.setText("Generar");
         btnGenerar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -413,7 +407,7 @@ public class GastosGM extends javax.swing.JDialog {
         });
         panelFondo.add(materialButtonCircle3, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 10, 50, 50));
 
-        btnCategoria.setBackground(new java.awt.Color(255, 255, 255));
+        btnCategoria.setBackground(new java.awt.Color(219, 211, 247));
         btnCategoria.setBorder(null);
         btnCategoria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Guardar.png"))); // NOI18N
         btnCategoria.setActionCommand("Categoria");
@@ -424,6 +418,14 @@ public class GastosGM extends javax.swing.JDialog {
             }
         });
         panelFondo.add(btnCategoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 80, 50, 40));
+
+        btnRegresar.setText("regresar");
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresarActionPerformed(evt);
+            }
+        });
+        panelFondo.add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 330, 120, 30));
 
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -552,13 +554,17 @@ public boolean validadDecimal(String pago){
         // TODO add your handling code here:
     }//GEN-LAST:event_tfBuscarActionPerformed
 
-    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnBuscarActionPerformed
+    }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void tfPago1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfPago1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfPago1ActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -589,11 +595,12 @@ public boolean validadDecimal(String pago){
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public rojeru_san.complementos.RSButtonHover btnAgregar;
-    private javax.swing.JButton btnBuscar;
+    public javax.swing.JButton btnBuscar;
     public rojeru_san.complementos.RSButtonHover btnCategoria;
     public rojeru_san.complementos.RSButtonHover btnEliminar;
     public rojeru_san.complementos.RSButtonHover btnGenerar;
     public rojeru_san.complementos.RSButtonHover btnModificar;
+    public javax.swing.JButton btnRegresar;
     public javax.swing.JComboBox<String> cbTipo;
     public rojeru_san.componentes.RSDateChooser dFecha;
     private javax.swing.JLabel jLabel1;
@@ -610,7 +617,6 @@ public boolean validadDecimal(String pago){
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JPanel jpLogo1;
     public static final javax.swing.JTable jtDatos = new javax.swing.JTable();
     public static javax.swing.JTable jtDatosReporte;
     private javax.swing.JLabel lbCodigo1;

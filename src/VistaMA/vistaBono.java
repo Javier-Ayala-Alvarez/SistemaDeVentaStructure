@@ -13,7 +13,7 @@ public class vistaBono extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         x = "x";
-        jpLogo1.setBorder(new Fondo(LogoE));
+       
         this.btnGuardar.setActionCommand("Agregar");
        
 
@@ -44,7 +44,6 @@ public class vistaBono extends javax.swing.JDialog {
         panelFondo = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel5 = new javax.swing.JLabel();
-        jpLogo1 = new javax.swing.JPanel();
         materialButtonCircle2 = new principal.MaterialButtonCircle();
         jPanel1 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
@@ -74,7 +73,7 @@ public class vistaBono extends javax.swing.JDialog {
             }
         });
 
-        panelFondo.setBackground(new java.awt.Color(255, 255, 255));
+        panelFondo.setBackground(new java.awt.Color(219, 211, 247));
         panelFondo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         panelFondo.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 920, 20));
 
@@ -83,20 +82,7 @@ public class vistaBono extends javax.swing.JDialog {
         jLabel5.setText("Bono");
         panelFondo.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, 210, 60));
 
-        javax.swing.GroupLayout jpLogo1Layout = new javax.swing.GroupLayout(jpLogo1);
-        jpLogo1.setLayout(jpLogo1Layout);
-        jpLogo1Layout.setHorizontalGroup(
-            jpLogo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jpLogo1Layout.setVerticalGroup(
-            jpLogo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        panelFondo.add(jpLogo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 60, 60));
-
-        materialButtonCircle2.setBackground(new java.awt.Color(255, 0, 0));
+        materialButtonCircle2.setBackground(new java.awt.Color(219, 211, 247));
         materialButtonCircle2.setText("X");
         materialButtonCircle2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -105,7 +91,7 @@ public class vistaBono extends javax.swing.JDialog {
         });
         panelFondo.add(materialButtonCircle2, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 20, 50, 50));
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(219, 211, 247));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(102, 102, 102));
@@ -139,7 +125,7 @@ public class vistaBono extends javax.swing.JDialog {
 
         panelFondo.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 770, 60));
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setBackground(new java.awt.Color(219, 211, 247));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(102, 102, 102));
@@ -182,6 +168,7 @@ public class vistaBono extends javax.swing.JDialog {
 
         panelFondo.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 690, 60));
 
+        btnGuardar.setBackground(new java.awt.Color(0, 102, 102));
         btnGuardar.setText("Guardar");
         panelFondo.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 350, -1, -1));
 
@@ -269,7 +256,6 @@ public class vistaBono extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JPanel jpLogo1;
     private principal.MaterialButtonCircle materialButtonCircle1;
     private principal.MaterialButtonCircle materialButtonCircle2;
     private javax.swing.JPanel panelFondo;

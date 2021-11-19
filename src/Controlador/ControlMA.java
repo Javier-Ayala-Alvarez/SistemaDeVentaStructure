@@ -190,6 +190,7 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
                 if (arbolBB.buscar(aux) != null) {
 
                     mostrarBusqueda(arbolBB.buscar(aux).getDatos());
+                    gastosGM.btnRegresar.setVisible(true);
                 } else {
                     JOptionPane.showMessageDialog(null, " para buscar debera ingresar el codigo de gasto");
                     mostrarDatos();
@@ -198,6 +199,12 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
                 JOptionPane.showMessageDialog(null, " para buscar debera ingresar el codigo de gasto");
                 mostrarDatos();
             }
+
+        }
+        if (e.getActionCommand().equals("regresar")) {
+            String codigo = gastosGM.tfBuscar.getText();
+           mostrarDatos();
+           gastosGM.btnRegresar.setVisible(false);
 
         }
         if (e.getActionCommand().equals("Home")) {
@@ -691,7 +698,7 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
             padreActiva = "vistaEmpleadoGM";
             String inicial = "EMP";
             ListaDobleCircular<Producto> producto = daoProducto.selectAll();
-           
+
             int indice = daoEmpleado.ultimoRegistro();
             this.vistaEmpleadoGM.tfCodigo.setText(crearCodigo(inicial, indice));
             empleadosSeleccionanda = null;/////////////////////////////////////
@@ -940,7 +947,7 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
                 if ((x.getCategoria().equals("Administrador")
                         || (x.getCategoria().equals("Cajero"))
                         || (x.getCategoria().equals("Supervisor")))) {
-                    Object datos[] = {x.getCodigoGastos(), x.getCategoria(), x.getFecha(), x.getSaldo(), x.getEmpleado().getNombre()};
+                    Object datos[] = {x.getCodigoGastos(), x.getCategoria(), x.getFecha(), String.format("%.2f", x.getSaldo()), x.getEmpleado().getNombre()};
 
                     modelo.addRow(datos);
                 }
@@ -966,7 +973,7 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
                         || (x.getCategoria().equals("Cajero"))
                         || (x.getCategoria().equals("Supervisor")))) {
 
-                    Object datos[] = {x.getCodigoGastos(), x.getCategoria(), x.getFecha(), x.getSaldo(), x.getEmpresa().getNombre()};
+                    Object datos[] = {x.getCodigoGastos(), x.getCategoria(), x.getFecha(), String.format("%.2f", x.getSaldo()), x.getEmpresa().getNombre()};
 
                     modelo.addRow(datos);
                 }
@@ -1078,7 +1085,8 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
 
                     Double salarioNeto = (x.getSalarioEmpleado() - x.getAfp() - x.getIsss());
                     Object datos[] = {i, x.getCodigoEmpleado(), x.getNombre(), x.getApellido(), x.getTelefono(),
-                        x.getDireccion(), x.getSalarioEmpleado(), x.getAfp(), x.getIsss(), salarioNeto, x.getCargoEmpleado(), x.getFechaContratacion()};
+                        x.getDireccion(), String.format("%.2f", x.getSalarioEmpleado()), String.format("%.2f", x.getAfp()),
+                        String.format("%.2f", x.getIsss()), String.format("%.2f", salarioNeto), x.getCargoEmpleado(), x.getFechaContratacion()};
                     modelo.addRow(datos);
                     i++;
 
@@ -1264,7 +1272,7 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
 
         } else if (e.getActionCommand().equals("Generar") && ((padreActiva.equals("gastosGM") || padreActiva.equals("gastosGM1")))) {
             String iniciales = "EG-";
-            this.gastosGM.tfCodigo.setText(crearCodigo(iniciales,daoGasto.ultimoRegistro()));
+            this.gastosGM.tfCodigo.setText(crearCodigo(iniciales, daoGasto.ultimoRegistro()));
 
             //    this.gastosGM.tfCodigo.setText(crearCodigo(iniciales, "Gastos"));////////////////////////////
         } else if (e.getActionCommand().equals("Eliminar")
@@ -1834,7 +1842,7 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
             ///Variables de Reporte//
             double totalR = 0;
 
-            Object datos[] = {x.getCodigoGastos(), x.getCategoria(), x.getFecha(), x.getSaldo(), x.getEmpresa().getNombre()};
+            Object datos[] = {x.getCodigoGastos(), x.getCategoria(), x.getFecha(), String.format("%.2f", x.getSaldo()), x.getEmpresa().getNombre()};
             totalR = x.getSaldo();
             modelo.addRow(datos);
 
@@ -1851,7 +1859,7 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
             ///Variables de Reporte//
             double totalR = 0;
 
-            Object datos[] = {x.getCodigoGastos(), x.getCategoria(), x.getFecha(), x.getSaldo(), x.getEmpleado().getNombre()};
+            Object datos[] = {x.getCodigoGastos(), x.getCategoria(), x.getFecha(), String.format("%.2f", x.getSaldo()), x.getEmpleado().getNombre()};
             totalR = x.getSaldo();
             modelo.addRow(datos);
 
@@ -1878,7 +1886,9 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
 
                     Double salarioNeto = (x.getSalarioEmpleado() - x.getAfp() - x.getIsss());
                     Object datos[] = {i, x.getCodigoEmpleado(), x.getNombre(), x.getApellido(), x.getTelefono(),
-                        x.getDireccion(), x.getSalarioEmpleado(), x.getAfp(), x.getIsss(), salarioNeto, x.getCargoEmpleado(), x.getFechaContratacion()};
+                        x.getDireccion(), String.format("%.2f", x.getSalarioEmpleado()), String.format("%.2f", x.getAfp()),
+                        String.format("%.2f", x.getIsss()), String.format("%.2f", salarioNeto),
+                        x.getCargoEmpleado(), x.getFechaContratacion()};
                     modelo.addRow(datos);
                     i++;
 

@@ -13,7 +13,7 @@ public class BonoGM extends javax.swing.JDialog {
 
         initComponents();
        setEstado(parametro);
-        jpLogo1.setBorder(new Fondo(LogoE));
+       
          btnModificar.setActionCommand("Modificar");
         
          
@@ -51,7 +51,6 @@ public class BonoGM extends javax.swing.JDialog {
         panelFondo = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel5 = new javax.swing.JLabel();
-        jpLogo1 = new javax.swing.JPanel();
         materialButtonCircle2 = new principal.MaterialButtonCircle();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbBono = new javax.swing.JTable();
@@ -78,7 +77,7 @@ public class BonoGM extends javax.swing.JDialog {
             }
         });
 
-        panelFondo.setBackground(new java.awt.Color(255, 255, 255));
+        panelFondo.setBackground(new java.awt.Color(219, 211, 247));
         panelFondo.setMinimumSize(new java.awt.Dimension(1050, 590));
         panelFondo.setPreferredSize(new java.awt.Dimension(1050, 590));
         panelFondo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -89,20 +88,7 @@ public class BonoGM extends javax.swing.JDialog {
         jLabel5.setText("BONO");
         panelFondo.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 0, -1, 60));
 
-        javax.swing.GroupLayout jpLogo1Layout = new javax.swing.GroupLayout(jpLogo1);
-        jpLogo1.setLayout(jpLogo1Layout);
-        jpLogo1Layout.setHorizontalGroup(
-            jpLogo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jpLogo1Layout.setVerticalGroup(
-            jpLogo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        panelFondo.add(jpLogo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 60, 60));
-
-        materialButtonCircle2.setBackground(new java.awt.Color(255, 0, 0));
+        materialButtonCircle2.setBackground(new java.awt.Color(219, 211, 247));
         materialButtonCircle2.setText("X");
         materialButtonCircle2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -229,7 +215,6 @@ public class BonoGM extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JPanel jpLogo1;
     private principal.MaterialButtonCircle materialButtonCircle1;
     private principal.MaterialButtonCircle materialButtonCircle2;
     public javax.swing.JPanel panelFondo;

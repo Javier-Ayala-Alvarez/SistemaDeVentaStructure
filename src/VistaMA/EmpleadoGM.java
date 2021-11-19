@@ -14,7 +14,7 @@ public class EmpleadoGM extends javax.swing.JDialog {
         initComponents();
         this.setLocation(40, 80);
        setEstado(parametro);
-        jpLogo1.setBorder(new Fondo(LogoE));
+       
          btnModificar.setActionCommand("Modificar");
          btnEliminar1.setActionCommand("Eliminar");
          
@@ -52,7 +52,6 @@ public class EmpleadoGM extends javax.swing.JDialog {
         panelFondo = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel5 = new javax.swing.JLabel();
-        jpLogo1 = new javax.swing.JPanel();
         materialButtonCircle2 = new principal.MaterialButtonCircle();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbEmpleados = new javax.swing.JTable();
@@ -83,7 +82,7 @@ public class EmpleadoGM extends javax.swing.JDialog {
             }
         });
 
-        panelFondo.setBackground(new java.awt.Color(255, 255, 255));
+        panelFondo.setBackground(new java.awt.Color(219, 211, 247));
         panelFondo.setMinimumSize(new java.awt.Dimension(1050, 590));
         panelFondo.setPreferredSize(new java.awt.Dimension(1050, 590));
         panelFondo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -94,20 +93,7 @@ public class EmpleadoGM extends javax.swing.JDialog {
         jLabel5.setText("Empleado");
         panelFondo.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 0, 210, 60));
 
-        javax.swing.GroupLayout jpLogo1Layout = new javax.swing.GroupLayout(jpLogo1);
-        jpLogo1.setLayout(jpLogo1Layout);
-        jpLogo1Layout.setHorizontalGroup(
-            jpLogo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jpLogo1Layout.setVerticalGroup(
-            jpLogo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        panelFondo.add(jpLogo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 60, 60));
-
-        materialButtonCircle2.setBackground(new java.awt.Color(255, 0, 0));
+        materialButtonCircle2.setBackground(new java.awt.Color(219, 211, 247));
         materialButtonCircle2.setText("X");
         materialButtonCircle2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -116,7 +102,6 @@ public class EmpleadoGM extends javax.swing.JDialog {
         });
         panelFondo.add(materialButtonCircle2, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 10, 50, 50));
 
-        tbEmpleados.setBackground(new java.awt.Color(218, 220, 222));
         tbEmpleados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
@@ -152,10 +137,12 @@ public class EmpleadoGM extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
+        tbEmpleados.setSelectionBackground(new java.awt.Color(255, 51, 0));
         jScrollPane1.setViewportView(tbEmpleados);
 
         panelFondo.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 1000, 410));
 
+        btnModificar.setBackground(new java.awt.Color(0, 102, 102));
         btnModificar.setText("Modificar");
         btnModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -164,6 +151,7 @@ public class EmpleadoGM extends javax.swing.JDialog {
         });
         panelFondo.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 550, 130, 40));
 
+        btnEliminar1.setBackground(new java.awt.Color(255, 51, 51));
         btnEliminar1.setText("Eliminar");
         btnEliminar1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -180,7 +168,7 @@ public class EmpleadoGM extends javax.swing.JDialog {
         panelFondo.add(buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 9, 180, 40));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/buscar.png"))); // NOI18N
-        panelFondo.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 10, 40, 60));
+        panelFondo.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 0, 40, 60));
         panelFondo.add(alerta1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 530, 240, 50));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -265,7 +253,6 @@ public class EmpleadoGM extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JPanel jpLogo1;
     private principal.MaterialButtonCircle materialButtonCircle1;
     private principal.MaterialButtonCircle materialButtonCircle2;
     public javax.swing.JPanel panelFondo;

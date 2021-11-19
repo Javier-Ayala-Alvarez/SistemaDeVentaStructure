@@ -59,7 +59,7 @@
     <Container class="javax.swing.JPanel" name="panelFondo">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+          <Color blue="f7" green="d3" red="db" type="rgb"/>
         </Property>
         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[1050, 590]"/>
@@ -99,30 +99,10 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Container class="javax.swing.JPanel" name="jpLogo1">
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="0" y="0" width="60" height="60"/>
-            </Constraint>
-          </Constraints>
-
-          <Layout>
-            <DimensionLayout dim="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-              </Group>
-            </DimensionLayout>
-            <DimensionLayout dim="1">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-              </Group>
-            </DimensionLayout>
-          </Layout>
-        </Container>
         <Component class="principal.MaterialButtonCircle" name="materialButtonCircle2">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="ff" type="rgb"/>
+              <Color blue="f7" green="d3" red="db" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="X"/>
           </Properties>
@@ -149,9 +129,6 @@
           <SubComponents>
             <Component class="javax.swing.JTable" name="tbEmpleados">
               <Properties>
-                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="de" green="dc" red="da" type="rgb"/>
-                </Property>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="7" rowCount="20">
                     <Column editable="false" title="Codigo" type="java.lang.Object"/>
@@ -163,6 +140,9 @@
                     <Column editable="false" title="Minimo" type="java.lang.Object"/>
                   </Table>
                 </Property>
+                <Property name="selectionBackground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="0" green="33" red="ff" type="rgb"/>
+                </Property>
               </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
@@ -172,6 +152,9 @@
         </Container>
         <Component class="rojeru_san.complementos.RSButtonHover" name="btnModificar">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="66" green="66" red="0" type="rgb"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Modificar"/>
           </Properties>
           <Events>
@@ -188,6 +171,9 @@
         </Component>
         <Component class="rojeru_san.complementos.RSButtonHover" name="btnEliminar1">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="33" green="33" red="ff" type="rgb"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Eliminar"/>
           </Properties>
           <Events>
@@ -223,7 +209,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="650" y="10" width="40" height="60"/>
+              <AbsoluteConstraints x="650" y="0" width="40" height="60"/>
             </Constraint>
           </Constraints>
         </Component>

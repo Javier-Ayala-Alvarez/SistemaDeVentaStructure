@@ -82,7 +82,7 @@ public class UsuarioGM extends javax.swing.JDialog {
             }
         });
 
-        panelFondo.setBackground(new java.awt.Color(255, 255, 255));
+        panelFondo.setBackground(new java.awt.Color(219, 211, 247));
         panelFondo.setMinimumSize(new java.awt.Dimension(1050, 590));
         panelFondo.setPreferredSize(new java.awt.Dimension(1050, 590));
         panelFondo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -106,7 +106,7 @@ public class UsuarioGM extends javax.swing.JDialog {
 
         panelFondo.add(jpLogo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 60, 60));
 
-        materialButtonCircle2.setBackground(new java.awt.Color(255, 0, 0));
+        materialButtonCircle2.setBackground(new java.awt.Color(219, 211, 247));
         materialButtonCircle2.setText("X");
         materialButtonCircle2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

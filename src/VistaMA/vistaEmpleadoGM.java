@@ -14,7 +14,7 @@ public class vistaEmpleadoGM extends javax.swing.JDialog {
         initComponents();
         x = "x";
         this.setLocation(40, 80);
-        jpLogo1.setBorder(new Fondo(LogoE));
+    
         this.btnGuardar.setActionCommand("Agregar");
         //this.tfSalario.setActionCommand("salario");
         tfFecha.setDatoFecha(new Date());
@@ -60,7 +60,6 @@ public class vistaEmpleadoGM extends javax.swing.JDialog {
         panelFondo = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel5 = new javax.swing.JLabel();
-        jpLogo1 = new javax.swing.JPanel();
         materialButtonCircle2 = new principal.MaterialButtonCircle();
         jPanel1 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
@@ -117,7 +116,7 @@ public class vistaEmpleadoGM extends javax.swing.JDialog {
             }
         });
 
-        panelFondo.setBackground(new java.awt.Color(255, 255, 255));
+        panelFondo.setBackground(new java.awt.Color(219, 211, 247));
         panelFondo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         panelFondo.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 900, 20));
 
@@ -126,20 +125,7 @@ public class vistaEmpleadoGM extends javax.swing.JDialog {
         jLabel5.setText("Empleado");
         panelFondo.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, 210, 60));
 
-        javax.swing.GroupLayout jpLogo1Layout = new javax.swing.GroupLayout(jpLogo1);
-        jpLogo1.setLayout(jpLogo1Layout);
-        jpLogo1Layout.setHorizontalGroup(
-            jpLogo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jpLogo1Layout.setVerticalGroup(
-            jpLogo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        panelFondo.add(jpLogo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 60, 60));
-
-        materialButtonCircle2.setBackground(new java.awt.Color(255, 0, 0));
+        materialButtonCircle2.setBackground(new java.awt.Color(219, 211, 247));
         materialButtonCircle2.setText("X");
         materialButtonCircle2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -148,13 +134,12 @@ public class vistaEmpleadoGM extends javax.swing.JDialog {
         });
         panelFondo.add(materialButtonCircle2, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 10, 50, 50));
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(219, 211, 247));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(102, 102, 102));
         jLabel4.setText("Codigo");
 
-        tfCodigo.setBackground(new java.awt.Color(213, 216, 221));
         tfCodigo.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         tfCodigo.setSelectedTextColor(new java.awt.Color(0, 0, 0));
         tfCodigo.setSelectionColor(new java.awt.Color(102, 153, 255));
@@ -182,7 +167,7 @@ public class vistaEmpleadoGM extends javax.swing.JDialog {
 
         panelFondo.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 370, 60));
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setBackground(new java.awt.Color(219, 211, 247));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(102, 102, 102));
@@ -222,13 +207,12 @@ public class vistaEmpleadoGM extends javax.swing.JDialog {
 
         panelFondo.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 410, 60));
 
-        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setBackground(new java.awt.Color(219, 211, 247));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(102, 102, 102));
         jLabel7.setText("ISSS");
 
-        tfIsss.setBackground(new java.awt.Color(213, 216, 221));
         tfIsss.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 tfIsssKeyTyped(evt);
@@ -258,13 +242,12 @@ public class vistaEmpleadoGM extends javax.swing.JDialog {
 
         panelFondo.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 350, 360, 60));
 
-        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel4.setBackground(new java.awt.Color(219, 211, 247));
 
         hhu.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         hhu.setForeground(new java.awt.Color(102, 102, 102));
         hhu.setText("Nombres");
 
-        tfNombre.setBackground(new java.awt.Color(213, 216, 221));
         tfNombre.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 tfNombreKeyTyped(evt);
@@ -294,19 +277,19 @@ public class vistaEmpleadoGM extends javax.swing.JDialog {
 
         panelFondo.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 360, 60));
 
-        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel5.setBackground(new java.awt.Color(219, 211, 247));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(102, 102, 102));
         jLabel8.setText("Apellidos");
 
-        tfApellido.setBackground(new java.awt.Color(213, 216, 221));
         tfApellido.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 tfApellidoKeyTyped(evt);
             }
         });
 
+        validacion3.setBackground(new java.awt.Color(219, 211, 247));
         validacion3.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
         validacion3.setForeground(new java.awt.Color(255, 0, 0));
 
@@ -343,13 +326,12 @@ public class vistaEmpleadoGM extends javax.swing.JDialog {
 
         panelFondo.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 360, 60));
 
-        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel6.setBackground(new java.awt.Color(219, 211, 247));
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(102, 102, 102));
         jLabel9.setText("Telefono");
 
-        tfTelefono1.setBackground(new java.awt.Color(213, 216, 221));
         tfTelefono1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 tfTelefono1KeyTyped(evt);
@@ -379,13 +361,12 @@ public class vistaEmpleadoGM extends javax.swing.JDialog {
 
         panelFondo.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 360, 60));
 
-        jPanel7.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel7.setBackground(new java.awt.Color(219, 211, 247));
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(102, 102, 102));
         jLabel10.setText("Dirección");
 
-        tfDireccion.setBackground(new java.awt.Color(213, 216, 221));
         tfDireccion.setName("vacio"); // NOI18N
         tfDireccion.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -416,13 +397,12 @@ public class vistaEmpleadoGM extends javax.swing.JDialog {
 
         panelFondo.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 90, 360, 60));
 
-        jPanel8.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel8.setBackground(new java.awt.Color(219, 211, 247));
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(102, 102, 102));
         jLabel11.setText("Salario");
 
-        tfSalario.setBackground(new java.awt.Color(213, 216, 221));
         tfSalario.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 tfSalarioKeyTyped(evt);
@@ -452,11 +432,15 @@ public class vistaEmpleadoGM extends javax.swing.JDialog {
 
         panelFondo.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 160, 360, 60));
 
-        jPanel9.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel9.setBackground(new java.awt.Color(219, 211, 247));
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(102, 102, 102));
         jLabel12.setText("Fecha ");
+
+        tfFecha.setColorBackground(new java.awt.Color(0, 153, 153));
+        tfFecha.setColorButtonHover(new java.awt.Color(219, 211, 247));
+        tfFecha.setColorForeground(new java.awt.Color(0, 153, 153));
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
@@ -483,13 +467,12 @@ public class vistaEmpleadoGM extends javax.swing.JDialog {
 
         panelFondo.add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 220, 360, 70));
 
-        jPanel10.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel10.setBackground(new java.awt.Color(219, 211, 247));
 
         jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(102, 102, 102));
         jLabel13.setText("AFP");
 
-        tfAfp.setBackground(new java.awt.Color(213, 216, 221));
         tfAfp.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 tfAfpKeyTyped(evt);
@@ -519,6 +502,7 @@ public class vistaEmpleadoGM extends javax.swing.JDialog {
 
         panelFondo.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 290, 360, 60));
 
+        btnGuardar.setBackground(new java.awt.Color(0, 153, 153));
         btnGuardar.setText("Guardar");
         panelFondo.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 450, 220, -1));
 
@@ -688,7 +672,6 @@ public class vistaEmpleadoGM extends javax.swing.JDialog {
     public javax.swing.JPanel jPanel8;
     public javax.swing.JPanel jPanel9;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JPanel jpLogo1;
     private principal.MaterialButtonCircle materialButtonCircle1;
     private principal.MaterialButtonCircle materialButtonCircle2;
     private javax.swing.JPanel panelFondo;
