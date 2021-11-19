@@ -3,6 +3,7 @@ import Controlador.ControlLogin;
 import Controlador.ControlMA;
 import VistaMV.Fondo;
 import desplazable.Desface;
+import javax.swing.JFrame;
 
 
 public class MenuAdministrador extends javax.swing.JFrame {
@@ -17,7 +18,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
         desplace = new Desface();
 
         noVisible();
-     
+     this.setExtendedState(JFrame.MAXIMIZED_BOTH);//PANTALLA COMPLETA
         
         xm = "xm";
         jpProductos.setBorder(new Fondo("/img/producto2.png"));
@@ -217,6 +218,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
         setFocusTraversalPolicyProvider(true);
         setLocationByPlatform(true);
         setModalExclusionType(null);
+        setUndecorated(true);
         setSize(new java.awt.Dimension(10, 10));
         setState(5);
         setType(java.awt.Window.Type.POPUP);

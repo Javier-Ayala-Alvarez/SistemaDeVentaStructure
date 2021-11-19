@@ -134,9 +134,6 @@
         </Component>
         <Component class="principal.MaterialButtonCircle" name="materialButtonCircle4">
           <Properties>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color type="null"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="7"/>
           </Properties>
           <Events>
@@ -150,9 +147,6 @@
         </Component>
         <Component class="principal.MaterialButtonCircle" name="materialButtonCircle5">
           <Properties>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color type="null"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="8"/>
           </Properties>
           <Events>
@@ -166,9 +160,6 @@
         </Component>
         <Component class="principal.MaterialButtonCircle" name="materialButtonCircle6">
           <Properties>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color type="null"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="9"/>
           </Properties>
           <Events>
@@ -182,9 +173,6 @@
         </Component>
         <Component class="principal.MaterialButtonCircle" name="materialButtonCircle7">
           <Properties>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color type="null"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="4"/>
           </Properties>
           <Events>
@@ -198,9 +186,6 @@
         </Component>
         <Component class="principal.MaterialButtonCircle" name="materialButtonCircle8">
           <Properties>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color type="null"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="5"/>
           </Properties>
           <Events>
@@ -214,9 +199,6 @@
         </Component>
         <Component class="principal.MaterialButtonCircle" name="materialButtonCircle9">
           <Properties>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color type="null"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="6"/>
           </Properties>
           <Events>
@@ -230,9 +212,6 @@
         </Component>
         <Component class="principal.MaterialButtonCircle" name="materialButtonCircle10">
           <Properties>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color type="null"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="3"/>
           </Properties>
           <Events>
@@ -246,9 +225,6 @@
         </Component>
         <Component class="principal.MaterialButtonCircle" name="materialButtonCircle11">
           <Properties>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color type="null"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="2"/>
           </Properties>
           <Events>
@@ -262,9 +238,6 @@
         </Component>
         <Component class="principal.MaterialButtonCircle" name="materialButtonCircle12">
           <Properties>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color type="null"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="1"/>
           </Properties>
           <Events>
@@ -280,9 +253,6 @@
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="33" green="33" red="ff" type="rgb"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color type="null"/>
             </Property>
             <Property name="text" type="java.lang.String" value="DEL"/>
           </Properties>
@@ -300,9 +270,6 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="66" green="66" red="0" type="rgb"/>
             </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color type="null"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="x"/>
           </Properties>
           <Events>
@@ -318,9 +285,6 @@
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="66" green="66" red="0" type="rgb"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color type="null"/>
             </Property>
             <Property name="text" type="java.lang.String" value="/"/>
           </Properties>
@@ -338,9 +302,6 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="66" green="66" red="0" type="rgb"/>
             </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color type="null"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="-"/>
           </Properties>
           <Events>
@@ -356,9 +317,6 @@
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="66" green="66" red="0" type="rgb"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color type="null"/>
             </Property>
             <Property name="text" type="java.lang.String" value="+"/>
           </Properties>
@@ -376,9 +334,6 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="33" green="33" red="ff" type="rgb"/>
             </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color type="null"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="AC"/>
           </Properties>
           <Events>
@@ -392,9 +347,6 @@
         </Component>
         <Component class="principal.MaterialButton" name="materialButton1">
           <Properties>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color type="null"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="0"/>
           </Properties>
           <Events>
@@ -408,9 +360,6 @@
         </Component>
         <Component class="principal.MaterialButtonCircle" name="materialButtonCircle18">
           <Properties>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color type="null"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="."/>
           </Properties>
           <Events>
@@ -426,9 +375,6 @@
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="99" green="99" red="0" type="rgb"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color type="null"/>
             </Property>
             <Property name="text" type="java.lang.String" value="="/>
           </Properties>

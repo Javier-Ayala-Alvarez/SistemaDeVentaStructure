@@ -253,7 +253,7 @@ public class ControlFactura extends MouseAdapter implements ActionListener, KeyL
                     int opccion = JOptionPane.showConfirmDialog(null, "Imprimir factura?", "Welcome", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
                     if (opccion == 0) {
                         reporteFactura(ventaSeleccionada.getnFactura());
-                        abrirReporte("Facturas/"+ventaSeleccionada.getnFactura()+".pdf");
+                        abrirReporte("Facturas/" + ventaSeleccionada.getnFactura() + ".pdf");
 
                     }
                     limpiarCb1();
@@ -488,9 +488,12 @@ public class ControlFactura extends MouseAdapter implements ActionListener, KeyL
             }
         }
         if (!factura.tfTotalPagar.getText().isEmpty()) {
-            double vuelto = Double.parseDouble(factura.tfEfectivo.getText()) - Double.parseDouble(factura.tfTotalPagar.getText());
+            try {
+                double vuelto = Double.parseDouble(factura.tfEfectivo.getText()) - Double.parseDouble(factura.tfTotalPagar.getText());
+                factura.tfCambio.setText(String.format("%.2f", vuelto));
+            } catch (Exception ex) {
 
-            factura.tfCambio.setText(String.format("%.2f", vuelto));
+            }
         }
     }
 
@@ -618,7 +621,7 @@ public class ControlFactura extends MouseAdapter implements ActionListener, KeyL
             Document documento = new Document();
 
             String path = new File(".").getCanonicalPath();
-            String FILE_NAME = path + "/Facturas/"+nombre+".pdf";
+            String FILE_NAME = path + "/Facturas/" + nombre + ".pdf";
             PdfWriter.getInstance(documento, new FileOutputStream(new File(FILE_NAME)));
             documento.open();
 //            Image icono = Image.getInstante("mineria.png");
@@ -641,12 +644,12 @@ public class ControlFactura extends MouseAdapter implements ActionListener, KeyL
             documento.add(titulo);
 
             Paragraph titulo3 = new Paragraph();
-            titulo3.add("Cliente: " + factura.tfNombre.getText());
+            titulo3.add("Cliente: " + factura.tfNombre.getText() + " " + ventaSeleccionada.getCliente().getApellido());
             titulo3.setAlignment(Element.ALIGN_LEFT);
             documento.add(titulo3);
-            
+
             Paragraph titulo6 = new Paragraph();
-            titulo6.add( "Direccion: " + factura.tfDireccion.getText());
+            titulo6.add("Direccion: " + factura.tfDireccion.getText());
             titulo6.setAlignment(Element.ALIGN_LEFT);
             documento.add(titulo6);
 
@@ -655,11 +658,15 @@ public class ControlFactura extends MouseAdapter implements ActionListener, KeyL
             titulo4.setAlignment(Element.ALIGN_LEFT);
             documento.add(titulo4);
 
+            Paragraph fecha = new Paragraph();
+            fecha.add("Fecha: " + ventaSeleccionada.getFechaVenta());
+            fecha.setAlignment(Element.ALIGN_RIGHT);
+            documento.add(fecha);
+
             Paragraph espacio = new Paragraph();
             espacio.add("                       ");
             espacio.setAlignment(Element.ALIGN_CENTER);
             documento.add(espacio);
-
 
             PdfPTable pdfTable = new PdfPTable(factura.miTb12.getColumnCount());
 
@@ -672,22 +679,21 @@ public class ControlFactura extends MouseAdapter implements ActionListener, KeyL
                     pdfTable.addCell(factura.miTb12.getModel().getValueAt(fila, col).toString());
                 }
             }
-            
-            
+
             documento.add(pdfTable);
-            
+
             Paragraph espacio1 = new Paragraph();
             espacio1.add("                       ");
             espacio1.setAlignment(Element.ALIGN_CENTER);
             documento.add(espacio1);
-            
+
             Paragraph titulo5 = new Paragraph();
             titulo5.add("Total: " + factura.tfTotalPagar.getText());
             titulo5.setAlignment(Element.ALIGN_RIGHT);
             documento.add(titulo5);
-            
+
             documento.close();
-           
+
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "PDF NO REALIZADO CORRECTAMENTE");
         }

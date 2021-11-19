@@ -3,6 +3,8 @@ package VistaMV;
 import Controlador.ControlFactura;
 import Estructura.pilas.EvaluarExpresion;
 import Estructura.pilas.Pila;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.table.DefaultTableModel;
 
 public class Calculadora extends javax.swing.JDialog {
@@ -325,7 +327,12 @@ public class Calculadora extends javax.swing.JDialog {
     }//GEN-LAST:event_tfOperacion1ActionPerformed
 
     private void tfOperacion1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfOperacion1KeyTyped
-
+        char c = evt.getKeyChar();
+//!validadDecimal(this.tfPago1.getText()))
+        if(c >= 46 && c <= 57 ){
+        }else{
+            evt.consume();
+        }
     }//GEN-LAST:event_tfOperacion1KeyTyped
 
     private void materialButtonCircle4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_materialButtonCircle4ActionPerformed

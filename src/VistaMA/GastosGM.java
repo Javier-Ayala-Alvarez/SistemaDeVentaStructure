@@ -377,6 +377,11 @@ public class GastosGM extends javax.swing.JDialog {
                 tfPago1FocusLost(evt);
             }
         });
+        tfPago1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfPago1ActionPerformed(evt);
+            }
+        });
         tfPago1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 tfPago1KeyTyped(evt);
@@ -550,6 +555,10 @@ public boolean validadDecimal(String pago){
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void tfPago1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfPago1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfPago1ActionPerformed
 
     /**
      * @param args the command line arguments
