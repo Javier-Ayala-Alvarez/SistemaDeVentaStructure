@@ -113,8 +113,6 @@ import java.util.ArrayList;
         while (condicion.toString().compareTo(aux.getDato().toString()) !=0) {
                 aux = aux.getSiguiente();
         }
-        System.out.println(condicion.toString());
-        System.out.println(aux.getDato().toString() + "/n s");
         return aux;
     }
 
