@@ -46,7 +46,9 @@ public class MenuAdministrador extends javax.swing.JFrame {
         this.opcionesGDS1.setActionCommand("opcionesGDS1");
         this.modificarEmpresa.setActionCommand("modificarEmpresa");
         this.consultarEmpresa.setActionCommand("consultarEmpresa");
-
+        //para reportes
+        this.reporteVentas.setActionCommand("reporteVentas");
+        this.reporteGasto.setActionCommand("reporteGasto");
         /*ActionCommand de los Botones principales*/
        
 
@@ -87,6 +89,8 @@ public class MenuAdministrador extends javax.swing.JFrame {
         this.opcionesGDS1.addActionListener(controlMA);
         this.consultarEmpresa.addActionListener(controlMA);
         this.modificarEmpresa.addActionListener(controlMA);
+        this.reporteVentas.addActionListener(controlMA);
+        this.reporteGasto.addActionListener(controlMA);
 
         /*Agregando botones principales*/
     
@@ -116,6 +120,10 @@ public class MenuAdministrador extends javax.swing.JFrame {
         modificarEmpresa.setVisible(false);
         consultarEmpresa.setVisible(false);
 
+        reporteVentas.setVisible(false);
+        reporteGasto.setVisible(false);
+        
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -173,6 +181,9 @@ public class MenuAdministrador extends javax.swing.JFrame {
         btnVentas18 = new rojeru_san.complementos.RSButtonHover();
         modificarEmpresa = new rojeru_san.complementos.RSButtonHover();
         consultarEmpresa = new rojeru_san.complementos.RSButtonHover();
+        MenuReportes = new rojeru_san.complementos.RSButtonHover();
+        reporteVentas = new rojeru_san.complementos.RSButtonHover();
+        reporteGasto = new rojeru_san.complementos.RSButtonHover();
 
         jMenu1.setText("jMenu1");
 
@@ -253,7 +264,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/menu2.png"))); // NOI18N
         jLabel3.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 10));
-        jLabel3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel3MouseClicked(evt);
@@ -636,29 +647,44 @@ public class MenuAdministrador extends javax.swing.JFrame {
             }
         });
 
+        MenuReportes.setBackground(new java.awt.Color(86, 86, 86));
+        MenuReportes.setBorder(null);
+        MenuReportes.setText("* Reportes");
+        MenuReportes.setColorHover(new java.awt.Color(102, 102, 102));
+        MenuReportes.setColorTextHover(new java.awt.Color(255, 51, 51));
+        MenuReportes.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        MenuReportes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuReportesActionPerformed(evt);
+            }
+        });
+
+        reporteVentas.setBackground(new java.awt.Color(102, 102, 102));
+        reporteVentas.setBorder(null);
+        reporteVentas.setText("- Ventas por mes");
+        reporteVentas.setColorText(new java.awt.Color(141, 207, 255));
+        reporteVentas.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        reporteVentas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reporteVentasActionPerformed(evt);
+            }
+        });
+
+        reporteGasto.setBackground(new java.awt.Color(102, 102, 102));
+        reporteGasto.setBorder(null);
+        reporteGasto.setText("- Gastos Empresariales ");
+        reporteGasto.setColorText(new java.awt.Color(141, 207, 255));
+        reporteGasto.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        reporteGasto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reporteGastoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(menuGDS, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(menuVenta, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(menuProductos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(menuEmpleado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(menuCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(btnRegistrarFacturaItem, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(btnVentas18, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(modificarEmpresa, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(guardarProducto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -674,6 +700,32 @@ public class MenuAdministrador extends javax.swing.JFrame {
                         .addComponent(consultarEmpleado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(guardarBono, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                     .addComponent(consultarEmpresa, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(menuGDS, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(menuVenta, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(menuProductos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(menuEmpleado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(menuCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(modificarEmpresa, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(guardarProducto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(btnVentas18, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                            .addGap(0, 0, Short.MAX_VALUE)
+                            .addComponent(reporteVentas, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(MenuReportes, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnRegistrarFacturaItem, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(reporteGasto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -718,7 +770,13 @@ public class MenuAdministrador extends javax.swing.JFrame {
                 .addComponent(modificarEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(consultarEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 128, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(MenuReportes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(reporteVentas, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(reporteGasto, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 30, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jpEscritorio1Layout = new javax.swing.GroupLayout(jpEscritorio1);
@@ -906,10 +964,26 @@ public class MenuAdministrador extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnCerrarMenuAdminActionPerformed
 
+    private void MenuReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuReportesActionPerformed
+
+        noVisible(); 
+        reporteVentas.setVisible(true);
+        reporteGasto.setVisible(true);
+    }//GEN-LAST:event_MenuReportesActionPerformed
+
+    private void reporteVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reporteVentasActionPerformed
+        cambio(); 
+    }//GEN-LAST:event_reporteVentasActionPerformed
+
+    private void reporteGastoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reporteGastoActionPerformed
+        cambio(); 
+    }//GEN-LAST:event_reporteGastoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public rojeru_san.complementos.RSButtonHover ConsultarBono;
     public rojeru_san.complementos.RSButtonHover ConsultarUsuario;
+    public rojeru_san.complementos.RSButtonHover MenuReportes;
     public principal.MaterialButtonCircle btnCerrarMenuAdmin;
     public rojeru_san.complementos.RSButtonHover btnRegistrarFacturaItem;
     public rojeru_san.complementos.RSButtonHover btnVentas18;
@@ -959,5 +1033,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
     public javax.swing.JPanel panel3;
     public javax.swing.JPanel panel6;
     private rojeru_san.componentes.RSDateChooserBeanInfo rSDateChooserBeanInfo1;
+    public rojeru_san.complementos.RSButtonHover reporteGasto;
+    public rojeru_san.complementos.RSButtonHover reporteVentas;
     // End of variables declaration//GEN-END:variables
 }

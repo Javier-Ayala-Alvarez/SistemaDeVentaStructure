@@ -4,6 +4,7 @@ import Estructura.ListaDoble;
 import Estructura.ListaDobleCircular;
 import Modelo.Bono;
 import Modelo.Cliente;
+import Modelo.Conexion;
 import Modelo.Empleados;
 import Modelo.Empresa;
 import Modelo.Encriptacion;
@@ -52,10 +53,13 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Connection;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
@@ -63,6 +67,15 @@ import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JRDesignQuery;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 public class ControlMA extends MouseAdapter implements ActionListener, KeyListener, ItemListener, FocusListener {
 
@@ -259,7 +272,24 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
             llamarVistaConsulta("modificarEmpresa");
         } else if (e.getActionCommand().equals("consultarEmpresa")) {
             llamarVistaConsulta("consultarEmpresa");
-        } /*Fin de Sub-botones de los Menús*/ /**
+        //sub botones reportes
+        } else if (e.getActionCommand().equals("reporteVentas")) {
+            
+            try {
+                mostrarReportes(e);
+            } catch (JRException ex) {
+                Logger.getLogger(ControlMA.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else if (e.getActionCommand().equals("reporteGasto")) {
+            try {
+                mostrarReportes(e);
+            } catch (JRException ex) {
+                Logger.getLogger(ControlMA.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+
+        /*Fin de Sub-botones de los Menús*/ /**
          * *******************************para Modificar
          * empresa********************************
          */
@@ -1973,6 +2003,59 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
         }
     }
 
+    public void mostrarReportes(ActionEvent e) throws JRException{
+    Connection con;
+    Conexion conexion = new Conexion();
+        
+    if(e.getActionCommand().equals("reporteGasto")){
+        try {
+             con = conexion.getConexion();
+            
+                JasperDesign Jdesign = JRXmlLoader.load("src\\Reportes\\GraficoGasto.jrxml");
+                String query = "SELECT DATE_FORMAT(g.fecha,'%M %Y') AS Mes, SUM(g.saldo) AS GastoMes FROM gastoempresa g GROUP BY Mes";
+                JRDesignQuery updateQuery = new JRDesignQuery();
+                updateQuery.setText(query);
+                Jdesign.setQuery(updateQuery);
+                JasperReport jreport = JasperCompileManager.compileReport(Jdesign);
+                JasperPrint jprint = JasperFillManager.fillReport(jreport, null, con);
+                JasperViewer.viewReport(jprint, false);
+                conexion.closeConexion(con);
+        } catch (JRException ex) {
+            System.out.println(ex);
+        }
+        
+        
+    }else if(e.getActionCommand().equals("reporteVentas")){
+        try {
+             con = conexion.getConexion();
+            
+                JasperDesign Jdesign = JRXmlLoader.load("src\\Reportes\\GraficoVentas.jrxml");
+                String query = "SELECT\n"
+                    + "	DATE_FORMAT( v.fechaVenta, \"%Y %M\" ) AS mes,\n"
+                    + "	sum( r.precioTotalProducto ) AS total \n"
+                    + "FROM\n"
+                    + "	registros AS r\n"
+                    + "	INNER JOIN venta AS v ON r.idVenta = v.idVenta \n"
+                    + "GROUP BY\n"
+                    + "	mes";
+                JRDesignQuery updateQuery = new JRDesignQuery();
+                updateQuery.setText(query);
+                Jdesign.setQuery(updateQuery);
+                JasperReport jreport = JasperCompileManager.compileReport(Jdesign);
+                JasperPrint jprint = JasperFillManager.fillReport(jreport, null, con);
+                JasperViewer.viewReport(jprint, false);
+               
+                
+                
+                conexion.closeConexion(con);
+                
+        } catch (JRException ex) {
+            System.out.println(ex);
+        }
+        
+}
+}
+    
     @Override
     public void mouseClicked(MouseEvent me) {
         /* Gastos */
