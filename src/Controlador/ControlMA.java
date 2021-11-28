@@ -358,6 +358,7 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
                     Alerta aler = new Alerta(menuAdministrador, true, "Datos Modificados Con exito", "/img/Succes.png");
                     aler.show();
                     mostrarDatos();
+                    empresa= null;
                     this.vistaEmpresa.dispose();
                 } else {
 
@@ -707,7 +708,7 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
             consultarVentas.lbTotal.setText(String.valueOf(totalVe));
 
             consultarVentas.iniciar();
-
+            listita = null;
         } else if (vista.equals("guardarProducto")) {
             padreActiva = "productoModi";
             this.productoModi = new ProductoModi(menuAdministrador, true);
@@ -727,7 +728,7 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
             this.vistaEmpleadoGM.setControladorMA(this);
             padreActiva = "vistaEmpleadoGM";
             String inicial = "EMP";
-            ListaDobleCircular<Producto> producto = daoProducto.selectAll();
+           
 
             int indice = daoEmpleado.ultimoRegistro();
             this.vistaEmpleadoGM.tfCodigo.setText(crearCodigo(inicial, indice));
@@ -860,9 +861,10 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
 
     public void llenarCombo() {
         if (padreActiva.equals("vistaUsuario")) {
-            vistaUsuario.tfCombobox.removeAllItems();
+             vistaUsuario.tfCombobox.addItem("Seleccione");
+            this.vistaUsuario.tfCombobox.removeAllItems();
             vistaUsuario.tfCombobox.addItem("Seleccione");
-            String dato = "";
+           
 
             ArrayList<Empleados> lista = daoEmpleado.selectConCondicion(" WHERE cargoEmpleado = 'Administrador' OR "
                     + " cargoEmpleado = 'Supervisor' OR  cargoEmpleado = 'Cajero' ");
@@ -877,6 +879,7 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
                             + x.getNombre() + " " + x.getApellido() + " / " + x.getCargoEmpleado());
 
                 }
+                lista = null;
 
             }
 
@@ -890,7 +893,7 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
 
                     gastosGM.cbTipo.addItem(selec);
                 }
-            }
+            }empleado = null;
         } else if (padreActiva.equals("gastosGM")) {
 
             ArrayList<GastoEmpresa> gasto = daoGasto.selectAllDis();
@@ -915,6 +918,7 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
             if (!lista.isEmpty()) {
                 vistaEmpleadoGM.tfCombobox_1.addItem("$" + lista.get(0).getBono().toString());
             }
+            lista = null;
 
             vistaEmpleadoGM.tfCombobox_1.addItem("no añadir Bono");
         }
@@ -1030,7 +1034,7 @@ public class ControlMA extends MouseAdapter implements ActionListener, KeyListen
                 Object datos1[] = {j, x.getCategoria(), totalRegistro};
 
                 modelo1.addRow(datos1);
-            }
+            }muestra = null;
 
             GastosGM.jtDatosReporte.setModel(modelo1);
 
